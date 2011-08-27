@@ -1,0 +1,23 @@
+## Interface: 40200
+## Title: Mylune's Champions
+## Notes: Don't underestimate your little critters!
+## Author: nyyr
+## Version: 0.1
+## SavedVariables: MylunesChampionsDB
+## X-Date: $Date: 2011-06-30 00:22:48 +0200 (Do, 30 Jun 2011) $
+## X-Category: Chat
+
+embeds.xml
+
+locale_enUS.lua
+locale_deDE.lua
+
+main.lua
+config.lua
+companions.lua
+
+general_enUS.lua
+general_deDE.lua
+
+personalities_enUS.lua
+personalities_deDE.lua
