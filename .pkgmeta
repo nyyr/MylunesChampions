@@ -30,4 +30,6 @@ externals:
 		url: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceHook-3.0
 	Libs/AceAddon-3.0:
 		url: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceAddon-3.0
+	Libs/LibBabble-CreatureType-3.0:
+		url: svn://svn.wowace.com/wow/libbabble-creaturetype-3-0/mainline/trunk
 

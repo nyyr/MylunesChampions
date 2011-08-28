@@ -4,7 +4,6 @@ COMPANION = "Haustier",
 PET = "Begleiter",
 POSSESSIVE = "s",
 
-
 -- %s lässt Welpe aus Dun Morogh gegenüber die Muskeln spielen. Oh, echt stark!
 
 EMOTE_BYE = {

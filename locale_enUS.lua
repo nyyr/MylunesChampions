@@ -49,6 +49,16 @@ L["CFG_PERS_EMOTE_YOUNOTARGET"] = "You without a target"
 
 L["CFG_PERS_EVENT_EMOTES"] = "Emotes"
 
+L["CFG_PETS"] = "Combat Pets"
+L["CFG_COMPANIONS"] = "Companions"
+L["CFG_COMPANION_PERS"] = "Personality"
+L["CFG_COMPANION_PERS_TT"] = "Personality to use for this companion/pet."
+
+L["CFG_PETS_ADD"] = "Add current pet"
+L["CFG_PETS_ADD_TT"] = "Add current pet"
+L["CFG_PETS_REMOVE"] = "Remove selected pet"
+L["CFG_PETS_REMOVE_TT"] = "Remove selected pet"
+
 L.EMOTE_BYE = {
 	pattern_someoneAtTarget = "%s waves goodbye to %t.  Farewell!",
 	pattern_someoneAtYou = "%s waves goodbye to you.  Farewell!",

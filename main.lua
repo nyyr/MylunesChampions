@@ -6,6 +6,7 @@ MylunesChampions = LibStub("AceAddon-3.0"):NewAddon("Mylune's Champions",
 MylunesChampions.G = {} -- general
 MylunesChampions.C = {} -- companions
 MylunesChampions.P = {} -- personalities
+MylunesChampions.PCT = {} -- creature type personalities
 
 ----------------------------------------------
 -- Localization
@@ -14,11 +15,13 @@ local L = LibStub("AceLocale-3.0"):GetLocale("MylunesChampions", true)
 local LG  = {} -- general
 MylunesChampions.clientLocale = GetLocale()
 MylunesChampions.emoteLocales = { "enUS", "deDE" }
+MylunesChampions.BabbleCTL = LibStub("LibBabble-CreatureType-3.0"):GetLookupTable();
+MylunesChampions.BabbleCTE = LibStub("LibBabble-CreatureType-3.0"):GetReverseLookupTable();
 
 ----------------------------------------------
 -- Version
 ----------------------------------------------
-local _, _, rev = string.find("$Rev: 0 $", "([0-9]+)")
+local _, _, rev = string.find("$Rev$", "([0-9]+)")
 MylunesChampions.version = "0.1 (r"..rev..")"
 MylunesChampions.codename = "Rise of the Critters"
 MylunesChampions.authors = "nyyr"
@@ -33,7 +36,7 @@ MylunesChampions.defaults = {
 		autoEmoteBackoff = 60, -- minimum time between auto emotes
 		emoteDelay = 0.5, -- defer emote for N seconds
 		emoteLocale = nil,
-		C = {}, -- temp
+		C = {}, -- companions
 		P = {}, -- personalities
 	},
 }
@@ -232,14 +235,19 @@ end
 ----------------------------------------------
 function MylunesChampions:OnInitialize()
 	-- Load our database.
-	self.defaults.profile.P = self.P
+	self.defaults.profile.P = self.P -- personalities
+	self.defaults.profile.C = self.C -- companions
+	self.defaults.profile.PCT = self.PCT -- creature type personalities
 	self.db = LibStub("AceDB-3.0"):New("MylunesChampionsDB", MylunesChampions.defaults, "profile")
 	
-	-- temp
 	for i=1,GetNumCompanions("CRITTER") do
 		local creatureID, creatureName, creatureSpellID, icon, issummoned = GetCompanionInfo("CRITTER", i)
 		--self:Debug(d_notice, creatureID .. " " .. creatureName .. " (" .. tostring(issummoned) .. ")")
-		self.db.profile.C[creatureID] = { n = creatureName, p = { } }
+		if not self.db.profile.C[creatureID] then
+			self.db.profile.C[creatureID] = { n = creatureName, p = "Default" }
+		elseif not (self.db.profile.C[creatureID].n == creatureName) then
+			self.db.profile.C[creatureID].n = creatureName -- localized
+		end
 	end
 	
 	if not self.db.profile.emoteLocale then
@@ -616,18 +624,25 @@ end
 
 ----------------------------------------------
 -- GetCompanionPersonality
--- TODO
 ----------------------------------------------
 function MylunesChampions:GetCompanionPersonality()
+	local n, id = self:GetCurrentCompanion()
+	if self.db.profile.C[id] then
+		return self.db.profile.C[id].p
+	end
 	return "Default"
 end
 
 ----------------------------------------------
 -- GetCompanionPersonality
--- TODO
+-- TODO: named pets
 ----------------------------------------------
 function MylunesChampions:GetPetPersonality()
-	return "Default (pet)"
+	local creatureFamily = UnitCreatureFamily("pet")
+	if creatureFamily then
+		return self.db.profile.PCT[self.db.profile.emoteLocale][self.BabbleCTE[creatureFamily]]
+	end
+	return "Default"
 end
 
 ----------------------------------------------

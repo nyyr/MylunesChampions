@@ -142,7 +142,7 @@ local configOptionsPersonalityTemplate = {
 			order	= 2,
 			get		= function (info)
 				local i = MylunesChampions_TableFind(MylunesChampions.PersTable, 
-					MylunesChampions.P[MylunesChampions.db.profile.emoteLocale][info[#info-1]]["INHERIT"])
+					MylunesChampions.db.profile.P[MylunesChampions.db.profile.emoteLocale][info[#info-1]]["INHERIT"])
 				if not i then
 					return 1
 				else
@@ -347,6 +347,117 @@ local configOptionsEventTemplate = {
 }
 
 ----------------------------------------------
+-- Companions options
+----------------------------------------------
+MylunesChampions.configOptionsTableCompanions = {
+	type = "group",
+	name = L["CFG_COMPANIONS"],
+	args = {},
+}
+
+local configOptionsCompanionTemplate = {
+	type		= "group",
+	name		= "Companion Template",
+	order		= 20,
+	args		= {
+		name = {
+			type	= "header",
+			name	= "Companion name",
+			order	= 1,
+		},
+		personality = {
+			type	= "select",
+			name	= L["CFG_COMPANION_PERS"],
+			desc	= L["CFG_COMPANION_PERS_TT"],
+			values	= { },
+			order	= 2,
+			get		= function (info)
+				local i = MylunesChampions_TableFind(MylunesChampions.PersTable, 
+					MylunesChampions.db.profile.C[tonumber(info[#info-1])].p)
+				if not i then
+					return 1
+				else
+					return i
+				end
+			end,
+			set		= function (info, v)
+				if v == 1 then
+					MylunesChampions.db.profile.C[tonumber(info[#info-1])].p = ""
+				else
+					MylunesChampions.db.profile.C[tonumber(info[#info-1])].p = MylunesChampions.PersTable[v]
+				end
+			end,
+		},
+	}
+}
+
+----------------------------------------------
+-- Pets options
+----------------------------------------------
+MylunesChampions.configOptionsTablePets = {
+	type = "group",
+	name = L["CFG_PETS"],
+	args = {},
+}
+
+local configOptionsTablePetsButtons = {
+	addPet = {
+		type 	= "execute",
+		name 	= L["CFG_PETS_ADD"],
+		desc	= L["CFG_PETS_ADD_TT"],
+		order	= 1,
+		func	= function ()
+			MylunesChampions:Printf("NYI")
+		end,
+	},
+	removePet = {
+		type 	= "execute",
+		name 	= L["CFG_PETS_REMOVE"],
+		desc	= L["CFG_PETS_REMOVE_TT"],
+		order	= 2,
+		func	= function ()
+			MylunesChampions:Printf("NYI")
+		end,
+	},
+}
+
+local configOptionsPetTemplate = {
+	type		= "group",
+	name		= "Pet Template",
+	order		= 20,
+	args		= {
+		name = {
+			type	= "header",
+			name	= "Pet name",
+			order	= 1,
+		},
+		personality = {
+			type	= "select",
+			name	= L["CFG_COMPANION_PERS"],
+			desc	= L["CFG_COMPANION_PERS_TT"],
+			values	= { },
+			order	= 2,
+			get		= function (info)
+				local i = MylunesChampions_TableFind(MylunesChampions.PersTable, 
+					MylunesChampions.db.profile.PCT[MylunesChampions.db.profile.emoteLocale][info[#info-1]])
+				if not i then
+					return 1
+				else
+					return i
+				end
+			end,
+			set		= function (info, v)
+				if v == 1 then
+					MylunesChampions.db.profile.PCT[MylunesChampions.db.profile.emoteLocale][info[#info-1]] = ""
+				else
+					MylunesChampions.db.profile.PCT[MylunesChampions.db.profile.emoteLocale][info[#info-1]] = MylunesChampions.PersTable[v]
+				end
+			end,
+		},
+	}
+}
+
+----------------------------------------------
 -- Copies a table
 ----------------------------------------------
 local function MylunesChampions_TableDeepCopy(t)
@@ -393,8 +504,17 @@ function MylunesChampions:InitConfig()
 	
 	self:RebuildConfig()
 	
+	-- Personalities
 	AceConfig:RegisterOptionsTable("MylunesChampions_Personalities", self.configOptionsTablePersonalities)
 	self.configFrameEmotes = AceConfigDialog:AddToBlizOptions("MylunesChampions_Personalities", L["CFG_PERSONALITIES"], "Mylune's Champions")
+	
+	-- Companions
+	AceConfig:RegisterOptionsTable("MylunesChampions_Companions", self.configOptionsTableCompanions)
+	self.configFrameEmotes = AceConfigDialog:AddToBlizOptions("MylunesChampions_Companions", L["CFG_COMPANIONS"], "Mylune's Champions")
+	
+	-- Pets
+	AceConfig:RegisterOptionsTable("MylunesChampions_Pets", self.configOptionsTablePets)
+	self.configFrameEmotes = AceConfigDialog:AddToBlizOptions("MylunesChampions_Pets", L["CFG_PETS"], "Mylune's Champions")
 end
 
 ----------------------------------------------
@@ -434,6 +554,30 @@ function MylunesChampions:RebuildConfig()
 				self.configOptionsTablePersonalities.args[n].args[en] = t
 			end
 		end
+	end
+	
+	-- companions
+	self.configOptionsTableCompanions.args = {}
+	for id,c in pairs(self.db.profile.C) do
+		local t = MylunesChampions_TableDeepCopy(configOptionsCompanionTemplate)
+		t.name = c.n
+		t.args.name.name = c.n
+		t.args.personality.values = self.PersTable -- reference
+		self.configOptionsTableCompanions.args[tostring(id)] = t
+	end
+	
+	-- pets
+	self.configOptionsTablePets.name = L["CFG_PETS"] .. " (" .. self.db.profile.emoteLocale .. ")"
+	self.configOptionsTablePets.args = {}
+	for b,t in pairs(configOptionsTablePetsButtons) do
+		self.configOptionsTablePets.args[b] = t
+	end
+	for n,c in pairs(self.db.profile.PCT[self.db.profile.emoteLocale]) do
+		local t = MylunesChampions_TableDeepCopy(configOptionsPetTemplate)
+		t.name = self.BabbleCTL[n]
+		t.args.name.name = self.BabbleCTL[n]
+		t.args.personality.values = self.PersTable -- reference
+		self.configOptionsTablePets.args[n] = t
 	end
 end
 

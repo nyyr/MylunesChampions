@@ -49,6 +49,16 @@ L["CFG_PERS_EMOTE_YOUNOTARGET"] = "Ihr ohne Ziel"
 
 L["CFG_PERS_EVENT_EMOTES"] = "Emotes"
 
+L["CFG_PETS"] = "Begleiter"
+L["CFG_COMPANIONS"] = "Haustiere"
+L["CFG_COMPANION_PERS"] = "Persönlichkeit"
+L["CFG_COMPANION_PERS_TT"] = "Persönlichkeit, die für dieses Haustier/diesen Begleiter verwendet werden soll."
+
+L["CFG_PETS_ADD"] = "Aktiven Begleiter hinzufügen"
+L["CFG_PETS_ADD_TT"] = "Aktiven Begleiter hinzufügen"
+L["CFG_PETS_REMOVE"] = "Ausgewählten Begleiter löschen"
+L["CFG_PETS_REMOVE_TT"] = "Ausgewählten Begleiter löschen"
+
 L.EMOTE_BYE = {
 	pattern_someoneAtTarget = "%s winkt %t zum Abschied. Lebt wohl!",
 	pattern_someoneAtYou = "%s winkt Euch zum Abschied. Lebt wohl!",

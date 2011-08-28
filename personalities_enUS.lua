@@ -5,17 +5,13 @@ MylunesChampions.P["enUS"] = {
 	
 	EMOTE_BYE = {
 		someoneAtPet = "is sad that %s leaves.",
-		someoneAtYou = "is sad that %t leaves.",
+		someoneAtYou = "is sad that %s leaves.",
 		someoneNoTarget = "is sad that %s leaves.",
 		youAtPet = "is sad.",
 		youAtTarget = "is sad that %t leaves.",
 		youNoTarget = "is sad.",
 	},
 	EMOTE_CHEER = {
-		someoneAtPet = [=[is excited and squeaks.
-looks questioningly.]=],
-		youAtTarget = "is excited about %t.",
-		youNoTarget = "is excited.",
 	},
 	EMOTE_GREET = {
 		someoneAtPet = [=[sniffs at %s.
@@ -30,14 +26,8 @@ is happy to see %s.]=],
 slowly backs off.]=],
 	},
 	EMOTE_WAVE = {
-		someoneAtPet = [=[is excited and squeaks.
-looks questioningly.]=],
-		someoneAtYou = "is excited about %s.",
-		someoneNoTarget = "",
-		youAtPet = [=[is excited and squeaks.
-looks questioningly.]=],
-		youAtTarget = "is excited about %t.",
-		youNoTarget = "is excited.",
+		someoneAtPet = "looks questioningly.",
+		youAtPet = "looks questioningly.",
 	},
 	EVENT_PET_LOWHEALTH = {
 		emotes = "",
@@ -51,8 +41,66 @@ tries to save its master.  Rwarrr!]=],
 	},
 },
 
-["Default (pet)"] = {
+["Default (m)"] = {
 	INHERIT = "Default",
+	
+	EMOTE_GREET = {
+		youAtPet = "is happy to see his master.",
+	},
+},
+
+["Default (f)"] = {
+	INHERIT = "Default",
+	
+	EMOTE_GREET = {
+		youAtPet = "is happy to see her master.",
+	},
+},
+
+["Beast (cute)"] = {
+	INHERIT = "Default",
+	
+	EMOTE_CHEER = {
+		someoneAtPet = "is excited and squeaks.",
+		someoneAtYou = "is excited about %s.",
+		youAtPet = "is excited and squeaks.",
+		youAtTarget = "is excited about %t.",
+		youNoTarget = "is excited.",
+	},
+	EMOTE_WAVE = {
+		someoneAtPet = "is excited and squeaks.",
+		someoneAtYou = "is excited about %s.",
+		youAtPet = "is excited and squeaks.",
+		youAtTarget = "is excited about %t.",
+		youNoTarget = "is excited.",
+	},
+},
+
+["Beast (cute, m)"] = {
+	INHERIT = "Beast (cute)",
+},
+
+["Beast (cute, f)"] = {
+	INHERIT = "Beast (cute)",
+},
+
+["Beast (ferocious)"] = {
+	INHERIT = "Default",
+	
+	["EMOTE_WAVE"] = {
+		["someoneAtPet"] = "growls at %s.",
+	},
+	["EMOTE_CHEER"] = {
+		["youAtPet"] = "looks questioningly.",
+		["someoneAtPet"] = "growls at %s.",
+	},
+	["EMOTE_GREET"] = {
+		["someoneAtPet"] = "sniffs at %s.\ngrowls at %s.",
+	},
+	["EMOTE_STARE"] = {
+		["youAtPet"] = "looks questioningly.",
+		["someoneAtPet"] = "growls at %s.",
+	},
 	
 	EVENT_PET_LOWHEALTH = {
 		emotes = "roars in agony.",
@@ -67,4 +115,73 @@ goes into a murderous frenzy because of all the blood that sheds from the wounds
 	},
 },
 
+["Beast (ferocious, m)"] = {
+	INHERIT = "Beast (ferocious)",
+},
+
+["Beast (ferocious, f)"] = {
+	INHERIT = "Beast (ferocious)",
+},
+
+}
+
+-- creature type -> personality
+MylunesChampions.PCT["enUS"] = {
+	Bat = "Default",
+	Bear = "Beast (ferocious)",
+	Beast = "Beast (ferocious)",
+	Beetle = "Default",
+	["Bird of Prey"] = "Default",
+	Boar = "Beast (ferocious)",
+	["Carrion Bird"] = "Default",
+	Cat = "Beast (ferocious)",
+	Chimaera = "Default",
+	["Core Hound"] = "Beast (ferocious)",
+	Crab = "Default",
+	Critter = "Default",
+	Crocolisk = "Beast (ferocious)",
+	Demon = "Default",
+	Devilsaur = "Beast (ferocious)",
+	Dog = "Beast (ferocious)",
+	Doomguard = "Default",
+	Dragonhawk = "Default",
+	Dragonkin = "Default",
+	Elemental = "Default",
+	Felguard = "Default",
+	Felhunter = "Default",
+	Fox = "Default",
+	["Gas Cloud"] = "Default",
+	Ghoul = "Default",
+	Giant = "Default",
+	Gorilla = "Beast (ferocious)",
+	Humanoid = "Default",
+	Hyena = "Default",
+	Imp = "Default",
+	Mechanical = "Default",
+	Monkey = "Default",
+	Moth = "Default",
+	["Nether Ray"] = "Default",
+	Raptor = "Beast (ferocious)",
+	Ravager = "Default",
+	["Remote Control"] = "Default",
+	Rhino = "Beast (ferocious)",
+	Scorpid = "Default",
+	Serpent = "Default",
+	["Shale Spider"] = "Default",
+	Silithid = "Default",
+	Spider = "Default",
+	["Spirit Beast"] = "Beast (ferocious)",
+	Sporebat = "Default",
+	Succubus = "Default",
+	Tallstrider = "Default",
+	Totem = "Default",
+	Turtle = "Default",
+	Undead = "Default",
+	Voidwalker = "Default",
+	["Warp Stalker"] = "Default",
+	Wasp = "Default",
+	["Water Elemental"] = "Default",
+	["Wind Serpent"] = "Default",
+	Wolf = "Beast (ferocious)",
+	Worm = "Default",
 }
