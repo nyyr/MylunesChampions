@@ -347,6 +347,89 @@ local configOptionsEventTemplate = {
 }
 
 ----------------------------------------------
+-- Random event options
+----------------------------------------------
+local configOptionsRandomTemplate = {
+	type		= "group",
+	name		= "Event Template",
+	order		= 30,
+	args		= {
+		emotes = {
+			type		= "input",
+			name		= L["CFG_PERS_RANDOM_EMOTES_DEFAULT"],
+			desc		= L["CFG_PERS_EMOTE_TT"],
+			multiline	= true,
+			order		= 1,
+			get			= function (info)
+				s = MylunesChampions:GetRawEmotes(info[#info-2], info[#info-1], info[#info])
+				if s then
+					return s
+				else
+					return "NA"
+				end
+			end,
+			set			= function (info, v)
+				s = strtrim(v)
+				if s == "" then	
+					s = nil -- erase
+				elseif s == "NA" then
+					s = "" -- override with empty value (N/A)
+				end
+				MylunesChampions:SetRawEmotes(info[#info-2], info[#info-1], info[#info], s)
+			end,
+		},
+		afk = {
+			type		= "input",
+			name		= L["CFG_PERS_RANDOM_EMOTES_AFK"],
+			desc		= L["CFG_PERS_EMOTE_TT"],
+			multiline	= true,
+			order		= 2,
+			get			= function (info)
+				s = MylunesChampions:GetRawEmotes(info[#info-2], info[#info-1], info[#info])
+				if s then
+					return s
+				else
+					return "NA"
+				end
+			end,
+			set			= function (info, v)
+				s = strtrim(v)
+				if s == "" then	
+					s = nil -- erase
+				elseif s == "NA" then
+					s = "" -- override with empty value (N/A)
+				end
+				MylunesChampions:SetRawEmotes(info[#info-2], info[#info-1], info[#info], s)
+			end,
+		},
+		incombat = {
+			type		= "input",
+			name		= L["CFG_PERS_RANDOM_EMOTES_INCOMBAT"],
+			desc		= L["CFG_PERS_EMOTE_TT"],
+			multiline	= true,
+			order		= 3,
+			get			= function (info)
+				s = MylunesChampions:GetRawEmotes(info[#info-2], info[#info-1], info[#info])
+				if s then
+					return s
+				else
+					return "NA"
+				end
+			end,
+			set			= function (info, v)
+				s = strtrim(v)
+				if s == "" then	
+					s = nil -- erase
+				elseif s == "NA" then
+					s = "" -- override with empty value (N/A)
+				end
+				MylunesChampions:SetRawEmotes(info[#info-2], info[#info-1], info[#info], s)
+			end,
+		},
+	},
+}
+
+----------------------------------------------
 -- Companions options
 ----------------------------------------------
 MylunesChampions.configOptionsTableCompanions = {
@@ -501,6 +584,7 @@ function MylunesChampions:InitConfig()
 	MylunesChampions_AdjustConfig(configOptionsPersonalityTemplate)
 	MylunesChampions_AdjustConfig(configOptionsEmoteTemplate)
 	MylunesChampions_AdjustConfig(configOptionsEventTemplate)
+	MylunesChampions_AdjustConfig(configOptionsRandomTemplate)
 	
 	self:RebuildConfig()
 	
@@ -547,6 +631,10 @@ function MylunesChampions:RebuildConfig()
 			elseif string.find(en, "^EMOTE_") then
 				local t = MylunesChampions_TableDeepCopy(configOptionsEmoteTemplate)
 				t.name = string.gsub(en, "^EMOTE_", "Emote ")
+				self.configOptionsTablePersonalities.args[n].args[en] = t
+			elseif en == "EVENT_RANDOM" then
+				local t = MylunesChampions_TableDeepCopy(configOptionsRandomTemplate)
+				t.name = string.gsub(en, "^EVENT_", "Event ")
 				self.configOptionsTablePersonalities.args[n].args[en] = t
 			elseif string.find(en, "^EVENT_") then
 				local t = MylunesChampions_TableDeepCopy(configOptionsEventTemplate)

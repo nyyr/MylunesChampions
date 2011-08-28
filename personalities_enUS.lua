@@ -39,6 +39,11 @@ tries to save its master.  Rwarrr!]=],
 	EVENT_TARGET_LOWHEALTH = {
 		emotes = "",
 	},
+	EVENT_RANDOM = {
+		emotes = "is bored.\ndemands for some action!\nis taking a nap.",
+		incombat = "is annoyed by all this noise.  Silence!\nhides behind its master.",
+		afk = "pokes its master.\ntries to get some treats out of its master's bag.",
+	},
 },
 
 ["Default (m)"] = {

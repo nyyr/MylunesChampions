@@ -49,6 +49,10 @@ L["CFG_PERS_EMOTE_YOUNOTARGET"] = "You without a target"
 
 L["CFG_PERS_EVENT_EMOTES"] = "Emotes"
 
+L["CFG_PERS_RANDOM_EMOTES_DEFAULT"] = "Default"
+L["CFG_PERS_RANDOM_EMOTES_AFK"] = "When player is 'away'"
+L["CFG_PERS_RANDOM_EMOTES_INCOMBAT"] = "When player in combat"
+
 L["CFG_PETS"] = "Combat Pets"
 L["CFG_COMPANIONS"] = "Companions"
 L["CFG_COMPANION_PERS"] = "Personality"

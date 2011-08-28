@@ -35,10 +35,15 @@ versteckt sich hinter seinem Meister.]=],
 	},
 	EVENT_PLAYER_LOWHEALTH = {
 		emotes = [=[versucht den Gegner abzuspotten. Grrar!
-versucht seinen Meister zu retten. Grrr!]=],
+versucht sein Herrchen zu retten. Grrr!]=],
 	},
 	EVENT_TARGET_LOWHEALTH = {
 		emotes = "",
+	},
+	EVENT_RANDOM = {
+		emotes = "ist gelangweilt.\nwill etwas unternehmen!\nmacht ein Nickerchen.",
+		incombat = "nervt der ganze Lärm. Ruhe!\nversteckt sich hinter seinem Herrchen.",
+		afk = "stubst sein Herrchen an.\nsucht nach ein paar Leckerlis in der Tasche seines Herrchen.",
 	},
 },
 

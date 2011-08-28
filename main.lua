@@ -34,6 +34,7 @@ MylunesChampions.defaults = {
 		enable = true,
 		emoteReplyBackoff = 2, -- minimum time between emote replies
 		autoEmoteBackoff = 60, -- minimum time between auto emotes
+		randomEmoteBackoff = 300, -- minimum time between random emotes (shares CD with autoEmoteBackoff)
 		emoteDelay = 0.5, -- defer emote for N seconds
 		emoteLocale = nil,
 		C = {}, -- companions
@@ -56,6 +57,7 @@ local debugLevel = d_notice
 -- rate control
 MylunesChampions.lastEmoteReply = GetTime()
 MylunesChampions.lastAutoEmote = GetTime()
+MylunesChampions.lastRandomEmote = GetTime()
 
 -- defered emote message
 MylunesChampions.lastEmoteMessage = nil
@@ -283,6 +285,9 @@ function MylunesChampions:OnEnable()
 	
 	self:RegisterEvent("UNIT_HEALTH")
 	
+	-- yes, autoEmoteBackoff, not randomEmoteBackoff
+	self.randomEmoteTimer = self:ScheduleRepeatingTimer("OnRandomEmote", self.db.profile.autoEmoteBackoff)
+	
 	self:Debug(d_notice, L["ENABLED"])
 end
 
@@ -299,6 +304,7 @@ function MylunesChampions:OnDisable()
 	self:Unhook("DoEmote")
 	
 	self:UnregisterEvent("UNIT_HEALTH")
+	self:CancelTimer(self.randomEmoteTimer, true)
 	
 	self:Debug(d_notice, L["DISABLED"])
 end
@@ -378,6 +384,26 @@ function MylunesChampions:OnDoEmote(emote, target)
 end
 
 ----------------------------------------------
+-- OnRandomEmote()
+----------------------------------------------
+function MylunesChampions:OnRandomEmote()
+	local t = GetTime()
+	local last = self.lastRandomEmote
+	if self.lastAutoEmote > self.lastRandomEmote then
+		last = self.lastAutoEmote
+	end
+	
+	if t - last > self.db.profile.randomEmoteBackoff then
+		local s = self:GetRandomCompanionEmote()
+		if s then
+			self:CompanionEmote(s)
+			self.lastRandomEmote = t
+			self.lastAutoEmote = t
+		end
+	end
+end
+
+----------------------------------------------
 -- GetRawEmotes - Returns raw emote string (incl. inherited emotes)
 ----------------------------------------------
 function MylunesChampions:GetRawEmotes(pers, emote, how, visited_personalities)
@@ -435,6 +461,37 @@ function MylunesChampions:SetRawEmotes(pers, emote, how, value)
 		end
 		p[emote][how] = value
 	end
+end
+
+----------------------------------------------
+-- GetRandomCompanionEmote
+----------------------------------------------
+function MylunesChampions:GetRandomCompanionEmote()
+	local p = self:GetCompanionPersonality()
+	local s = nil
+	
+	-- afk
+	if UnitIsAFK("player") then
+		s = self:GetRawEmotes(p, "EVENT_RANDOM", "afk")
+	end
+	-- in combat
+	if (not s) and InCombatLockdown() then
+		s = self:GetRawEmotes(p, "EVENT_RANDOM", "incombat")
+	end
+	-- default
+	if not s then
+		s = self:GetRawEmotes(p, "EVENT_RANDOM", "emotes")
+	end
+
+	if s then
+		local t = GetTime()
+		self.lastRandomEmote = t
+		self.lastAutoEmote = t
+		local e = { strsplit("\n", s) }
+		return MylunesChampions_RandomElement(e)
+	end
+	
+	return nil
 end
 
 ----------------------------------------------
@@ -509,7 +566,12 @@ function MylunesChampions:CompanionEmote(msg)
 	
 	local name = self:GetCurrentCompanion()
 	if name then
-		if string.find(msg, "^(%a*)$") then
+		if msg == "" then
+			-- random emote
+			msg = self:GetRandomCompanionEmote()
+			self:DoEmote(LG["COMPANION"] .. " " .. name .. " " .. msg)
+			
+		elseif string.find(msg, "^(%a*)$") then
 			msg = string.upper(msg)
 			if LG["EMOTE_"..msg] then
 				local pattern = nil
@@ -526,6 +588,7 @@ function MylunesChampions:CompanionEmote(msg)
 			else
 				self:Printf(L["EMOTE_NOT_FOUND"], msg)
 			end
+			
 		else
 			self:DoEmote(LG["COMPANION"] .. " " .. name .. " " .. msg)
 		end
