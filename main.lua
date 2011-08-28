@@ -469,7 +469,7 @@ end
 function MylunesChampions:GetRandomCompanionEvent(event)
 	event = string.gsub(event, "^EVENT_", "") -- normalize
 
-	local s = self:GetRawEmotes(self:GetCompanionPersonality(), "EVENT_"..emote, "emotes")
+	local s = self:GetRawEmotes(self:GetCompanionPersonality(), "EVENT_"..event, "emotes")
 	if s then
 		local e = { strsplit("\n", s) }
 		return MylunesChampions_RandomElement(e)
@@ -484,7 +484,7 @@ end
 function MylunesChampions:GetRandomPetEvent(event)
 	event = string.gsub(event, "^EVENT_", "") -- normalize
 
-	local s = self:GetRawEmotes(self:GetPetPersonality(), "EVENT_"..emote, "emotes")
+	local s = self:GetRawEmotes(self:GetPetPersonality(), "EVENT_"..event, "emotes")
 	if s then
 		local e = { strsplit("\n", s) }
 		return MylunesChampions_RandomElement(e)
@@ -642,7 +642,7 @@ function MylunesChampions:UNIT_HEALTH(event, unit)
 		if InCombatLockdown() then
 		
 			-- low health
-			if (unit == "player" or unit == "pet" or unit == "target") and (UnitHealth(unit) / UnitHealthMax(unit) < 0.2) then
+			if (unit == "player" or unit == "pet" or unit == "target") and (UnitHealth(unit) / UnitHealthMax(unit) < 0.3) then
 				self.lastAutoEmote = t
 				
 				local n, _ = self:GetCurrentCompanion()

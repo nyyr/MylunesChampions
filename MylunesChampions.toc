@@ -4,7 +4,7 @@
 ## Author: nyyr
 ## Version: 0.1
 ## SavedVariables: MylunesChampionsDB
-## X-Date: $Date: 2011-06-30 00:22:48 +0200 (Do, 30 Jun 2011) $
+## X-Date: $Date$
 ## X-Category: Chat
 
 embeds.xml

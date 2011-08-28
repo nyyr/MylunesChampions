@@ -59,8 +59,7 @@ versucht seinen Meister zu retten. Grrr!]=],
 		emotes = "brüllt vor Schmerz.",
 	},
 	EVENT_PLAYER_LOWHEALTH = {
-		emotes = [=[brüllt fürchterlich ob der Schmerzen seines Meisters!
-gerät in einen Blutrausch wegen der Schmerzen seines Meisters!]=],
+		emotes = "brüllt fürchterlich ob der Schmerzen seines Meisters!\ngerät in einen Blutrausch weil sein Meister leidet.",
 	},
 	EVENT_TARGET_LOWHEALTH = {
 		emotes = [=[wittert den nahen Tod seiner Beute und brüllt fürchterregend.
