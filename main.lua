@@ -33,7 +33,7 @@ MylunesChampions.defaults = {
 	profile = {
 		enable = true,
 		emoteReplyBackoff = 2, -- minimum time between emote replies
-		autoEmoteBackoff = 60, -- minimum time between auto emotes
+		autoEmoteBackoff = 180, -- minimum time between auto emotes
 		randomEmoteBackoff = 300, -- minimum time between random emotes (shares CD with autoEmoteBackoff)
 		emoteDelay = 0.5, -- defer emote for N seconds
 		emoteLocale = nil,
@@ -475,11 +475,11 @@ function MylunesChampions:GetRandomCompanionEmote()
 		s = self:GetRawEmotes(p, "EVENT_RANDOM", "afk")
 	end
 	-- in combat
-	if (not s) and InCombatLockdown() then
+	if (s == nil) and InCombatLockdown() then
 		s = self:GetRawEmotes(p, "EVENT_RANDOM", "incombat")
 	end
 	-- default
-	if not s then
+	if s == nil then
 		s = self:GetRawEmotes(p, "EVENT_RANDOM", "emotes")
 	end
 
@@ -690,10 +690,14 @@ end
 ----------------------------------------------
 function MylunesChampions:GetCompanionPersonality()
 	local n, id = self:GetCurrentCompanion()
-	if self.db.profile.C[id] then
-		return self.db.profile.C[id].p
+	if n then
+		if self.db.profile.C[id] then
+			return self.db.profile.C[id].p
+		else
+			return "Default"
+		end
 	end
-	return "Default"
+	return nil
 end
 
 ----------------------------------------------
@@ -705,7 +709,11 @@ function MylunesChampions:GetPetPersonality()
 	if creatureFamily then
 		return self.db.profile.PCT[self.db.profile.emoteLocale][self.BabbleCTE[creatureFamily]]
 	end
-	return "Default"
+	if UnitExists("pet") then
+		return "Default"
+	else
+		return nil
+	end
 end
 
 ----------------------------------------------
@@ -721,12 +729,12 @@ function MylunesChampions:UNIT_HEALTH(event, unit)
 		
 			-- low health
 			if (unit == "player" or unit == "pet" or unit == "target") and (UnitHealth(unit) / UnitHealthMax(unit) < 0.3) then
-				self.lastAutoEmote = t
-				
+			
 				local n, _ = self:GetCurrentCompanion()
 				if n then
 					local s = self:GetRandomCompanionEvent(string.upper(unit) .. "_LOWHEALTH")
 					if s then
+						self.lastAutoEmote = t
 						self:CompanionEmote(MylunesChampions_Sub(s, UnitName("target")))
 					end
 				end
@@ -735,9 +743,11 @@ function MylunesChampions:UNIT_HEALTH(event, unit)
 				if n then
 					local s = self:GetRandomPetEvent(string.upper(unit) .. "_LOWHEALTH")
 					if s then
+						self.lastAutoEmote = t
 						self:PetEmote(MylunesChampions_Sub(s, UnitName("target")))
 					end
 				end
+				
 			end
 			
 		end
