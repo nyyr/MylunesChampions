@@ -2,6 +2,7 @@
 
 ["Default"] = {
 	INHERIT = nil,
+	NAME = "Standard",
 	
 	EMOTE_BYE = {
 		someoneAtPet = "ist traurig, dass %s geht.",
@@ -14,17 +15,19 @@
 	EMOTE_CHEER = {
 	},
 	EMOTE_GREET = {
-		someoneAtPet = [=[schnüffelt an %s.
-freut sich %s zu sehen.]=],
+		someoneAtPet = "schnüffelt an %s.\nfreut sich %s zu sehen.",
 		someoneAtYou = "schnüffelt an %s.",
 		someoneNoTarget = "schnüffelt an %s.",
 		youAtPet = "freut sich seinen Meister zu sehen.",
 		youAtTarget = "schnüffelt an %t.",
+		
+		f_youAtPet = "freut sich ihren Meister zu sehen.",
 	},
 	EMOTE_STARE = {
-		someoneAtPet = [=[starrt zurück. Wer zuerst blinzelt!
-versteckt sich hinter seinem Meister.]=],
+		someoneAtPet = "starrt zurück. Wer zuerst blinzelt!\nversteckt sich hinter seinem Meister.",
 		youAtPet = "starrt zurück. Wer zuerst blinzelt!",
+		
+		f_someoneAtPet = "starrt zurück. Wer zuerst blinzelt!\nversteckt sich hinter ihrem Meister.",
 	},
 	EMOTE_WAVE = {
 		someoneAtPet = "schaut fragend.",
@@ -34,36 +37,20 @@ versteckt sich hinter seinem Meister.]=],
 		emotes = "",
 	},
 	EVENT_PLAYER_LOWHEALTH = {
-		emotes = [=[versucht den Gegner abzuspotten. Grrar!
-versucht sein Herrchen zu retten. Grrr!]=],
+		emotes = "versucht den Gegner abzuspotten. Grrar!\nversucht sein Herrchen zu retten. Grrr!",
+		
+		f_emotes = "versucht den Gegner abzuspotten. Grrar!\nversucht ihren Meister zu retten. Grrr!",
 	},
 	EVENT_TARGET_LOWHEALTH = {
 		emotes = "",
 	},
 	EVENT_RANDOM = {
-		emotes = "ist gelangweilt.\nwill etwas unternehmen!\nmacht ein Nickerchen.",
+		emotes = "ist gelangweilt.\nwill etwas unternehmen!\nmacht ein Nickerchen.\nist hungrig.\nversucht nach einer Fliege zu schnappen.",
 		incombat = "nervt der ganze Lärm. Ruhe!\nversteckt sich hinter seinem Herrchen.",
-		afk = "stubst sein Herrchen an.\nsucht nach ein paar Leckerlis in der Tasche seines Herrchen.",
-	},
-},
-
-["Default (m)"] = {
-	INHERIT = "Default",
-},
-
-["Default (f)"] = {
-	INHERIT = "Default",
-	
-	EMOTE_GREET = {
-		youAtPet = "freut sich ihren Meister zu sehen.",
-	},
-	EMOTE_STARE = {
-		someoneAtPet = [=[starrt zurück. Wer zuerst blinzelt!
-versteckt sich hinter ihrem Meister.]=],
-	},
-	EVENT_PLAYER_LOWHEALTH = {
-		emotes = [=[versucht den Gegner abzuspotten. Grrar!
-versucht ihren Meister zu retten. Grrr!]=],
+		afk = "stubst sein Herrchen an.\nsucht nach ein paar Leckerlis in der Tasche seines Herrchens.",
+		f_afk = "stubst ihr Herrchen an.\nsucht nach ein paar Leckerlis in der Tasche ihres Herrchens.",
+		mm_afk = "stubst sein Frauchen an.\nsucht nach ein paar Leckerlis in der Tasche seines Frauchens.",
+		fm_afk = "stubst ihr Frauchen an.\nsucht nach ein paar Leckerlis in der Tasche ihres Frauchens.",
 	},
 },
 
@@ -84,25 +71,9 @@ versucht ihren Meister zu retten. Grrr!]=],
 		youNoTarget = "ist aufgeregt.",
 		youAtPet = "quiekt vor Freude.",
 	},
-},
-
-["Beast (cute, m)"] = {
-	INHERIT = "Beast (cute)",
-},
-
-["Beast (cute, f)"] = {
-	INHERIT = "Beast (cute)",
 	
-	EMOTE_GREET = {
-		youAtPet = "freut sich ihren Meister zu sehen.",
-	},
-	EMOTE_STARE = {
-		someoneAtPet = [=[starrt zurück. Wer zuerst blinzelt!
-versteckt sich hinter ihrem Meister.]=],
-	},
-	EVENT_PLAYER_LOWHEALTH = {
-		emotes = [=[versucht den Gegner abzuspotten. Grrar!
-versucht ihren Meister zu retten. Grrr!]=],
+	["EVENT_RANDOM"] = {
+		["incombat"] = "nervt der ganze Lärm. Ruhe!\nversteckt sich hinter seinem Herrchen.\nschnappt nach dem Bein des Gegners.",
 	},
 },
 
@@ -120,7 +91,7 @@ versucht ihren Meister zu retten. Grrr!]=],
 		["someoneAtPet"] = "schnüffelt an %s.\nknurrt %s an.",
 	},
 	["EMOTE_STARE"] = {
-		["someoneAtPet"] = "starrt zurück. Wer zuerst blinzelt!\nknurrt %s an.",
+		["someoneAtPet"] = "knurrt %s an.",
 	},
 	
 	EVENT_PET_LOWHEALTH = {
@@ -128,30 +99,13 @@ versucht ihren Meister zu retten. Grrr!]=],
 	},
 	EVENT_PLAYER_LOWHEALTH = {
 		emotes = "brüllt fürchterlich ob der Schmerzen seines Meisters!\ngerät in einen Blutrausch weil sein Meister leidet.",
+		
+		f_emotes = "brüllt fürchterlich ob der Schmerzen ihres Meisters!\ngerät in einen Blutrausch weil ihr Meister leidet.",
 	},
 	EVENT_TARGET_LOWHEALTH = {
-		emotes = [=[wittert den nahen Tod seiner Beute und brüllt fürchterregend.
-gerät in einen tödlichen Rausch wegen des ganzen Blutes, das aus den Wunden seiner Beute rinnt.]=],
-	},
-},
-
-["Beast (ferocious, m)"] = {
-	INHERIT = "Beast (ferocious)",
-},
-
-["Beast (ferocious, f)"] = {
-	INHERIT = "Beast (ferocious)",
-	
-	["EMOTE_GREET"] = {
-		["youAtPet"] = "freut sich ihren Meister zu sehen.",
-	},
-	
-	EVENT_PLAYER_LOWHEALTH = {
-		emotes = "brüllt fürchterlich ob der Schmerzen ihres Meisters!\ngerät in einen Blutrausch weil ihr Meister leidet.",
-	},
-	EVENT_TARGET_LOWHEALTH = {
-		emotes = [=[wittert den nahen Tod ihrer Beute und brüllt fürchterregend.
-gerät in einen tödlichen Rausch wegen des ganzen Blutes, das aus den Wunden ihrer Beute rinnt.]=],
+		emotes = "wittert den nahen Tod seiner Beute und brüllt fürchterregend.\ngerät in einen tödlichen Rausch wegen des ganzen Blutes, das aus den Wunden seiner Beute rinnt.",
+		
+		f_emotes = "wittert den nahen Tod ihrer Beute und brüllt fürchterregend.\ngerät in einen tödlichen Rausch wegen des ganzen Blutes, das aus den Wunden ihrer Beute rinnt.",
 	},
 },
 
@@ -159,60 +113,60 @@ gerät in einen tödlichen Rausch wegen des ganzen Blutes, das aus den Wunden ih
 
 -- creature type -> personality
 MylunesChampions.PCT["deDE"] = {
-	Bat = "Default",
-	Bear = "Beast (ferocious, m)",
-	Beast = "Beast (ferocious)",
-	Beetle = "Default",
-	["Bird of Prey"] = "Default",
-	Boar = "Beast (ferocious, m)",
-	["Carrion Bird"] = "Default",
-	Cat = "Beast (ferocious, f)",
-	Chimaera = "Default",
-	["Core Hound"] = "Beast (ferocious, m)",
-	Crab = "Default",
-	Crocolisk = "Beast (ferocious, m)",
-	Demon = "Default",
-	Devilsaur = "Beast (ferocious, m)",
-	Dog = "Beast (ferocious, m)",
-	Doomguard = "Default",
-	Dragonhawk = "Default",
-	Dragonkin = "Default",
-	Elemental = "Default",
-	Felguard = "Default",
-	Felhunter = "Default",
-	Fox = "Default",
-	["Gas Cloud"] = "Default",
-	Ghoul = "Default",
-	Giant = "Default",
-	Gorilla = "Beast (ferocious, m)",
-	Humanoid = "Default",
-	Hyena = "Default",
-	Imp = "Default",
-	Mechanical = "Default",
-	Monkey = "Default",
-	Moth = "Default",
-	["Nether Ray"] = "Default",
-	Raptor = "Beast (ferocious, m)",
-	Ravager = "Default",
-	["Remote Control"] = "Default",
-	Rhino = "Beast (ferocious, m)",
-	Scorpid = "Default",
-	Serpent = "Default",
-	["Shale Spider"] = "Default",
-	Silithid = "Default",
-	Spider = "Default",
-	["Spirit Beast"] = "Beast (ferocious, f)",
-	Sporebat = "Default",
-	Succubus = "Default",
-	Tallstrider = "Default",
-	Totem = "Default",
-	Turtle = "Default",
-	Undead = "Default",
-	Voidwalker = "Default",
-	["Warp Stalker"] = "Default",
-	Wasp = "Default",
-	["Water Elemental"] = "Default",
-	["Wind Serpent"] = "Default",
-	Wolf = "Beast (ferocious, m)",
-	Worm = "Default",
+	Bat = { p = "Default", s = "f" },
+	Bear = { p = "Beast (ferocious)", s = "m" },
+	Beast = { p = "Beast (ferocious)" },
+	Beetle = { p = "Default", s = "m" },
+	["Bird of Prey"] = { p = "Default", s = "m" },
+	Boar = { p = "Beast (ferocious)", s = "m" },
+	["Carrion Bird"] = { p = "Default", s = "m" },
+	Cat = { p = "Beast (ferocious)", s = "f" },
+	Chimaera = { p = "Default", s = "f" },
+	["Core Hound"] = { p = "Beast (ferocious)", s = "m" },
+	Crab = { p = "Default", s = "f" },
+	Crocolisk = { p = "Beast (ferocious)", s = "m" },
+	Demon = { p = "Default", s = "m" },
+	Devilsaur = { p = "Beast (ferocious)", s = "m" },
+	Dog = { p = "Beast (ferocious)", s = "m" },
+	Doomguard = { p = "Default", s = "f" },
+	Dragonhawk = { p = "Default", s = "m" },
+	Dragonkin = { p = "Default", s = "m" },
+	Elemental = { p = "Default" },
+	Felguard = { p = "Default", s = "m" },
+	Felhunter = { p = "Default", s = "m" },
+	Fox = { p = "Default", s = "m" },
+	["Gas Cloud"] = { p = "Default", s = "f" },
+	Ghoul = { p = "Default", s = "m" },
+	Giant = { p = "Default", s = "m" },
+	Gorilla = { p = "Beast (ferocious)", s = "m" },
+	Humanoid = { p = "Default", s = "m" },
+	Hyena = { p = "Default", s = "f" },
+	Imp = { p = "Default", s = "m" },
+	Mechanical = { p = "Default" },
+	Monkey = { p = "Default", s = "m" },
+	Moth = { p = "Default", s = "f" },
+	["Nether Ray"] = { p = "Default", s = "m" },
+	Raptor = { p = "Beast (ferocious)", s = "m" },
+	Ravager = { p = "Default", s = "m" },
+	["Remote Control"] = { p = "Default", s = "f" },
+	Rhino = { p = "Beast (ferocious)" },
+	Scorpid = { p = "Default" },
+	Serpent = { p = "Default", s = "f" },
+	["Shale Spider"] = { p = "Default" },
+	Silithid = { p = "Default", s = "m" },
+	Spider = { p = "Default", s = "f" },
+	["Spirit Beast"] = { p = "Beast (ferocious)", s = "f" },
+	Sporebat = { p = "Default", s = "m" },
+	Succubus = { p = "Default", s = "f" },
+	Tallstrider = { p = "Default", s = "m" },
+	Totem = { p = "Default" },
+	Turtle = { p = "Default", s = "f" },
+	Undead = { p = "Default", s = "m" },
+	Voidwalker = { p = "Default", s = "m" },
+	["Warp Stalker"] = { p = "Default", s = "m" },
+	Wasp = { p = "Default", s = "f" },
+	["Water Elemental"] = { p = "Default" },
+	["Wind Serpent"] = { p = "Default", s = "f" },
+	Wolf = { p = "Beast (ferocious)", s = "m" },
+	Worm = { p = "Default", s = "m" },
 }

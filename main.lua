@@ -64,17 +64,24 @@ MylunesChampions.lastEmoteMessage = nil
 MylunesChampions.lastEmoteTimer = nil
 
 MylunesChampions.playerName = UnitName("player")
+MylunesChampions.playerMistress = ""
+if UnitSex("player") == 2 then
+	MylunesChampions.playerMistress = "m" -- player character is female
+end
 
 local emoteColor = "|cFFFF8040"
 
 ----------------------------------------------
 -- MylunesChampions_RandomElement
 ----------------------------------------------
-local function MylunesChampions_RandomElement(mytable)
-	if mytable and #(mytable) > 0 then
-		local i = random(#(mytable))
-		if string.len(mytable[i]) > 0 then
-			return mytable[i]
+local function MylunesChampions_RandomElement(emotes)
+	if type(emotes) == "string" then
+		emotes = { strsplit("\n", emotes) }
+	end
+	if emotes and #(emotes) > 0 then
+		local i = random(#(emotes))
+		if string.len(emotes[i]) > 0 then
+			return emotes[i]
 		end
 	end
 	return nil
@@ -100,6 +107,7 @@ local function MylunesChampions_LuaPat(pattern)
 	pattern = string.gsub(pattern, "%.", "%%.")
 	pattern = string.gsub(pattern, "%%s", "(.*)")
 	pattern = string.gsub(pattern, "%%t", "(.*)")
+	pattern = "^"..pattern.."$"
 	return pattern
 end
 
@@ -116,30 +124,7 @@ local function MylunesChampions_ChatMessageFilter(self, event, str, arg2, arg3, 
 		for n,e in pairs(L) do
 			if type(e) == "table" and string.find(n, "^EMOTE_") then
 				--MylunesChampions:Debug(d_notice, "Emote "..n.." ("..str..", "..tostring(string.find(str, MylunesChampions_LuaPat(e["pattern_someoneAtTarget"])))..")")
-				if e["pattern_someoneNoTarget"] and string.find(str, MylunesChampions_LuaPat(e["pattern_someoneNoTarget"])) then
-					local pattern = MylunesChampions_LuaPat(e["pattern_someoneNoTarget"])
-					local someone = string.gsub(str, pattern, "%1")
-					local companion = MylunesChampions:GetCurrentCompanion()
-					if companion then
-						local s = MylunesChampions:GetRandomCompanionEmoteReply(n, "someoneNoTarget")
-						if s then
-							MylunesChampions:CompanionEmote(MylunesChampions_Sub(s, nil, someone))
-							break
-						end
-					end
-					
-					local pet = MylunesChampions:GetCurrentPet()
-					if pet then
-						local s = MylunesChampions:GetRandomPetEmoteReply(n, "someoneNoTarget")
-						if s then
-							MylunesChampions:PetEmote(MylunesChampions_Sub(s, nil, someone))
-							break
-						end
-					end
-					
-					break
-					
-				elseif e["pattern_someoneAtYou"] and string.find(str, MylunesChampions_LuaPat(e["pattern_someoneAtYou"])) then
+				if e["pattern_someoneAtYou"] and string.find(str, MylunesChampions_LuaPat(e["pattern_someoneAtYou"])) then
 					local pattern = MylunesChampions_LuaPat(e["pattern_someoneAtYou"])
 					local someone = string.gsub(str, pattern, "%1")
 					local companion = MylunesChampions:GetCurrentCompanion()
@@ -464,31 +449,75 @@ function MylunesChampions:SetRawEmotes(pers, emote, how, value)
 end
 
 ----------------------------------------------
+-- GetCompanionEmotes
+----------------------------------------------
+function MylunesChampions:GetCompanionEmotes(event, how)
+	local p = self:GetCompanionPersonality()
+	local g = self:GetCompanionSex()
+	local s = nil
+	
+	if g then 
+		s = self:GetRawEmotes(p, event, g..MylunesChampions.playerMistress.."_"..how)
+		if not s then
+			s = self:GetRawEmotes(p, event, g.."_"..how)
+			if not s then
+				s = self:GetRawEmotes(p, event, how)
+			end
+		end
+	else
+		s = self:GetRawEmotes(p, event, how)
+	end
+	
+	return s
+end
+
+----------------------------------------------
+-- GetPetEmotes
+----------------------------------------------
+function MylunesChampions:GetPetEmotes(event, how)
+	local p = self:GetPetPersonality()
+	local g = self:GetPetSex()
+	local s = nil
+	
+	if g then
+		s = self:GetRawEmotes(p, event, g..MylunesChampions.playerMistress.."_"..how)
+		if not s then
+			s = self:GetRawEmotes(p, event, g.."_"..how)
+			if not s then
+				s = self:GetRawEmotes(p, event, how)
+			end
+		end
+	else
+		s = self:GetRawEmotes(p, event, how)
+	end
+	
+	return s
+end
+
+----------------------------------------------
 -- GetRandomCompanionEmote
 ----------------------------------------------
 function MylunesChampions:GetRandomCompanionEmote()
-	local p = self:GetCompanionPersonality()
 	local s = nil
 	
 	-- afk
 	if UnitIsAFK("player") then
-		s = self:GetRawEmotes(p, "EVENT_RANDOM", "afk")
+		s = self:GetCompanionEmotes("EVENT_RANDOM", "afk")
 	end
 	-- in combat
 	if (s == nil) and InCombatLockdown() then
-		s = self:GetRawEmotes(p, "EVENT_RANDOM", "incombat")
+		s = self:GetCompanionEmotes("EVENT_RANDOM", "incombat")
 	end
 	-- default
 	if s == nil then
-		s = self:GetRawEmotes(p, "EVENT_RANDOM", "emotes")
+		s = self:GetCompanionEmotes("EVENT_RANDOM", "emotes")
 	end
 
 	if s then
 		local t = GetTime()
 		self.lastRandomEmote = t
 		self.lastAutoEmote = t
-		local e = { strsplit("\n", s) }
-		return MylunesChampions_RandomElement(e)
+		return MylunesChampions_RandomElement(s)
 	end
 	
 	return nil
@@ -500,10 +529,9 @@ end
 function MylunesChampions:GetRandomCompanionEmoteReply(emote, how)
 	emote = string.gsub(emote, "^EMOTE_", "") -- normalize
 	
-	local s = self:GetRawEmotes(self:GetCompanionPersonality(), "EMOTE_"..emote, how)
+	local s = self:GetCompanionEmotes("EMOTE_"..emote, how)
 	if s then
-		local e = { strsplit("\n", s) }
-		return MylunesChampions_RandomElement(e)
+		return MylunesChampions_RandomElement(s)
 	else
 		if how == "youAtPet" then
 			return self:GetRandomCompanionEmoteReply(emote, "someoneAtPet")
@@ -517,10 +545,9 @@ end
 function MylunesChampions:GetRandomPetEmoteReply(emote, how)
 	emote = string.gsub(emote, "^EMOTE_", "") -- normalize
 
-	local s = self:GetRawEmotes(self:GetPetPersonality(), "EMOTE_"..emote, how)
+	local s = self:GetPetEmotes("EMOTE_"..emote, how)
 	if s then
-		local e = { strsplit("\n", s) }
-		return MylunesChampions_RandomElement(e)
+		return MylunesChampions_RandomElement(s)
 	else
 		if how == "youAtPet" then
 			return self:GetRandomPetEmoteReply(emote, "someoneAtPet")
@@ -534,10 +561,9 @@ end
 function MylunesChampions:GetRandomCompanionEvent(event)
 	event = string.gsub(event, "^EVENT_", "") -- normalize
 
-	local s = self:GetRawEmotes(self:GetCompanionPersonality(), "EVENT_"..event, "emotes")
+	local s = self:GetCompanionEmotes("EVENT_"..event, "emotes")
 	if s then
-		local e = { strsplit("\n", s) }
-		return MylunesChampions_RandomElement(e)
+		return MylunesChampions_RandomElement(s)
 	end
 	
 	return nil
@@ -549,10 +575,9 @@ end
 function MylunesChampions:GetRandomPetEvent(event)
 	event = string.gsub(event, "^EVENT_", "") -- normalize
 
-	local s = self:GetRawEmotes(self:GetPetPersonality(), "EVENT_"..event, "emotes")
+	local s = self:GetPetEmotes("EVENT_"..event, "emotes")
 	if s then
-		local e = { strsplit("\n", s) }
-		return MylunesChampions_RandomElement(e)
+		return MylunesChampions_RandomElement(s)
 	end
 	
 	return nil
@@ -707,13 +732,35 @@ end
 function MylunesChampions:GetPetPersonality()
 	local creatureFamily = UnitCreatureFamily("pet")
 	if creatureFamily then
-		return self.db.profile.PCT[self.db.profile.emoteLocale][self.BabbleCTE[creatureFamily]]
+		return self.db.profile.PCT[self.db.profile.emoteLocale][self.BabbleCTE[creatureFamily]].p
 	end
 	if UnitExists("pet") then
 		return "Default"
 	else
 		return nil
 	end
+end
+
+----------------------------------------------
+-- GetCompanionGender
+----------------------------------------------
+function MylunesChampions:GetCompanionSex()
+	local _, id = self:GetCurrentCompanion()
+	if self.db.profile.C[id].s then
+		return self.db.profile.C[id].s
+	end
+	return nil
+end
+
+----------------------------------------------
+-- GetPetGender
+----------------------------------------------
+function MylunesChampions:GetPetSex()
+	local creatureFamily = UnitCreatureFamily("pet")
+	if creatureFamily then
+		return self.db.profile.PCT[self.db.profile.emoteLocale][self.BabbleCTE[creatureFamily]].s
+	end
+	return nil
 end
 
 ----------------------------------------------
