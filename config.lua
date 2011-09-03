@@ -103,6 +103,40 @@ MylunesChampions.configOptionsTableCore = {
 				AceConfigRegistry:NotifyChange("MylunesChampions_Personalities")
 			end,
 		},
+		autoEmoteBackoff = {
+			type		= "range",
+			name		= L["CFG_AUTOEMOTEBACKOFF"],
+			desc		= L["CFG_AUTOEMOTEBACKOFF_TT"],
+			min			= 60,
+			max			= 600,
+			step		= 10,
+			order		= 21,
+			get			= function ()
+				return MylunesChampions.db.profile.autoEmoteBackoff
+			end,
+			set			= function (info, v)
+				MylunesChampions.db.profile.autoEmoteBackoff = v
+			end,
+		},
+		randomEmoteBackoff = {
+			type		= "range",
+			name		= L["CFG_RANDOMEMOTEBACKOFF"],
+			desc		= L["CFG_RANDOMEMOTEBACKOFF_TT"],
+			min			= 60,
+			max			= 600,
+			step		= 10,
+			order		= 22,
+			get			= function ()
+				return MylunesChampions.db.profile.randomEmoteBackoff
+			end,
+			set			= function (info, v)
+				MylunesChampions.db.profile.randomEmoteBackoff = v
+				MylunesChampions:CancelTimer(MylunesChampions.randomEmoteTimer, true)
+				-- yes, autoEmoteBackoff, not randomEmoteBackoff
+				MylunesChampions.randomEmoteTimer = 
+					MylunesChampions:ScheduleRepeatingTimer("OnRandomEmote", MylunesChampions.db.profile.autoEmoteBackoff)
+			end,
+		},
 	},
 }
 

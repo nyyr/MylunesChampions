@@ -33,7 +33,7 @@ MylunesChampions.defaults = {
 	profile = {
 		enable = true,
 		emoteReplyBackoff = 2, -- minimum time between emote replies
-		autoEmoteBackoff = 180, -- minimum time between auto emotes
+		autoEmoteBackoff = 120, -- minimum time between auto emotes
 		randomEmoteBackoff = 300, -- minimum time between random emotes (shares CD with autoEmoteBackoff)
 		emoteDelay = 0.5, -- defer emote for N seconds
 		emoteLocale = nil,
@@ -746,7 +746,7 @@ end
 ----------------------------------------------
 function MylunesChampions:GetCompanionSex()
 	local _, id = self:GetCurrentCompanion()
-	if self.db.profile.C[id].s then
+	if id and self.db.profile.C[id].s then
 		return self.db.profile.C[id].s
 	end
 	return nil

@@ -73,7 +73,7 @@
 	},
 	
 	["EVENT_RANDOM"] = {
-		["incombat"] = "nervt der ganze Lärm. Ruhe!\nversteckt sich hinter seinem Herrchen.\nschnappt nach dem Bein des Gegners.",
+		["incombat"] = "nervt der ganze Lärm. Ruhe!\nversteckt sich hinter seinem Herrchen.\nschnappt nach dem Gegner.",
 	},
 },
 

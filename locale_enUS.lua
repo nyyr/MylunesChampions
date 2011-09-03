@@ -24,6 +24,10 @@ L["CFG_ENABLE"] = "Enable"
 L["CFG_ENABLE_TT"] = "Toggle to enable/disable Mylune's Champions."
 L["CFG_EMOTE_LOCALE"] = "Emote Locale"
 L["CFG_EMOTE_LOCALE_TT"] = "Set emote locale (defaults to client locale or enUS)."
+L["CFG_AUTOEMOTEBACKOFF"] = "Auto emote backoff"
+L["CFG_AUTOEMOTEBACKOFF_TT"] = "Set 'cooldown' of auto emotes (emotes triggered by events)."
+L["CFG_RANDOMEMOTEBACKOFF"] = "Random emote backoff"
+L["CFG_RANDOMEMOTEBACKOFF_TT"] = "Set 'cooldown' of random idle emotes (resets after auto emotes)."
 
 L["CFG_PERS_NEW"] = "New"
 L["CFG_PERS_NEW_TT"] = "Create a new personality."
@@ -42,7 +46,6 @@ L["CFG_PERS_EMOTE_TT"] = "Emotes for this event. Each emote must begin with a ne
 	"To override any inherited emotes without giving other emotes, enter the letters 'NA' (without quotes)."
 L["CFG_PERS_EMOTE_SOMEONEATPET"] = "Someone at your pet/companion"
 L["CFG_PERS_EMOTE_SOMEONEATYOU"] = "Someone at you"
-L["CFG_PERS_EMOTE_SOMEONENOTARGET"] = "Someone without a target"
 L["CFG_PERS_EMOTE_YOUATPET"] = "You at your pet/companion"
 L["CFG_PERS_EMOTE_YOUATTARGET"] = "You at target"
 L["CFG_PERS_EMOTE_YOUNOTARGET"] = "You without a target"
@@ -57,7 +60,7 @@ L["CFG_PERS_EMOTE_GENDERDESC"] = "Note: This section can be left empty if you do
 L["CFG_PERS_EVENT_EMOTES"] = "Emotes"
 
 L["CFG_PERS_RANDOM_EMOTES_DEFAULT"] = "Default"
-L["CFG_PERS_RANDOM_EMOTES_AFK"] = "When player is 'away'"
+L["CFG_PERS_RANDOM_EMOTES_AFK"] = "When player is 'Away'"
 L["CFG_PERS_RANDOM_EMOTES_INCOMBAT"] = "When player in combat"
 
 L["CFG_PETS"] = "Combat Pets"
