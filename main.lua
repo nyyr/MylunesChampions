@@ -65,7 +65,7 @@ MylunesChampions.lastEmoteTimer = nil
 
 MylunesChampions.playerName = UnitName("player")
 MylunesChampions.playerMistress = ""
-if UnitSex("player") == 2 then
+if UnitSex("player") == 3 then
 	MylunesChampions.playerMistress = "m" -- player character is female
 end
 
@@ -456,7 +456,9 @@ function MylunesChampions:GetCompanionEmotes(event, how)
 	local g = self:GetCompanionSex()
 	local s = nil
 	
-	if g then 
+	--self:Debug(d_notice, "CompanionSex: "..g..", ".."UnitSex(player): "..UnitSex("player")..", mistress: "..MylunesChampions.playerMistress)
+	
+	if g then
 		s = self:GetRawEmotes(p, event, g..MylunesChampions.playerMistress.."_"..how)
 		if not s then
 			s = self:GetRawEmotes(p, event, g.."_"..how)
