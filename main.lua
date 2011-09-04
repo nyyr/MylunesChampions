@@ -692,6 +692,9 @@ function MylunesChampions:GetCurrentCompanion()
 	for i=1,GetNumCompanions("CRITTER") do
 		local creatureID, creatureName, creatureSpellID, icon, issummoned = GetCompanionInfo("CRITTER", i)
 		--self:Debug(d_notice, creatureID .. " " .. creatureName .. " (" .. tostring(issummoned) .. ")")
+		if self.db.profile.C[creatureID] == nil then
+			self:Debug(d_warn, "WARN: Companion with ID "..tostring(creatureID).." ("..tostring(creatureName)..") not found in config.")
+		end
 		if issummoned then
 			return creatureName, creatureID
 		end
@@ -748,7 +751,7 @@ end
 ----------------------------------------------
 function MylunesChampions:GetCompanionSex()
 	local _, id = self:GetCurrentCompanion()
-	if id and self.db.profile.C[id].s then
+	if id and self.db.profile.C[id] and self.db.profile.C[id].s then
 		return self.db.profile.C[id].s
 	end
 	return nil
