@@ -374,16 +374,16 @@ end
 function MylunesChampions:OnRandomEmote()
 	local t = GetTime()
 	local last = self.lastRandomEmote
-	if self.lastAutoEmote > self.lastRandomEmote then
-		last = self.lastAutoEmote
-	end
+	--if self.lastAutoEmote > self.lastRandomEmote then
+		--last = self.lastAutoEmote
+	--end
 	
 	if t - last > self.db.profile.randomEmoteBackoff then
 		local s = self:GetRandomCompanionEmote()
 		if s then
 			self:CompanionEmote(s)
 			self.lastRandomEmote = t
-			self.lastAutoEmote = t
+			--self.lastAutoEmote = t
 		end
 	end
 end
@@ -693,7 +693,8 @@ function MylunesChampions:GetCurrentCompanion()
 		local creatureID, creatureName, creatureSpellID, icon, issummoned = GetCompanionInfo("CRITTER", i)
 		--self:Debug(d_notice, creatureID .. " " .. creatureName .. " (" .. tostring(issummoned) .. ")")
 		if self.db.profile.C[creatureID] == nil then
-			self:Debug(d_warn, "WARN: Companion with ID "..tostring(creatureID).." ("..tostring(creatureName)..") not found in config.")
+			self.db.profile.C[creatureID] = { n = creatureName, p = "Default" }
+			self:Debug(d_info, "Added companion with ID "..tostring(creatureID).." ("..tostring(creatureName)..").")
 		end
 		if issummoned then
 			return creatureName, creatureID
