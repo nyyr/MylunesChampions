@@ -156,16 +156,14 @@ local configOptionsTablePersonalitiesButtons = {
 		desc	= L["CFG_PERS_NEW_TT"],
 		order	= 1,
 		func	= function ()
-			MylunesChampions:Printf("NYI")
-		end,
-	},
-	delete = {
-		type 	= "execute",
-		name 	= L["CFG_PERS_DELETE"],
-		desc	= L["CFG_PERS_DELETE_TT"],
-		order	= 2,
-		func	= function ()
-			MylunesChampions:Printf("NYI")
+			local p = MylunesChampions.db.profile.P[MylunesChampions.db.profile.emoteLocale]
+			if p["<new>"] then
+				MylunesChampions:Printf(L["CFG_PERS_EXISTS"])
+			else
+				p["<new>"] = { INHERIT = nil }
+				MylunesChampions:RebuildConfig()
+				AceConfigRegistry:NotifyChange("MylunesChampions_Personalities")
+			end
 		end,
 	},
 }
@@ -175,16 +173,50 @@ local configOptionsPersonalityTemplate = {
 	name		= "<new>",
 	order		= 10,
 	args		= {
+		delete = {
+			type 	= "execute",
+			name 	= L["CFG_PERS_DELETE"],
+			desc	= L["CFG_PERS_DELETE_TT"],
+			order	= 0,
+			func	= function (info)
+				if MylunesChampions.defaults.profile.P[MylunesChampions.db.profile.emoteLocale][info[#info-1]] then
+					MylunesChampions:Printf(L["CFG_PERS_CANNOT_DELETE"])
+				else
+					MylunesChampions.db.profile.P[MylunesChampions.db.profile.emoteLocale][info[#info-1]] = nil
+					MylunesChampions:RebuildConfig()
+					AceConfigRegistry:NotifyChange("MylunesChampions_Personalities")
+				end
+			end,
+		},
+		authors = {
+			type	= "description",
+			name	= L["Authors"]..": N/A",
+			order	= 1,
+		},
 		name = {
 			type	= "input",
 			name	= L["CFG_PERS_NAME"],
 			desc	= L["CFG_PERS_NAME_TT"],
-			order	= 1,
+			order	= 2,
 			get		= function (info)
 				return info[#info-1]
 			end,
 			set		= function (info, v)
-				MylunesChampions:Printf("NYI")
+				if not (v == info[#info-1]) then
+					if MylunesChampions.defaults.profile.P[MylunesChampions.db.profile.emoteLocale][info[#info-1]] then
+						MylunesChampions:Printf(L["CFG_PERS_CANNOT_RENAME"])
+					else
+						local p = MylunesChampions.db.profile.P[MylunesChampions.db.profile.emoteLocale]
+						if p[v] == nil then
+							p[v] = p[info[#info-1]]
+							p[info[#info-1]] = nil
+							MylunesChampions:RebuildConfig()
+							AceConfigRegistry:NotifyChange("MylunesChampions_Personalities")
+						else
+							MylunesChampions:Printf(L["CFG_PERS_EXISTS"])
+						end
+					end
+				end
 			end,
 		},
 		base = {
@@ -192,7 +224,7 @@ local configOptionsPersonalityTemplate = {
 			name	= L["CFG_PERS_BASE"],
 			desc	= L["CFG_PERS_BASE_TT"],
 			values	= { L["CFG_PERS_BASE_NONE"] },
-			order	= 2,
+			order	= 3,
 			get		= function (info)
 				local i = MylunesChampions_TableFind(MylunesChampions.PersTable, 
 					MylunesChampions.db.profile.P[MylunesChampions.db.profile.emoteLocale][info[#info-1]]["INHERIT"])
@@ -203,7 +235,16 @@ local configOptionsPersonalityTemplate = {
 				end
 			end,
 			set		= function (info, v)
-				MylunesChampions:Printf("NYI")
+				local p = MylunesChampions.db.profile.P[MylunesChampions.db.profile.emoteLocale]
+				if v > 1 then
+					if not (p[MylunesChampions.PersTable[v]]) then
+						MylunesChampions:Printf("ERR: Personality "..MylunesChampions.PersTable[v].." not found.")
+					else
+						p[info[#info-1]]["INHERIT"] = MylunesChampions.PersTable[v]
+					end
+				else
+					p[info[#info-1]]["INHERIT"] = nil
+				end
 			end,
 		},
 	},
@@ -1033,6 +1074,8 @@ function MylunesChampions:RebuildConfig()
 		for en,s in pairs(LPDef) do
 			if en == "INHERIT" then
 				-- nothing
+			elseif en == "AUTHORS" then
+				self.configOptionsTablePersonalities.args[n].args["authors"].name = L["Authors"]..": "..tostring(s)
 			elseif string.find(en, "^EMOTE_") then
 				local t = MylunesChampions_TableDeepCopy(configOptionsEmoteTemplate)
 				t.name = string.gsub(en, "^EMOTE_", "Emote ")

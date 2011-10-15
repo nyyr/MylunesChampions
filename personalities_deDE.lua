@@ -2,7 +2,7 @@
 
 ["Default"] = {
 	INHERIT = nil,
-	NAME = "Standard",
+	AUTHORS = "nyyr",
 	
 	EMOTE_BYE = {
 		someoneAtPet = "ist traurig, dass %s geht.",
@@ -38,15 +38,16 @@
 	},
 	EVENT_PLAYER_LOWHEALTH = {
 		emotes = "versucht den Gegner abzuspotten. Grrar!\nversucht sein Herrchen zu retten. Grrr!",
-		
-		f_emotes = "versucht den Gegner abzuspotten. Grrar!\nversucht ihren Meister zu retten. Grrr!",
+		["fm_emotes"] = "versucht den Gegner abzuspotten. Grrar!\nversucht ihr Frauchen zu retten. Grrr!",
+		["f_emotes"] = "versucht den Gegner abzuspotten. Grrar!\nversucht ihr Herrchen zu retten. Grrr!",
+		["mm_emotes"] = "versucht den Gegner abzuspotten. Grrar!\nversucht sein Frauchen zu retten. Grrr!",
 	},
 	EVENT_TARGET_LOWHEALTH = {
 		emotes = "",
 	},
 	EVENT_RANDOM = {
 		emotes = "ist gelangweilt.\nwill etwas unternehmen!\nmacht ein Nickerchen.\nist hungrig.\nversucht nach einer Fliege zu schnappen.",
-		incombat = "nervt der ganze Lärm. Ruhe!\nversteckt sich hinter seinem Herrchen.",
+		incombat = "nervt der ganze Lärm. Ruhe!\nversteckt sich hinter seinem Herrchen.\nschnappt nach dem Gegner.",
 		afk = "stubst sein Herrchen an.\nsucht nach ein paar Leckerlis in der Tasche seines Herrchens.",
 		f_afk = "stubst ihr Herrchen an.\nsucht nach ein paar Leckerlis in der Tasche ihres Herrchens.",
 		mm_afk = "stubst sein Frauchen an.\nsucht nach ein paar Leckerlis in der Tasche seines Frauchens.",
@@ -56,6 +57,7 @@
 
 ["Beast (cute)"] = {
 	INHERIT = "Default",
+	AUTHORS = "nyyr",
 	
 	EMOTE_CHEER = {
 		someoneAtPet = "quiekt vor Freude.",
@@ -71,14 +73,11 @@
 		youNoTarget = "ist aufgeregt.",
 		youAtPet = "quiekt vor Freude.",
 	},
-	
-	["EVENT_RANDOM"] = {
-		["incombat"] = "nervt der ganze Lärm. Ruhe!\nversteckt sich hinter seinem Herrchen.\nschnappt nach dem Gegner.",
-	},
 },
 
 ["Beast (ferocious)"] = {
 	INHERIT = "Default",
+	AUTHORS = "nyyr",
 	
 	["EMOTE_WAVE"] = {
 		["someoneAtPet"] = "schaut fragend.\nknurrt %s an.",

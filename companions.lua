@@ -203,6 +203,7 @@ MylunesChampions.C = {
 				[29726] = {
 					["p"] = "Beast (cute)",
 					["n"] = "Mr. Chilly",
+					["s"] = "m",
 				},
 				[35399] = {
 					["p"] = "Default",
@@ -247,6 +248,62 @@ MylunesChampions.C = {
 				[20408] = {
 					["p"] = "Default",
 					["n"] = "Mana Wyrmling",
+				},
+				[10598] = {
+					["n"] = "Smolderweb Hatchling",
+					["p"] = "Default",
+				},
+				[24753] = {
+					["p"] = "Default",
+					["n"] = "Pint-Sized Pink Pachyderm",
+				},
+				[7565] = {
+					["n"] = "Black Kingsnake",
+					["p"] = "Default",
+				},
+				[15706] = {
+					["n"] = "Winter Reindeer",
+					["p"] = "Default",
+				},
+				[16701] = {
+					["p"] = "Default",
+					["n"] = "Spirit of Summer",
+				},
+				[21055] = {
+					["p"] = "Default",
+					["n"] = "Golden Dragonhawk Hatchling",
+				},
+				[34278] = {
+					["p"] = "Default",
+					["n"] = "Withers",
+				},
+				[53225] = {
+					["p"] = "Default",
+					["n"] = "Pterrordax Hatchling",
+				},
+				[9662] = {
+					["p"] = "Default",
+					["n"] = "Sprite Darter Hatchling",
+				},
+				[50586] = {
+					["n"] = "Mr. Grubbs",
+					["p"] = "Default",
+				},
+				[16547] = {
+					["p"] = "Default",
+					["n"] = "Speedy",
+				},
+				[28513] = {
+					["p"] = "Default",
+					["n"] = "Vampiric Batling",
+				},
+				[50545] = {
+					["p"] = "Default",
+					["n"] = "Magic Lamp",
+				},
+				[7383] = {
+					["p"] = "Default",
+					["n"] = "Black Tabby Cat",
 				},
 }
 
