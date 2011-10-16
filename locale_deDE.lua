@@ -31,6 +31,10 @@ L["CFG_RANDOMEMOTEBACKOFF_TT"] = "Setzt den 'Cooldown' von zufälligen Emotes."
 
 L["CFG_PERS_NEW"] = "Neu"
 L["CFG_PERS_NEW_TT"] = "Erstellt eine neue Persönlichkeit."
+L["CFG_PERS_IMPORT_CHINCHILLA"] = "Importiere Chinchilla"
+L["CFG_PERS_IMPORT_CHINCHILLA_TT"] = "Importiert Emotes von Chinchilla Critter Emote. Das Addon muss installiert und aktiviert sein. Funktioniert nur für 'enUS'."
+L["CFG_PERS_IMPORT_CHINCHILLA_WRONG_LOCALE"] = "Die aktuelle Sprache wird von Chinchilla Critter Emote nicht unterstützt."
+L["CFG_PERS_IMPORT_CHINCHILLA_INACTIVE"] = "Das Addon Chinchilla Critter Emote ist nicht installiert oder nicht aktiv."
 L["CFG_PERS_DELETE"] = "Löschen"
 L["CFG_PERS_DELETE_TT"] = "Löscht diese Persönlichkeit. Mitgelieferte Persönlichkeiten können nicht gelöscht werden."
 L["CFG_PERS_EXISTS"] = "Persönlichkeit mit diesem Namen existiert bereits."
@@ -42,12 +46,13 @@ L["CFG_PERS_BASE"] = "Basis-Persönlichkeit"
 L["CFG_PERS_BASE_TT"] = "Erbt die Emotes einer anderen Persönlichkeit."
 L["CFG_PERS_BASE_NONE"] = "Keine"
 
+L["CFG_PERS_EMOTE"] = "Emote"
 L["CFG_PERS_EMOTE_TT"] = "Emotes für dieses Ereignis. Jedes Emote muss in einer neuen Zeile beginnen. Ihr könnt die folgenden Platzhalter verwenden:\n"..
 	"%t: Name Eures Ziels oder des Emote-Ziels.\n"..
 	"%s: Name des Spielers, der das ursprüngliche Emote ausgelöst hat.\n"..
 	"Um das Emote auf seinen vererbten Wert zurückzusetzen, löscht einfach dieses Feld. "..
 	"Um die vererbten Emotes zu überschreiben ohne ein anderes anzugeben, gebt die Buchstaben 'NA' (ohne Anführungszeichen) ein."
-L["CFG_PERS_EMOTE_SOMEONEATPET"] = "Jemand zu Eurem Begleiter/Haustier"
+L["CFG_PERS_EMOTE_SOMEONEATPET"] = "Jemand (inkl. Euch) zu Eurem Begleiter/Haustier"
 L["CFG_PERS_EMOTE_SOMEONEATYOU"] = "Jemand zu Euch"
 L["CFG_PERS_EMOTE_YOUATPET"] = "Ihr zu Eurem Begleiter/Haustier"
 L["CFG_PERS_EMOTE_YOUATTARGET"] = "Ihr zu Eurem Ziel"
@@ -60,6 +65,7 @@ L["CFG_PERS_EMOTE_MALE_MISTRESS"] = "Männliche Begleiter mit Frauchen"
 L["CFG_PERS_EMOTE_FEMALE_MISTRESS"] = "Weibliche Begleiter mit Frauchen"
 L["CFG_PERS_EMOTE_GENDERDESC"] = "Hinweis: Dieser Bereich kann leer gelassen werden, wenn geschlechtsspezifische Emotes nicht notwendig sind."
 
+L["CFG_PERS_EVENT"] = "Event"
 L["CFG_PERS_EVENT_EMOTES"] = "Emotes"
 
 L["CFG_PERS_RANDOM_EMOTES_DEFAULT"] = "Standard"

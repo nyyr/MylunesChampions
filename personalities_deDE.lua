@@ -33,6 +33,52 @@
 		someoneAtPet = "schaut fragend.",
 		youAtPet = "schaut fragend.",
 	},
+	
+	EMOTE_AGREE = {},
+	EMOTE_AMAZE = {},
+	EMOTE_ANGRY = {},
+	EMOTE_APOLOGIZE = {},
+	EMOTE_APPLAUD = {},
+	EMOTE_BARK = {},
+	EMOTE_BECKON = {},
+	EMOTE_BEG = {},
+	EMOTE_BURP = {},
+	EMOTE_BITE = {},
+	EMOTE_BLINK = {},
+	EMOTE_BLEED = {},
+	EMOTE_BORED = {},
+	EMOTE_BOW = {},
+	EMOTE_KISS = {},
+	EMOTE_SCRATCH = {},
+	EMOTE_CHICKEN = {},
+	EMOTE_EAT = {},
+	EMOTE_CHUCKLE = {},
+	EMOTE_CLAP = {},
+	EMOTE_COLD = {},
+	EMOTE_CONFUSED = {},
+	EMOTE_CONGRATULATE = {},
+	EMOTE_COUGH = {},
+	EMOTE_COWER = {},
+	EMOTE_CRY = {},
+	EMOTE_CUDDLE = {},
+	EMOTE_CURIOUS = {},
+	EMOTE_CURTSEY = {},
+	EMOTE_DANCE = {},
+	EMOTE_DRINK = {},
+	EMOTE_FLEE = {},
+	EMOTE_FOLLOW = {},
+	EMOTE_HUNGRY = {},
+	EMOTE_GOLFCLAP = {},
+	EMOTE_GRIN = {},
+	EMOTE_HUG = {},
+	EMOTE_INSULT = {},
+	EMOTE_TIRED = {},
+	EMOTE_TRAIN = {},
+	EMOTE_THANK = {},
+	EMOTE_VICTORY = {},
+	EMOTE_WELCOME = {},
+	EMOTE_YAWN = {},
+	
 	EVENT_PET_LOWHEALTH = {
 		emotes = "",
 	},
@@ -57,7 +103,7 @@
 
 ["Beast (cute)"] = {
 	INHERIT = "Default",
-	AUTHORS = "nyyr",
+	AUTHORS = "nyyr, Hanouneh",
 	
 	EMOTE_CHEER = {
 		someoneAtPet = "quiekt vor Freude.",
@@ -72,6 +118,22 @@
 		youAtTarget = "ist voller Aufregung wegen %t.",
 		youNoTarget = "ist aufgeregt.",
 		youAtPet = "quiekt vor Freude.",
+	},
+	
+	["EVENT_RANDOM"] = {
+		["emotes"] = "ist gelangweilt.\nwill etwas unternehmen!\nmacht ein Nickerchen.\nist hungrig.\nversucht nach einer Fliege zu schnappen.\npinkelt seinem Herrchen ans Bein.\nführt ein Kunststückchen auf. Wie beeindruckend!",
+	},
+	["EMOTE_GREET"] = {
+		["youAtPet"] = "freut sich seinen Meister zu sehen.",
+	},
+},
+
+["Humanoid (silly)"] = {
+	INHERIT = "Default",
+	AUTHORS = "nyyr, Hanouneh",
+	
+	["EVENT_RANDOM"] = {
+		["incombat"] = "nervt der ganze Lärm. Ruhe!\nversteckt sich hinter seinem Meister.\ngeht solange shoppen bis der Kampf vorbei ist.\nbrüllt: 'Attackeeeee!!'",
 	},
 },
 

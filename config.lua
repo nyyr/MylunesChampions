@@ -19,6 +19,12 @@ local d_info = 2
 local d_notice = 3
 
 MylunesChampions.PersTable = { L["CFG_PERS_BASE_NONE"] }
+local EmoteTable = { }
+local EmoteIndex = 1
+local CurrentEmote = ""
+local EventTable = { }
+local EventIndex = 1
+local CurrentEvent = ""
 
 local function MylunesChampions_TableFind(t, s)
 	for i,n in ipairs(t) do
@@ -29,8 +35,27 @@ local function MylunesChampions_TableFind(t, s)
 	return nil
 end
 
-local function MylunesChampions_RawEmoteGetter(info)
+local function MylunesChampions_RawGetter(info)
 	local s = MylunesChampions:GetRawEmotes(info[#info-2], info[#info-1], info[#info])
+	if s then
+		return s
+	else
+		return "NA"
+	end
+end
+
+local function MylunesChampions_RawSetter(info, v)
+	s = strtrim(v)
+	if s == "" then	
+		s = nil -- erase
+	elseif s == "NA" then
+		s = "" -- override with empty value (N/A)
+	end
+	MylunesChampions:SetRawEmotes(info[#info-2], info[#info-1], info[#info], s)
+end
+
+local function MylunesChampions_RawEmoteGetter(info)
+	local s = MylunesChampions:GetRawEmotes(info[#info-2], CurrentEmote, info[#info])
 	if s then
 		return s
 	else
@@ -45,7 +70,26 @@ local function MylunesChampions_RawEmoteSetter(info, v)
 	elseif s == "NA" then
 		s = "" -- override with empty value (N/A)
 	end
-	MylunesChampions:SetRawEmotes(info[#info-2], info[#info-1], info[#info], s)
+	MylunesChampions:SetRawEmotes(info[#info-2], CurrentEmote, info[#info], s)
+end
+
+local function MylunesChampions_RawEventGetter(info)
+	local s = MylunesChampions:GetRawEmotes(info[#info-2], CurrentEvent, info[#info])
+	if s then
+		return s
+	else
+		return "NA"
+	end
+end
+
+local function MylunesChampions_RawEventSetter(info, v)
+	s = strtrim(v)
+	if s == "" then	
+		s = nil -- erase
+	elseif s == "NA" then
+		s = "" -- override with empty value (N/A)
+	end
+	MylunesChampions:SetRawEmotes(info[#info-2], CurrentEvent, info[#info], s)
 end
 
 ----------------------------------------------
@@ -166,6 +210,21 @@ local configOptionsTablePersonalitiesButtons = {
 			end
 		end,
 	},
+	importChinchillaCritterEmote = {
+		type 	= "execute",
+		name 	= L["CFG_PERS_IMPORT_CHINCHILLA"],
+		desc	= L["CFG_PERS_IMPORT_CHINCHILLA_TT"],
+		order	= 2,
+		func	= function ()
+			if (MylunesChampions.db.profile.emoteLocale == "enUS") then
+				MylunesChampions:ImportChinchillaCritterEmote()
+				MylunesChampions:RebuildConfig()
+				AceConfigRegistry:NotifyChange("MylunesChampions_Personalities")
+			else
+				MylunesChampions:Printf(L["CFG_PERS_IMPORT_CHINCHILLA_WRONG_LOCALE"])
+			end
+		end,
+	},
 }
 
 local configOptionsPersonalityTemplate = {
@@ -258,17 +317,49 @@ local configOptionsEmoteTemplate = {
 	name		= "Emote Template",
 	order		= 10,
 	args		= {
+		emote = {
+			type	= "select",
+			name	= L["CFG_PERS_EMOTE"],
+			desc	= L["CFG_PERS_EMOTE"],
+			values	= EmoteTable,
+			order	= 1,
+			get		= function (info)
+				return EmoteIndex
+			end,
+			set		= function (info, v)
+				EmoteIndex = v
+				CurrentEmote = EmoteTable[EmoteIndex]
+			end,
+		},
 		header = {
 			type		= "header",
 			name		= L["CFG_PERS_EMOTE_DEFAULT"],
 			order		= 10,
+		},
+		someoneAtPet = {
+			type		= "input",
+			name		= L["CFG_PERS_EMOTE_SOMEONEATPET"],
+			desc		= L["CFG_PERS_EMOTE_TT"],
+			multiline	= true,
+			order		= 12,
+			get			= MylunesChampions_RawEmoteGetter,
+			set			= MylunesChampions_RawEmoteSetter,
+		},
+		someoneAtYou = {
+			type		= "input",
+			name		= L["CFG_PERS_EMOTE_SOMEONEATYOU"],
+			desc		= L["CFG_PERS_EMOTE_TT"],
+			multiline	= true,
+			order		= 13,
+			get			= MylunesChampions_RawEmoteGetter,
+			set			= MylunesChampions_RawEmoteSetter,
 		},
 		youAtPet = {
 			type		= "input",
 			name		= L["CFG_PERS_EMOTE_YOUATPET"],
 			desc		= L["CFG_PERS_EMOTE_TT"],
 			multiline	= true,
-			order		= 12,
+			order		= 14,
 			get			= MylunesChampions_RawEmoteGetter,
 			set			= MylunesChampions_RawEmoteSetter,
 		},
@@ -277,31 +368,13 @@ local configOptionsEmoteTemplate = {
 			name		= L["CFG_PERS_EMOTE_YOUATTARGET"],
 			desc		= L["CFG_PERS_EMOTE_TT"],
 			multiline	= true,
-			order		= 13,
+			order		= 15,
 			get			= MylunesChampions_RawEmoteGetter,
 			set			= MylunesChampions_RawEmoteSetter,
 		},
 		youNoTarget = {
 			type		= "input",
 			name		= L["CFG_PERS_EMOTE_YOUNOTARGET"],
-			desc		= L["CFG_PERS_EMOTE_TT"],
-			multiline	= true,
-			order		= 14,
-			get			= MylunesChampions_RawEmoteGetter,
-			set			= MylunesChampions_RawEmoteSetter,
-		},
-		someoneAtPet = {
-			type		= "input",
-			name		= L["CFG_PERS_EMOTE_SOMEONEATPET"],
-			desc		= L["CFG_PERS_EMOTE_TT"],
-			multiline	= true,
-			order		= 15,
-			get			= MylunesChampions_RawEmoteGetter,
-			set			= MylunesChampions_RawEmoteSetter,
-		},
-		someoneAtYou = {
-			type		= "input",
-			name		= L["CFG_PERS_EMOTE_SOMEONEATYOU"],
 			desc		= L["CFG_PERS_EMOTE_TT"],
 			multiline	= true,
 			order		= 16,
@@ -318,12 +391,30 @@ local configOptionsEmoteTemplate = {
 			name		= L["CFG_PERS_EMOTE_GENDERDESC"],
 			order		= 21,
 		},
+		m_someoneAtPet = {
+			type		= "input",
+			name		= L["CFG_PERS_EMOTE_SOMEONEATPET"],
+			desc		= L["CFG_PERS_EMOTE_TT"],
+			multiline	= true,
+			order		= 22,
+			get			= MylunesChampions_RawEmoteGetter,
+			set			= MylunesChampions_RawEmoteSetter,
+		},
+		m_someoneAtYou = {
+			type		= "input",
+			name		= L["CFG_PERS_EMOTE_SOMEONEATYOU"],
+			desc		= L["CFG_PERS_EMOTE_TT"],
+			multiline	= true,
+			order		= 23,
+			get			= MylunesChampions_RawEmoteGetter,
+			set			= MylunesChampions_RawEmoteSetter,
+		},
 		m_youAtPet = {
 			type		= "input",
 			name		= L["CFG_PERS_EMOTE_YOUATPET"],
 			desc		= L["CFG_PERS_EMOTE_TT"],
 			multiline	= true,
-			order		= 22,
+			order		= 24,
 			get			= MylunesChampions_RawEmoteGetter,
 			set			= MylunesChampions_RawEmoteSetter,
 		},
@@ -332,31 +423,13 @@ local configOptionsEmoteTemplate = {
 			name		= L["CFG_PERS_EMOTE_YOUATTARGET"],
 			desc		= L["CFG_PERS_EMOTE_TT"],
 			multiline	= true,
-			order		= 23,
+			order		= 25,
 			get			= MylunesChampions_RawEmoteGetter,
 			set			= MylunesChampions_RawEmoteSetter,
 		},
 		m_youNoTarget = {
 			type		= "input",
 			name		= L["CFG_PERS_EMOTE_YOUNOTARGET"],
-			desc		= L["CFG_PERS_EMOTE_TT"],
-			multiline	= true,
-			order		= 24,
-			get			= MylunesChampions_RawEmoteGetter,
-			set			= MylunesChampions_RawEmoteSetter,
-		},
-		m_someoneAtPet = {
-			type		= "input",
-			name		= L["CFG_PERS_EMOTE_SOMEONEATPET"],
-			desc		= L["CFG_PERS_EMOTE_TT"],
-			multiline	= true,
-			order		= 25,
-			get			= MylunesChampions_RawEmoteGetter,
-			set			= MylunesChampions_RawEmoteSetter,
-		},
-		m_someoneAtYou = {
-			type		= "input",
-			name		= L["CFG_PERS_EMOTE_SOMEONEATYOU"],
 			desc		= L["CFG_PERS_EMOTE_TT"],
 			multiline	= true,
 			order		= 26,
@@ -373,12 +446,30 @@ local configOptionsEmoteTemplate = {
 			name		= L["CFG_PERS_EMOTE_GENDERDESC"],
 			order		= 31,
 		},
+		f_someoneAtPet = {
+			type		= "input",
+			name		= L["CFG_PERS_EMOTE_SOMEONEATPET"],
+			desc		= L["CFG_PERS_EMOTE_TT"],
+			multiline	= true,
+			order		= 32,
+			get			= MylunesChampions_RawEmoteGetter,
+			set			= MylunesChampions_RawEmoteSetter,
+		},
+		f_someoneAtYou = {
+			type		= "input",
+			name		= L["CFG_PERS_EMOTE_SOMEONEATYOU"],
+			desc		= L["CFG_PERS_EMOTE_TT"],
+			multiline	= true,
+			order		= 33,
+			get			= MylunesChampions_RawEmoteGetter,
+			set			= MylunesChampions_RawEmoteSetter,
+		},
 		f_youAtPet = {
 			type		= "input",
 			name		= L["CFG_PERS_EMOTE_YOUATPET"],
 			desc		= L["CFG_PERS_EMOTE_TT"],
 			multiline	= true,
-			order		= 32,
+			order		= 34,
 			get			= MylunesChampions_RawEmoteGetter,
 			set			= MylunesChampions_RawEmoteSetter,
 		},
@@ -387,31 +478,13 @@ local configOptionsEmoteTemplate = {
 			name		= L["CFG_PERS_EMOTE_YOUATTARGET"],
 			desc		= L["CFG_PERS_EMOTE_TT"],
 			multiline	= true,
-			order		= 33,
+			order		= 35,
 			get			= MylunesChampions_RawEmoteGetter,
 			set			= MylunesChampions_RawEmoteSetter,
 		},
 		f_youNoTarget = {
 			type		= "input",
 			name		= L["CFG_PERS_EMOTE_YOUNOTARGET"],
-			desc		= L["CFG_PERS_EMOTE_TT"],
-			multiline	= true,
-			order		= 34,
-			get			= MylunesChampions_RawEmoteGetter,
-			set			= MylunesChampions_RawEmoteSetter,
-		},
-		f_someoneAtPet = {
-			type		= "input",
-			name		= L["CFG_PERS_EMOTE_SOMEONEATPET"],
-			desc		= L["CFG_PERS_EMOTE_TT"],
-			multiline	= true,
-			order		= 35,
-			get			= MylunesChampions_RawEmoteGetter,
-			set			= MylunesChampions_RawEmoteSetter,
-		},
-		f_someoneAtYou = {
-			type		= "input",
-			name		= L["CFG_PERS_EMOTE_SOMEONEATYOU"],
 			desc		= L["CFG_PERS_EMOTE_TT"],
 			multiline	= true,
 			order		= 36,
@@ -428,12 +501,30 @@ local configOptionsEmoteTemplate = {
 			name		= L["CFG_PERS_EMOTE_GENDERDESC"],
 			order		= 41,
 		},
+		mm_someoneAtPet = {
+			type		= "input",
+			name		= L["CFG_PERS_EMOTE_SOMEONEATPET"],
+			desc		= L["CFG_PERS_EMOTE_TT"],
+			multiline	= true,
+			order		= 42,
+			get			= MylunesChampions_RawEmoteGetter,
+			set			= MylunesChampions_RawEmoteSetter,
+		},
+		mm_someoneAtYou = {
+			type		= "input",
+			name		= L["CFG_PERS_EMOTE_SOMEONEATYOU"],
+			desc		= L["CFG_PERS_EMOTE_TT"],
+			multiline	= true,
+			order		= 43,
+			get			= MylunesChampions_RawEmoteGetter,
+			set			= MylunesChampions_RawEmoteSetter,
+		},
 		mm_youAtPet = {
 			type		= "input",
 			name		= L["CFG_PERS_EMOTE_YOUATPET"],
 			desc		= L["CFG_PERS_EMOTE_TT"],
 			multiline	= true,
-			order		= 42,
+			order		= 44,
 			get			= MylunesChampions_RawEmoteGetter,
 			set			= MylunesChampions_RawEmoteSetter,
 		},
@@ -442,31 +533,13 @@ local configOptionsEmoteTemplate = {
 			name		= L["CFG_PERS_EMOTE_YOUATTARGET"],
 			desc		= L["CFG_PERS_EMOTE_TT"],
 			multiline	= true,
-			order		= 43,
+			order		= 45,
 			get			= MylunesChampions_RawEmoteGetter,
 			set			= MylunesChampions_RawEmoteSetter,
 		},
 		mm_youNoTarget = {
 			type		= "input",
 			name		= L["CFG_PERS_EMOTE_YOUNOTARGET"],
-			desc		= L["CFG_PERS_EMOTE_TT"],
-			multiline	= true,
-			order		= 44,
-			get			= MylunesChampions_RawEmoteGetter,
-			set			= MylunesChampions_RawEmoteSetter,
-		},
-		mm_someoneAtPet = {
-			type		= "input",
-			name		= L["CFG_PERS_EMOTE_SOMEONEATPET"],
-			desc		= L["CFG_PERS_EMOTE_TT"],
-			multiline	= true,
-			order		= 45,
-			get			= MylunesChampions_RawEmoteGetter,
-			set			= MylunesChampions_RawEmoteSetter,
-		},
-		mm_someoneAtYou = {
-			type		= "input",
-			name		= L["CFG_PERS_EMOTE_SOMEONEATYOU"],
 			desc		= L["CFG_PERS_EMOTE_TT"],
 			multiline	= true,
 			order		= 46,
@@ -483,12 +556,30 @@ local configOptionsEmoteTemplate = {
 			name		= L["CFG_PERS_EMOTE_GENDERDESC"],
 			order		= 51,
 		},
+		fm_someoneAtPet = {
+			type		= "input",
+			name		= L["CFG_PERS_EMOTE_SOMEONEATPET"],
+			desc		= L["CFG_PERS_EMOTE_TT"],
+			multiline	= true,
+			order		= 52,
+			get			= MylunesChampions_RawEmoteGetter,
+			set			= MylunesChampions_RawEmoteSetter,
+		},
+		fm_someoneAtYou = {
+			type		= "input",
+			name		= L["CFG_PERS_EMOTE_SOMEONEATYOU"],
+			desc		= L["CFG_PERS_EMOTE_TT"],
+			multiline	= true,
+			order		= 53,
+			get			= MylunesChampions_RawEmoteGetter,
+			set			= MylunesChampions_RawEmoteSetter,
+		},
 		fm_youAtPet = {
 			type		= "input",
 			name		= L["CFG_PERS_EMOTE_YOUATPET"],
 			desc		= L["CFG_PERS_EMOTE_TT"],
 			multiline	= true,
-			order		= 52,
+			order		= 54,
 			get			= MylunesChampions_RawEmoteGetter,
 			set			= MylunesChampions_RawEmoteSetter,
 		},
@@ -497,31 +588,13 @@ local configOptionsEmoteTemplate = {
 			name		= L["CFG_PERS_EMOTE_YOUATTARGET"],
 			desc		= L["CFG_PERS_EMOTE_TT"],
 			multiline	= true,
-			order		= 53,
+			order		= 55,
 			get			= MylunesChampions_RawEmoteGetter,
 			set			= MylunesChampions_RawEmoteSetter,
 		},
 		fm_youNoTarget = {
 			type		= "input",
 			name		= L["CFG_PERS_EMOTE_YOUNOTARGET"],
-			desc		= L["CFG_PERS_EMOTE_TT"],
-			multiline	= true,
-			order		= 54,
-			get			= MylunesChampions_RawEmoteGetter,
-			set			= MylunesChampions_RawEmoteSetter,
-		},
-		fm_someoneAtPet = {
-			type		= "input",
-			name		= L["CFG_PERS_EMOTE_SOMEONEATPET"],
-			desc		= L["CFG_PERS_EMOTE_TT"],
-			multiline	= true,
-			order		= 55,
-			get			= MylunesChampions_RawEmoteGetter,
-			set			= MylunesChampions_RawEmoteSetter,
-		},
-		fm_someoneAtYou = {
-			type		= "input",
-			name		= L["CFG_PERS_EMOTE_SOMEONEATYOU"],
 			desc		= L["CFG_PERS_EMOTE_TT"],
 			multiline	= true,
 			order		= 56,
@@ -539,6 +612,20 @@ local configOptionsEventTemplate = {
 	name		= "Event Template",
 	order		= 20,
 	args		= {
+		event = {
+			type	= "select",
+			name	= L["CFG_PERS_EVENT"],
+			desc	= L["CFG_PERS_EVENT"],
+			values	= EventTable,
+			order	= 1,
+			get		= function (info)
+				return EventIndex
+			end,
+			set		= function (info, v)
+				EventIndex = v
+				CurrentEvent = EventTable[EventIndex]
+			end,
+		},
 		header = {
 			type		= "header",
 			name		= L["CFG_PERS_EMOTE_DEFAULT"],
@@ -550,8 +637,8 @@ local configOptionsEventTemplate = {
 			desc		= L["CFG_PERS_EMOTE_TT"],
 			multiline	= true,
 			order		= 11,
-			get			= MylunesChampions_RawEmoteGetter,
-			set			= MylunesChampions_RawEmoteSetter,
+			get			= MylunesChampions_RawEventGetter,
+			set			= MylunesChampions_RawEventSetter,
 		},
 		m_header = {
 			type		= "header",
@@ -569,8 +656,8 @@ local configOptionsEventTemplate = {
 			desc		= L["CFG_PERS_EMOTE_TT"],
 			multiline	= true,
 			order		= 22,
-			get			= MylunesChampions_RawEmoteGetter,
-			set			= MylunesChampions_RawEmoteSetter,
+			get			= MylunesChampions_RawEventGetter,
+			set			= MylunesChampions_RawEventSetter,
 		},
 		f_header = {
 			type		= "header",
@@ -588,8 +675,8 @@ local configOptionsEventTemplate = {
 			desc		= L["CFG_PERS_EMOTE_TT"],
 			multiline	= true,
 			order		= 32,
-			get			= MylunesChampions_RawEmoteGetter,
-			set			= MylunesChampions_RawEmoteSetter,
+			get			= MylunesChampions_RawEventGetter,
+			set			= MylunesChampions_RawEventSetter,
 		},
 		mm_header = {
 			type		= "header",
@@ -607,8 +694,8 @@ local configOptionsEventTemplate = {
 			desc		= L["CFG_PERS_EMOTE_TT"],
 			multiline	= true,
 			order		= 42,
-			get			= MylunesChampions_RawEmoteGetter,
-			set			= MylunesChampions_RawEmoteSetter,
+			get			= MylunesChampions_RawEventGetter,
+			set			= MylunesChampions_RawEventSetter,
 		},
 		fm_header = {
 			type		= "header",
@@ -626,8 +713,8 @@ local configOptionsEventTemplate = {
 			desc		= L["CFG_PERS_EMOTE_TT"],
 			multiline	= true,
 			order		= 52,
-			get			= MylunesChampions_RawEmoteGetter,
-			set			= MylunesChampions_RawEmoteSetter,
+			get			= MylunesChampions_RawEventGetter,
+			set			= MylunesChampions_RawEventSetter,
 		},
 	},
 }
@@ -651,8 +738,8 @@ local configOptionsRandomTemplate = {
 			desc		= L["CFG_PERS_EMOTE_TT"],
 			multiline	= true,
 			order		= 1,
-			get			= MylunesChampions_RawEmoteGetter,
-			set			= MylunesChampions_RawEmoteSetter,
+			get			= MylunesChampions_RawGetter,
+			set			= MylunesChampions_RawSetter,
 		},
 		afk = {
 			type		= "input",
@@ -660,8 +747,8 @@ local configOptionsRandomTemplate = {
 			desc		= L["CFG_PERS_EMOTE_TT"],
 			multiline	= true,
 			order		= 2,
-			get			= MylunesChampions_RawEmoteGetter,
-			set			= MylunesChampions_RawEmoteSetter,
+			get			= MylunesChampions_RawGetter,
+			set			= MylunesChampions_RawSetter,
 		},
 		incombat = {
 			type		= "input",
@@ -669,8 +756,8 @@ local configOptionsRandomTemplate = {
 			desc		= L["CFG_PERS_EMOTE_TT"],
 			multiline	= true,
 			order		= 3,
-			get			= MylunesChampions_RawEmoteGetter,
-			set			= MylunesChampions_RawEmoteSetter,
+			get			= MylunesChampions_RawGetter,
+			set			= MylunesChampions_RawSetter,
 		},
 		m_header = {
 			type		= "header",
@@ -688,8 +775,8 @@ local configOptionsRandomTemplate = {
 			desc		= L["CFG_PERS_EMOTE_TT"],
 			multiline	= true,
 			order		= 12,
-			get			= MylunesChampions_RawEmoteGetter,
-			set			= MylunesChampions_RawEmoteSetter,
+			get			= MylunesChampions_RawGetter,
+			set			= MylunesChampions_RawSetter,
 		},
 		m_afk = {
 			type		= "input",
@@ -697,8 +784,8 @@ local configOptionsRandomTemplate = {
 			desc		= L["CFG_PERS_EMOTE_TT"],
 			multiline	= true,
 			order		= 13,
-			get			= MylunesChampions_RawEmoteGetter,
-			set			= MylunesChampions_RawEmoteSetter,
+			get			= MylunesChampions_RawGetter,
+			set			= MylunesChampions_RawSetter,
 		},
 		m_incombat = {
 			type		= "input",
@@ -706,8 +793,8 @@ local configOptionsRandomTemplate = {
 			desc		= L["CFG_PERS_EMOTE_TT"],
 			multiline	= true,
 			order		= 14,
-			get			= MylunesChampions_RawEmoteGetter,
-			set			= MylunesChampions_RawEmoteSetter,
+			get			= MylunesChampions_RawGetter,
+			set			= MylunesChampions_RawSetter,
 		},
 		f_header = {
 			type		= "header",
@@ -725,8 +812,8 @@ local configOptionsRandomTemplate = {
 			desc		= L["CFG_PERS_EMOTE_TT"],
 			multiline	= true,
 			order		= 22,
-			get			= MylunesChampions_RawEmoteGetter,
-			set			= MylunesChampions_RawEmoteSetter,
+			get			= MylunesChampions_RawGetter,
+			set			= MylunesChampions_RawSetter,
 		},
 		f_afk = {
 			type		= "input",
@@ -734,8 +821,8 @@ local configOptionsRandomTemplate = {
 			desc		= L["CFG_PERS_EMOTE_TT"],
 			multiline	= true,
 			order		= 23,
-			get			= MylunesChampions_RawEmoteGetter,
-			set			= MylunesChampions_RawEmoteSetter,
+			get			= MylunesChampions_RawGetter,
+			set			= MylunesChampions_RawSetter,
 		},
 		f_incombat = {
 			type		= "input",
@@ -743,8 +830,8 @@ local configOptionsRandomTemplate = {
 			desc		= L["CFG_PERS_EMOTE_TT"],
 			multiline	= true,
 			order		= 24,
-			get			= MylunesChampions_RawEmoteGetter,
-			set			= MylunesChampions_RawEmoteSetter,
+			get			= MylunesChampions_RawGetter,
+			set			= MylunesChampions_RawSetter,
 		},
 		mm_header = {
 			type		= "header",
@@ -762,8 +849,8 @@ local configOptionsRandomTemplate = {
 			desc		= L["CFG_PERS_EMOTE_TT"],
 			multiline	= true,
 			order		= 32,
-			get			= MylunesChampions_RawEmoteGetter,
-			set			= MylunesChampions_RawEmoteSetter,
+			get			= MylunesChampions_RawGetter,
+			set			= MylunesChampions_RawSetter,
 		},
 		mm_afk = {
 			type		= "input",
@@ -771,8 +858,8 @@ local configOptionsRandomTemplate = {
 			desc		= L["CFG_PERS_EMOTE_TT"],
 			multiline	= true,
 			order		= 33,
-			get			= MylunesChampions_RawEmoteGetter,
-			set			= MylunesChampions_RawEmoteSetter,
+			get			= MylunesChampions_RawGetter,
+			set			= MylunesChampions_RawSetter,
 		},
 		mm_incombat = {
 			type		= "input",
@@ -780,8 +867,8 @@ local configOptionsRandomTemplate = {
 			desc		= L["CFG_PERS_EMOTE_TT"],
 			multiline	= true,
 			order		= 34,
-			get			= MylunesChampions_RawEmoteGetter,
-			set			= MylunesChampions_RawEmoteSetter,
+			get			= MylunesChampions_RawGetter,
+			set			= MylunesChampions_RawSetter,
 		},
 		fm_header = {
 			type		= "header",
@@ -799,8 +886,8 @@ local configOptionsRandomTemplate = {
 			desc		= L["CFG_PERS_EMOTE_TT"],
 			multiline	= true,
 			order		= 42,
-			get			= MylunesChampions_RawEmoteGetter,
-			set			= MylunesChampions_RawEmoteSetter,
+			get			= MylunesChampions_RawGetter,
+			set			= MylunesChampions_RawSetter,
 		},
 		fm_afk = {
 			type		= "input",
@@ -808,8 +895,8 @@ local configOptionsRandomTemplate = {
 			desc		= L["CFG_PERS_EMOTE_TT"],
 			multiline	= true,
 			order		= 43,
-			get			= MylunesChampions_RawEmoteGetter,
-			set			= MylunesChampions_RawEmoteSetter,
+			get			= MylunesChampions_RawGetter,
+			set			= MylunesChampions_RawSetter,
 		},
 		fm_incombat = {
 			type		= "input",
@@ -817,8 +904,8 @@ local configOptionsRandomTemplate = {
 			desc		= L["CFG_PERS_EMOTE_TT"],
 			multiline	= true,
 			order		= 44,
-			get			= MylunesChampions_RawEmoteGetter,
-			set			= MylunesChampions_RawEmoteSetter,
+			get			= MylunesChampions_RawGetter,
+			set			= MylunesChampions_RawSetter,
 		},
 	},
 }
@@ -1032,6 +1119,26 @@ function MylunesChampions:InitConfig()
 	MylunesChampions_AdjustConfig(configOptionsEventTemplate)
 	MylunesChampions_AdjustConfig(configOptionsRandomTemplate)
 	
+	-- Initialize emote table
+	local LPDef = self.defaults.profile.P["enUS"]["Default"]
+	for e,t in pairs(LPDef) do
+		if string.find(e, "^EMOTE_") then
+			table.insert(EmoteTable, e)
+		end
+	end
+	table.sort(EmoteTable)
+	CurrentEmote = EmoteTable[1]
+	
+	-- Initialize event table
+	local LPDef = self.defaults.profile.P["enUS"]["Default"]
+	for e,t in pairs(LPDef) do
+		if (not (e == "EVENT_RANDOM")) and string.find(e, "^EVENT_") then
+			table.insert(EventTable, e)
+		end
+	end
+	table.sort(EventTable)
+	CurrentEvent = EventTable[1]
+	
 	self:RebuildConfig()
 	
 	-- Personalities
@@ -1070,22 +1177,21 @@ function MylunesChampions:RebuildConfig()
 		table.insert(self.PersTable, n)
 		self.configOptionsTablePersonalities.args[n].args.base.values = self.PersTable -- reference
 		
-		-- Emotes
+		local t = MylunesChampions_TableDeepCopy(configOptionsEmoteTemplate)
+		t.name = "Emotes"
+		self.configOptionsTablePersonalities.args[n].args["Emotes"] = t
+		
+		t = MylunesChampions_TableDeepCopy(configOptionsEventTemplate)
+		t.name = "Events"
+		self.configOptionsTablePersonalities.args[n].args["Events"] = t
+		
 		for en,s in pairs(LPDef) do
 			if en == "INHERIT" then
 				-- nothing
 			elseif en == "AUTHORS" then
-				self.configOptionsTablePersonalities.args[n].args["authors"].name = L["Authors"]..": "..tostring(s)
-			elseif string.find(en, "^EMOTE_") then
-				local t = MylunesChampions_TableDeepCopy(configOptionsEmoteTemplate)
-				t.name = string.gsub(en, "^EMOTE_", "Emote ")
-				self.configOptionsTablePersonalities.args[n].args[en] = t
+				self.configOptionsTablePersonalities.args[n].args["authors"].name = L["Authors"]..": "..tostring(LP[n]["AUTHORS"])
 			elseif en == "EVENT_RANDOM" then
 				local t = MylunesChampions_TableDeepCopy(configOptionsRandomTemplate)
-				t.name = string.gsub(en, "^EVENT_", "Event ")
-				self.configOptionsTablePersonalities.args[n].args[en] = t
-			elseif string.find(en, "^EVENT_") then
-				local t = MylunesChampions_TableDeepCopy(configOptionsEventTemplate)
 				t.name = string.gsub(en, "^EVENT_", "Event ")
 				self.configOptionsTablePersonalities.args[n].args[en] = t
 			end
@@ -1119,3 +1225,51 @@ function MylunesChampions:RebuildConfig()
 	end
 end
 
+----------------------------------------------
+-- Initialize configuration options
+----------------------------------------------
+function MylunesChampions:ImportChinchillaCritterEmote()
+	if not CritterEmote_ResponseDb then
+		self:Printf(L["CFG_PERS_IMPORT_CHINCHILLA_INACTIVE"])
+		return
+	end
+	
+	local p = MylunesChampions.db.profile.P["enUS"]
+	for e,t in pairs(CritterEmote_ResponseDb) do
+		-- check whether we support the emote
+		if p["Default"]["EMOTE_"..e] then
+			for pers,emotes in pairs(t) do
+				local emotes_str = ""
+				for i,emote in ipairs(emotes) do
+					emotes_str = emotes_str..emote.."\n"
+				end
+				if p["Chinchilla "..pers] == nil then
+					p["Chinchilla "..pers] = { AUTHORS = "seegeen00", }
+				end
+				p["Chinchilla "..pers]["EMOTE_"..e] = {
+					["someoneAtPet"] = emotes_str, -- also counts as youAtPet
+					["someoneAtYou"] = emotes_str,
+					["youNoTarget"] = emotes_str,
+				}
+			end
+		elseif (e == "Random") then
+			-- random emotes
+			for pers,emotes in pairs(t) do
+				local emotes_str = ""
+				local last = ""
+				for i,emote in ipairs(emotes) do
+					if not (last == emote) then -- filter duplicates
+						emotes_str = emotes_str..emote.."\n"
+					end
+					last = emote
+				end
+				if p["Chinchilla "..pers] == nil then
+					p["Chinchilla "..pers] = { AUTHORS = "seegeen00", }
+				end
+				p["Chinchilla "..pers]["EVENT_RANDOM"] = {
+					["emotes"] = emotes_str,
+				}
+			end
+		end
+	end
+end

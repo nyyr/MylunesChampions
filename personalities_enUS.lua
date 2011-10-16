@@ -1,8 +1,8 @@
 MylunesChampions.P["enUS"] = {
 
 ["Default"] = {
-	INHERIT = "None",
-	NAME = "Default",
+	INHERIT = nil,
+	AUTHORS = "nyyr",
 	
 	EMOTE_BYE = {
 		someoneAtPet = "is sad that %s leaves.",
@@ -31,6 +31,52 @@ MylunesChampions.P["enUS"] = {
 		someoneAtPet = "looks questioningly.",
 		youAtPet = "looks questioningly.",
 	},
+	
+	EMOTE_AGREE = {},
+	EMOTE_AMAZE = {},
+	EMOTE_ANGRY = {},
+	EMOTE_APOLOGIZE = {},
+	EMOTE_APPLAUD = {},
+	EMOTE_BARK = {},
+	EMOTE_BECKON = {},
+	EMOTE_BEG = {},
+	EMOTE_BURP = {},
+	EMOTE_BITE = {},
+	EMOTE_BLINK = {},
+	EMOTE_BLEED = {},
+	EMOTE_BORED = {},
+	EMOTE_BOW = {},
+	EMOTE_KISS = {},
+	EMOTE_SCRATCH = {},
+	EMOTE_CHICKEN = {},
+	EMOTE_EAT = {},
+	EMOTE_CHUCKLE = {},
+	EMOTE_CLAP = {},
+	EMOTE_COLD = {},
+	EMOTE_CONFUSED = {},
+	EMOTE_CONGRATULATE = {},
+	EMOTE_COUGH = {},
+	EMOTE_COWER = {},
+	EMOTE_CRY = {},
+	EMOTE_CUDDLE = {},
+	EMOTE_CURIOUS = {},
+	EMOTE_CURTSEY = {},
+	EMOTE_DANCE = {},
+	EMOTE_DRINK = {},
+	EMOTE_FLEE = {},
+	EMOTE_FOLLOW = {},
+	EMOTE_HUNGRY = {},
+	EMOTE_GOLFCLAP = {},
+	EMOTE_GRIN = {},
+	EMOTE_HUG = {},
+	EMOTE_INSULT = {},
+	EMOTE_TIRED = {},
+	EMOTE_TRAIN = {},
+	EMOTE_THANK = {},
+	EMOTE_VICTORY = {},
+	EMOTE_WELCOME = {},
+	EMOTE_YAWN = {},
+	
 	EVENT_PET_LOWHEALTH = {
 		emotes = "",
 	},
@@ -50,7 +96,7 @@ MylunesChampions.P["enUS"] = {
 
 ["Beast (cute)"] = {
 	INHERIT = "Default",
-	NAME = "Beast (cute)",
+	AUTHORS = "nyyr",
 	
 	EMOTE_CHEER = {
 		someoneAtPet = "is excited and squeaks.",
@@ -70,7 +116,7 @@ MylunesChampions.P["enUS"] = {
 
 ["Beast (ferocious)"] = {
 	INHERIT = "Default",
-	NAME = "Beast (ferocious)",
+	AUTHORS = "nyyr",
 	
 	["EMOTE_WAVE"] = {
 		["someoneAtPet"] = "growls at %s.",
@@ -95,6 +141,15 @@ MylunesChampions.P["enUS"] = {
 	},
 	EVENT_TARGET_LOWHEALTH = {
 		emotes = "scents the close death of its prey and roars fiercely.\ngoes into a murderous frenzy because of all the blood that sheds from the wounds of its prey.",
+	},
+},
+
+["Humanoid (silly)"] = {
+	INHERIT = "Default",
+	AUTHORS = "nyyr, Hanouneh",
+	
+	["EVENT_RANDOM"] = {
+		["incombat"] = "is annoyed by all this noise.  Silence!\nhides behind its master.\ngoes shopping until the battle is over.\nroars: 'Chaaaarge!!'",
 	},
 },
 
