@@ -11,6 +11,7 @@ L["SETTING_EMOTE_LOCALE"] = "Setting emote locale to '%s'."
 L["EMOTE_NOT_FOUND"] = "Emote %s not found for current emote locale (end your own emotes with a punctuation!)."
 
 L["PERSONALITY_LOOP"] = "Personality loop detected: %s."
+L["USEEMOTE_LOOP"] = "Emote loop detected: %s also points to another emote (%s)."
 
 L["Version"] = true
 L["Authors"] = true
@@ -28,6 +29,12 @@ L["CFG_AUTOEMOTEBACKOFF"] = "Auto emote backoff"
 L["CFG_AUTOEMOTEBACKOFF_TT"] = "Set 'cooldown' of auto emotes (emotes triggered by events)."
 L["CFG_RANDOMEMOTEBACKOFF"] = "Random emote backoff"
 L["CFG_RANDOMEMOTEBACKOFF_TT"] = "Set 'cooldown' of random idle emotes (resets after auto emotes)."
+
+L["CFG_CHATCOMMANDS_HEADER"] = "Chat commands"
+L["CFG_CHATCOMMANDS"] = "/ce - Random companion emote\n"..
+	"/ce [emote key] - Let companion do a standard emote, e.g. '/ce cheer' (only few are supported).\n"..
+	"/ce [emote string] - Let companion do a custom one-time emote, e.g. '/ce jumps up and down impatiently.'\n"..
+	"\nEmotes for your combat pet can be done with /pe (pet emote) accordingly."
 
 L["CFG_PERS_NEW"] = "New"
 L["CFG_PERS_NEW_TT"] = "Create a new personality."
@@ -47,6 +54,8 @@ L["CFG_PERS_BASE_TT"] = "Inherit emotes from another personality."
 L["CFG_PERS_BASE_NONE"] = "None"
 
 L["CFG_PERS_EMOTE"] = "Emote"
+L["CFG_PERS_USEEMOTE"] = "Use text from another emote"
+L["CFG_PERS_USEEMOTE_TT"] = "If another emote is selected, the text given here will be ignored."
 L["CFG_PERS_EMOTE_TT"] = "Emotes for this event. Each emote must begin with a new line (line break). You can use the following placeholders:\n"..
 	"%t: Name of your target or target of emote.\n"..
 	"%s: Name of player who sends the original emote ('someone').\n"..

@@ -1,15 +1,15 @@
 
 MylunesChampions.C = {
 				[21056] = {
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 					["n"] = "Blue Dragonhawk Hatchling",
 				},
 				[22445] = {
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 					["n"] = "Miniwing",
 				},
 				[32589] = {
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 					["n"] = "Tickbird Hatchling",
 				},
 				[23266] = {
@@ -21,11 +21,11 @@ MylunesChampions.C = {
 					["n"] = "Clockwork Rocket Bot",
 				},
 				[32592] = {
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 					["n"] = "Proto-Drake Whelp",
 				},
 				[42183] = {
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 					["n"] = "Gold Mini Jouster",
 				},
 				[40295] = {
@@ -37,7 +37,7 @@ MylunesChampions.C = {
 					["n"] = "Wolpertinger",
 				},
 				[7395] = {
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 					["n"] = "Cockroach",
 				},
 				[54539] = {
@@ -53,7 +53,7 @@ MylunesChampions.C = {
 					["n"] = "Siamese Cat",
 				},
 				[21008] = {
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 					["n"] = "Yellow Moth",
 				},
 				[9656] = {
@@ -61,7 +61,7 @@ MylunesChampions.C = {
 					["n"] = "Pet Bombling",
 				},
 				[21010] = {
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 					["n"] = "Blue Moth",
 				},
 				[9657] = {
@@ -77,11 +77,11 @@ MylunesChampions.C = {
 					["n"] = "Voodoo Figurine",
 				},
 				[7555] = {
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 					["n"] = "Hawk Owl",
 				},
 				[47944] = {
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 					["n"] = "Dark Phoenix Hatchling",
 				},
 				[15705] = {
@@ -93,11 +93,11 @@ MylunesChampions.C = {
 					["n"] = "Guild Page",
 				},
 				[21018] = {
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 					["n"] = "White Moth",
 				},
 				[32590] = {
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 					["n"] = "White Tickbird Hatchling",
 				},
 				[29147] = {
@@ -113,11 +113,11 @@ MylunesChampions.C = {
 					["n"] = "Dun Morogh Cub",
 				},
 				[7384] = {
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 					["n"] = "Cornish Rex Cat",
 				},
 				[33226] = {
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 					["n"] = "Strand Crawler",
 				},
 				[23274] = {
@@ -141,11 +141,11 @@ MylunesChampions.C = {
 					["n"] = "Calico Cat",
 				},
 				[7389] = {
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 					["n"] = "Senegal",
 				},
 				[7381] = {
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 					["n"] = "Silver Tabby Cat",
 				},
 				[8376] = {
@@ -161,7 +161,7 @@ MylunesChampions.C = {
 					["n"] = "Snowshoe Rabbit",
 				},
 				[21009] = {
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 					["n"] = "Red Moth",
 				},
 				[45340] = {
@@ -169,11 +169,11 @@ MylunesChampions.C = {
 					["n"] = "Fossilized Hatchling",
 				},
 				[37865] = {
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 					["n"] = "Perky Pug",
 				},
 				[7561] = {
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 					["n"] = "Albino Snake",
 				},
 				[20472] = {
@@ -189,7 +189,7 @@ MylunesChampions.C = {
 					["n"] = "Mechanical Squirrel",
 				},
 				[7382] = {
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 					["n"] = "Orange Tabby Cat",
 				},
 				[35400] = {
@@ -197,7 +197,7 @@ MylunesChampions.C = {
 					["n"] = "Gundrak Hatchling",
 				},
 				[18839] = {
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 					["n"] = "Magical Crawdad",
 				},
 				[29726] = {
@@ -206,15 +206,15 @@ MylunesChampions.C = {
 					["s"] = "m",
 				},
 				[35399] = {
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 					["n"] = "Obsidian Hatchling",
 				},
 				[7390] = {
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 					["n"] = "Cockatiel",
 				},
 				[36607] = {
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 					["n"] = "Onyxian Whelpling",
 				},
 				[49587] = {
@@ -222,19 +222,19 @@ MylunesChampions.C = {
 					["n"] = "Guild Herald",
 				},
 				[24389] = {
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 					["n"] = "Muckbreath",
 				},
 				[32591] = {
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 					["n"] = "Cobra Hatchling",
 				},
 				[7567] = {
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 					["n"] = "Crimson Snake",
 				},
 				[7549] = {
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 					["n"] = "Tree Frog",
 				},
 				[36871] = {
@@ -246,31 +246,31 @@ MylunesChampions.C = {
 					["n"] = "Baby Blizzard Bear",
 				},
 				[20408] = {
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 					["n"] = "Mana Wyrmling",
 				},
 				[10598] = {
 					["n"] = "Smolderweb Hatchling",
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 				},
 				[24753] = {
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 					["n"] = "Pint-Sized Pink Pachyderm",
 				},
 				[7565] = {
 					["n"] = "Black Kingsnake",
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 				},
 				[15706] = {
 					["n"] = "Winter Reindeer",
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 				},
 				[16701] = {
 					["p"] = "Default",
 					["n"] = "Spirit of Summer",
 				},
 				[21055] = {
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 					["n"] = "Golden Dragonhawk Hatchling",
 				},
 				[34278] = {
@@ -278,23 +278,23 @@ MylunesChampions.C = {
 					["n"] = "Withers",
 				},
 				[53225] = {
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 					["n"] = "Pterrordax Hatchling",
 				},
 				[9662] = {
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 					["n"] = "Sprite Darter Hatchling",
 				},
 				[50586] = {
 					["n"] = "Mr. Grubbs",
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 				},
 				[16547] = {
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 					["n"] = "Speedy",
 				},
 				[28513] = {
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 					["n"] = "Vampiric Batling",
 				},
 				[50545] = {
@@ -302,8 +302,25 @@ MylunesChampions.C = {
 					["n"] = "Magic Lamp",
 				},
 				[7383] = {
-					["p"] = "Default",
+					["p"] = "Beast (cute)",
 					["n"] = "Black Tabby Cat",
+				},
+				[36979] = {
+					["p"] = "Default",
+					["s"] = "m",
+					["n"] = "Lil' K.T.",
+				},
+				[54128] = {
+					["p"] = "Default",
+					["n"] = "Creepy Crate",
+				},
+				[53884] = {
+					["n"] = "Feline Familiar",
+					["p"] = "Beast (cute)",
+				},
+				[23909] = {
+					["p"] = "Default",
+					["n"] = "Sinister Squashling",
 				},
 }
 

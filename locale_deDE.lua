@@ -11,6 +11,7 @@ L["SETTING_EMOTE_LOCALE"] = "Setze Emote-Sprache auf '%s'."
 L["EMOTE_NOT_FOUND"] = "Das Emote %s wurde für die aktuelle Spracheinstellung nicht gefunden. Benutzt Satzzeichen für Eure eigenen Emotes!"
 
 L["PERSONALITY_LOOP"] = "Persönlichkeitsschleife entdeckt: %s."
+L["USEEMOTE_LOOP"] = "Emote-Schleife entdeckt: %s zeigt ebenfalls auf ein anderes Emote (%s)."
 
 L["Version"] = true
 L["Authors"] = "Autoren"
@@ -28,6 +29,12 @@ L["CFG_AUTOEMOTEBACKOFF"] = "Auto-Emote Abstand"
 L["CFG_AUTOEMOTEBACKOFF_TT"] = "Setzt 'Cooldown' von Auto-Emotes (Emotes, die von Events ausgelöst werden)."
 L["CFG_RANDOMEMOTEBACKOFF"] = "Zufalls-Emote Abstand"
 L["CFG_RANDOMEMOTEBACKOFF_TT"] = "Setzt den 'Cooldown' von zufälligen Emotes."
+
+L["CFG_CHATCOMMANDS_HEADER"] = "Chat-Befehle"
+L["CFG_CHATCOMMANDS"] = "/ce - Zufälliges Haustier-Emote (Companion-Emote)\n"..
+	"/ce [Emote-Name] - Standard-Emote Eures Haustiers, z.B. '/ce cheer' (nur wenige werden bisher unterstützt).\n"..
+	"/ce [Emote-Text] - Einmaliges Emote, z.B. '/ce springt ungeduldig auf und ab.'\n"..
+	"\nEmotes für Eure großen Begleiter könnt Ihr entsprechend mit /pe (Pet-Emote) auslösen."
 
 L["CFG_PERS_NEW"] = "Neu"
 L["CFG_PERS_NEW_TT"] = "Erstellt eine neue Persönlichkeit."
@@ -47,6 +54,8 @@ L["CFG_PERS_BASE_TT"] = "Erbt die Emotes einer anderen Persönlichkeit."
 L["CFG_PERS_BASE_NONE"] = "Keine"
 
 L["CFG_PERS_EMOTE"] = "Emote"
+L["CFG_PERS_USEEMOTE"] = "Benutze Text eines anderen Emote"
+L["CFG_PERS_USEEMOTE_TT"] = "Falls ein anderes Emote ausgewählt ist, wird der hier eingegebene Text ignoriert."
 L["CFG_PERS_EMOTE_TT"] = "Emotes für dieses Ereignis. Jedes Emote muss in einer neuen Zeile beginnen. Ihr könnt die folgenden Platzhalter verwenden:\n"..
 	"%t: Name Eures Ziels oder des Emote-Ziels.\n"..
 	"%s: Name des Spielers, der das ursprüngliche Emote ausgelöst hat.\n"..

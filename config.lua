@@ -20,14 +20,83 @@ local d_notice = 3
 
 MylunesChampions.PersTable = { L["CFG_PERS_BASE_NONE"] }
 local EmoteTable = { }
-local EmoteIndex = 1
+local EmoteIndex = 2
 local CurrentEmote = ""
 local EventTable = { }
 local EventIndex = 1
 local CurrentEvent = ""
 
+local EmoteTable = {
+	[1] = "(select)",
+	[2] = "BYE",
+	[3] = "CHEER",
+	[4] = "CRY",
+	[5] = "DANCE",
+	[6] = "GREET",
+	[7] = "HUG",
+	[8] = "KISS",
+	[9] = "TRAIN",
+	[10] = "WAVE",
+	[11] = "WELCOME",
+	
+	[100] = "--",
+	
+	[101] = "AGREE",
+	[102] = "AMAZE",
+	[103] = "ANGRY",
+	[104] = "APOLOGIZE",
+	[105] = "APPLAUD",
+	
+	[111] = "BARK",
+	[112] = "BECKON",
+	[113] = "BEG",
+	[114] = "BURP",
+	[115] = "BITE",
+	[116] = "BLINK",
+	[117] = "BLEED",
+	[118] = "BORED",
+	[119] = "BOW",
+	
+	[131] = "CHICKEN",
+	[132] = "CHUCKLE",
+	[133] = "CLAP",
+	[134] = "COLD",
+	[135] = "CONFUSED",
+	[136] = "CONGRATULATE",
+	[137] = "COUGH",
+	[138] = "COWER",
+	[139] = "CUDDLE",
+	[140] = "CURIOUS",
+	[141] = "CURTSEY",
+	
+	[150] = "DRINK",
+	[151] = "EAT",
+	[152] = "FLEE",
+	[153] = "FOLLOW",
+	[154] = "GOLFCLAP",
+	[155] = "GRIN",
+	[156] = "HUNGRY",
+	[157] = "INSULT",
+	
+	[171] = "SCRATCH",
+	[172] = "STARE",
+	[173] = "TIRED",
+	[174] = "THANK",
+	[175] = "VICTORY",
+	[176] = "YAWN",
+}
+
 local function MylunesChampions_TableFind(t, s)
 	for i,n in ipairs(t) do
+		if n == s then
+			return i
+		end
+	end
+	return nil
+end
+
+local function MylunesChampions_TableFindPairs(t, s)
+	for i,n in pairs(t) do
 		if n == s then
 			return i
 		end
@@ -141,6 +210,7 @@ MylunesChampions.configOptionsTableCore = {
 			end,
 			set			= function (info, v)
 				MylunesChampions.db.profile.emoteLocale = MylunesChampions.emoteLocales[v]
+				MylunesChampions.LP = MylunesChampions.db.profile.P[MylunesChampions.db.profile.emoteLocale]
 				MylunesChampions:Printf(L["SETTING_EMOTE_LOCALE"], MylunesChampions.db.profile.emoteLocale)
 				MylunesChampions:OnConfigUpdate()
 				MylunesChampions:RebuildConfig()
@@ -181,6 +251,16 @@ MylunesChampions.configOptionsTableCore = {
 					MylunesChampions:ScheduleRepeatingTimer("OnRandomEmote", MylunesChampions.db.profile.autoEmoteBackoff)
 			end,
 		},
+		headerChatCommands = {
+			type		= "header",
+			name		= L["CFG_CHATCOMMANDS_HEADER"],
+			order		= 101,
+		},
+		chatCommands = {
+			type		= "description",
+			name		= L["CFG_CHATCOMMANDS"],
+			order		= 102,
+		},
 	},
 }
 
@@ -200,7 +280,7 @@ local configOptionsTablePersonalitiesButtons = {
 		desc	= L["CFG_PERS_NEW_TT"],
 		order	= 1,
 		func	= function ()
-			local p = MylunesChampions.db.profile.P[MylunesChampions.db.profile.emoteLocale]
+			local p = MylunesChampions.LP
 			if p["<new>"] then
 				MylunesChampions:Printf(L["CFG_PERS_EXISTS"])
 			else
@@ -241,7 +321,7 @@ local configOptionsPersonalityTemplate = {
 				if MylunesChampions.defaults.profile.P[MylunesChampions.db.profile.emoteLocale][info[#info-1]] then
 					MylunesChampions:Printf(L["CFG_PERS_CANNOT_DELETE"])
 				else
-					MylunesChampions.db.profile.P[MylunesChampions.db.profile.emoteLocale][info[#info-1]] = nil
+					MylunesChampions.LP[info[#info-1]] = nil
 					MylunesChampions:RebuildConfig()
 					AceConfigRegistry:NotifyChange("MylunesChampions_Personalities")
 				end
@@ -265,7 +345,7 @@ local configOptionsPersonalityTemplate = {
 					if MylunesChampions.defaults.profile.P[MylunesChampions.db.profile.emoteLocale][info[#info-1]] then
 						MylunesChampions:Printf(L["CFG_PERS_CANNOT_RENAME"])
 					else
-						local p = MylunesChampions.db.profile.P[MylunesChampions.db.profile.emoteLocale]
+						local p = MylunesChampions.LP
 						if p[v] == nil then
 							p[v] = p[info[#info-1]]
 							p[info[#info-1]] = nil
@@ -286,7 +366,7 @@ local configOptionsPersonalityTemplate = {
 			order	= 3,
 			get		= function (info)
 				local i = MylunesChampions_TableFind(MylunesChampions.PersTable, 
-					MylunesChampions.db.profile.P[MylunesChampions.db.profile.emoteLocale][info[#info-1]]["INHERIT"])
+					MylunesChampions.LP[info[#info-1]]["INHERIT"])
 				if not i then
 					return 1
 				else
@@ -294,7 +374,7 @@ local configOptionsPersonalityTemplate = {
 				end
 			end,
 			set		= function (info, v)
-				local p = MylunesChampions.db.profile.P[MylunesChampions.db.profile.emoteLocale]
+				local p = MylunesChampions.LP
 				if v > 1 then
 					if not (p[MylunesChampions.PersTable[v]]) then
 						MylunesChampions:Printf("ERR: Personality "..MylunesChampions.PersTable[v].." not found.")
@@ -327,8 +407,36 @@ local configOptionsEmoteTemplate = {
 				return EmoteIndex
 			end,
 			set		= function (info, v)
-				EmoteIndex = v
-				CurrentEmote = EmoteTable[EmoteIndex]
+				if not ((v == 100) or (v == 1)) then -- (select) and separator
+					EmoteIndex = v
+					CurrentEmote = "EMOTE_"..EmoteTable[EmoteIndex]
+				end
+			end,
+		},
+		useEmote = {
+			type	= "select",
+			name	= L["CFG_PERS_USEEMOTE"],
+			desc	= L["CFG_PERS_USEEMOTE_TT"],
+			values	= EmoteTable,
+			order	= 2,
+			get		= function (info)
+				local s = MylunesChampions:GetRawEmotes(info[#info-2], CurrentEmote, info[#info])
+				if s and not (s == "") then
+					local i = MylunesChampions_TableFindPairs(EmoteTable, s)
+					if i then
+						return i
+					end
+				end
+				return 1
+			end,
+			set		= function (info, v)
+				if not (v == 100) then -- separator
+					if v == 1 then
+						MylunesChampions:SetRawEmotes(info[#info-2], CurrentEmote, info[#info], nil)
+					else
+						MylunesChampions:SetRawEmotes(info[#info-2], CurrentEmote, info[#info], EmoteTable[v])
+					end
+				end
 			end,
 		},
 		header = {
@@ -1120,14 +1228,7 @@ function MylunesChampions:InitConfig()
 	MylunesChampions_AdjustConfig(configOptionsRandomTemplate)
 	
 	-- Initialize emote table
-	local LPDef = self.defaults.profile.P["enUS"]["Default"]
-	for e,t in pairs(LPDef) do
-		if string.find(e, "^EMOTE_") then
-			table.insert(EmoteTable, e)
-		end
-	end
-	table.sort(EmoteTable)
-	CurrentEmote = EmoteTable[1]
+	CurrentEmote = "EMOTE_"..EmoteTable[EmoteIndex]
 	
 	-- Initialize event table
 	local LPDef = self.defaults.profile.P["enUS"]["Default"]
@@ -1161,7 +1262,7 @@ function MylunesChampions:RebuildConfig()
 	self.PersTable = { }
 	LG = self.G[self.db.profile.emoteLocale]
 	
-	local LP = self.db.profile.P[self.db.profile.emoteLocale]
+	local LP = self.LP
 	local LPDef = self.defaults.profile.P[self.db.profile.emoteLocale]["Default"]
 	
 	self.configOptionsTablePersonalities.name = L["CFG_PERSONALITIES"] .. " (" .. self.db.profile.emoteLocale .. ")"

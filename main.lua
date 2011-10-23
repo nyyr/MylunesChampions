@@ -71,6 +71,8 @@ end
 
 local emoteColor = "|cFFFF8040"
 
+MylunesChampions.LP = nil -- localized personality
+
 ----------------------------------------------
 -- MylunesChampions_RandomElement
 ----------------------------------------------
@@ -246,6 +248,7 @@ function MylunesChampions:OnInitialize()
 		end
 	end
 	LG = self.G[self.db.profile.emoteLocale]
+	MylunesChampions.LP = self.db.profile.P[self.db.profile.emoteLocale]
 	
 	self:InitConfig()
 	
@@ -390,14 +393,29 @@ end
 
 ----------------------------------------------
 -- GetRawEmotes - Returns raw emote string (incl. inherited emotes)
+--   pers - Personality string
+--   emote - Emote string (including EMOTE_)
+--   how - someoneAtYou, someoneAtPet, youAtSomeone, youAtPet, youNoTarget, useEmote, emote, afk, incombat
+--   visited_personality - Internal: Loop detection
+--   useEmote - Internal: Loop detection
 ----------------------------------------------
-function MylunesChampions:GetRawEmotes(pers, emote, how, visited_personalities)
+function MylunesChampions:GetRawEmotes(pers, emote, how, visited_personalities, useEmote)
 	--self:Debug(d_notice, "GetRawEmotes(%s, %s, %s)", tostring(pers), tostring(emote), tostring(how))
 	if not pers or not emote or not how then return nil end
 	if not visited_personalities then visited_personalities = {} end
 	
-	local p = self.db.profile.P[self.db.profile.emoteLocale][pers]
-	if p[emote] and p[emote][how] then
+	local p = self.LP[pers]
+	if p[emote] and p[emote]["useEmote"] and not (p[emote]["useEmote"] == "") and not (how == "useEmote") then
+		local usedEmote = "EMOTE_"..p[emote]["useEmote"]
+		--self:Debug(d_notice, "Emote "..emote.." uses "..usedEmote)
+		if not useEmote then
+			return self:GetRawEmotes(pers, usedEmote, how, visited_personalities, true)
+		else
+			self:Printf(L["USEEMOTE_LOOP"], emote, usedEmote)
+			return nil
+		end
+		
+	elseif p[emote] and p[emote][how] then
 		if p[emote][how] == "" then
 			return nil -- override (N/A)
 		else
@@ -419,7 +437,7 @@ function MylunesChampions:GetRawEmotes(pers, emote, how, visited_personalities)
 		end
 		-- descend
 		table.insert(visited_personalities, pers)
-		return self:GetRawEmotes(p["INHERIT"], emote, how, visited_personalities)
+		return self:GetRawEmotes(p["INHERIT"], emote, how, visited_personalities, useEmote)
 	end
 	
 	return nil
@@ -429,8 +447,17 @@ end
 -- SetRawEmotes - Set raw emote string
 ----------------------------------------------
 function MylunesChampions:SetRawEmotes(pers, emote, how, value)
-	local p = self.db.profile.P[self.db.profile.emoteLocale][pers]
-	local pd = self.defaults.profile.P[self.db.profile.emoteLocale][pers]
+	local p = self.LP[pers]
+	--local pd = self.defaults.profile.P[self.db.profile.emoteLocale][pers]
+	
+	if how == "useEmote" and not (value == nil) then
+		local usedEmote = "EMOTE_"..value
+		if p[usedEmote] and p[usedEmote]["useEmote"] then
+			self:Printf(L["USEEMOTE_LOOP"], value, p[usedEmote]["useEmote"])
+			return
+		end
+	end
+	
 	if value == nil then -- erase/reset
 		if p[emote] then
 			p[emote][how] = nil

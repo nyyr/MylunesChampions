@@ -92,8 +92,8 @@
 		emotes = "",
 	},
 	EVENT_RANDOM = {
-		emotes = "ist gelangweilt.\nwill etwas unternehmen!\nmacht ein Nickerchen.\nist hungrig.\nversucht nach einer Fliege zu schnappen.",
-		incombat = "nervt der ganze Lärm. Ruhe!\nversteckt sich hinter seinem Herrchen.\nschnappt nach dem Gegner.",
+		emotes = "ist gelangweilt.\nwill etwas unternehmen!\nmacht ein Nickerchen.\nist hungrig.\nversucht nach einer Fliege zu schnappen.\nist erschöpft vom letzten Abenteuer.",
+		"nervt der ganze Lärm. Ruhe!\nversteckt sich hinter seinem Herrchen.\nschnappt nach dem Gegner.\nversucht den Gegner einzuschüchtern. Grrr!!!",
 		afk = "stubst sein Herrchen an.\nsucht nach ein paar Leckerlis in der Tasche seines Herrchens.",
 		f_afk = "stubst ihr Herrchen an.\nsucht nach ein paar Leckerlis in der Tasche ihres Herrchens.",
 		mm_afk = "stubst sein Frauchen an.\nsucht nach ein paar Leckerlis in der Tasche seines Frauchens.",
@@ -113,11 +113,14 @@
 		youAtPet = "quiekt vor Freude.",
 	},
 	EMOTE_WAVE = {
+		useEmote = "CHEER",
+		--[[
 		someoneAtPet = "quiekt vor Freude.",
 		someoneAtYou = "ist voller Aufregung wegen %s.",
 		youAtTarget = "ist voller Aufregung wegen %t.",
 		youNoTarget = "ist aufgeregt.",
 		youAtPet = "quiekt vor Freude.",
+		]]--
 	},
 	
 	["EVENT_RANDOM"] = {
@@ -125,6 +128,17 @@
 	},
 	["EMOTE_GREET"] = {
 		["youAtPet"] = "freut sich seinen Meister zu sehen.",
+	},
+	
+	["EVENT_PLAYER_LOWHEALTH"] = {
+		["emotes"] = "versucht den Gegner abzuspotten. Grrar!\nversucht sein Herrchen zu retten. Grrr!\nhat Angst um sein Herrchen.\ngerät in Panik!\nschaut sich wild nach einem Heiler um.\nschaut voller Panik in das schmerzverzerrte Gesicht seines Herrchens.",
+	},
+	["EVENT_RANDOM"] = {
+		["emotes"] = "ist gelangweilt.\nwill etwas unternehmen!\nmacht ein Nickerchen.\nist hungrig.\nversucht nach einer Fliege zu schnappen.\nführt ein Kunststückchen auf. Wie beeindruckend!\nlässt sich erschöpft nieder.\ngähnt kräftig. Als wolle es einen Elekk verschlingen!",
+		["incombat"] = "nervt der ganze Lärm. Ruhe!\nversteckt sich hinter seinem Herrchen.\nschnappt nach dem Gegner.\nversucht den Gegner einzuschüchtern. Grrr!!!\nlässt sich nieder, völlig erschöpft vom Kampf.\nspringt auf die Schultern seines Herrchens und knurrt den Gegner an. Grrr!!!",
+	},
+	["EVENT_TARGET_LOWHEALTH"] = {
+		["emotes"] = "versucht seinem Gegner den Todesstoß zu versetzen. Daneben!\nstürmt seinen Gegner an - und an ihm vorbei.\nmacht schonmal Platz, um nicht unter dem Gegner zu liegen.",
 	},
 },
 
