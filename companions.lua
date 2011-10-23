@@ -89,7 +89,7 @@ MylunesChampions.C = {
 					["n"] = "Winter's Little Helper",
 				},
 				[49586] = {
-					["p"] = "Default",
+					["p"] = "Humanoid (silly)",
 					["n"] = "Guild Page",
 				},
 				[21018] = {
@@ -153,7 +153,7 @@ MylunesChampions.C = {
 					["n"] = "Mechanical Chicken",
 				},
 				[33238] = {
-					["p"] = "Default",
+					["p"] = "Humanoid (silly)",
 					["n"] = "Argent Squire",
 				},
 				[7560] = {
@@ -218,7 +218,7 @@ MylunesChampions.C = {
 					["n"] = "Onyxian Whelpling",
 				},
 				[49587] = {
-					["p"] = "Default",
+					["p"] = "Humanoid (silly)",
 					["n"] = "Guild Herald",
 				},
 				[24389] = {
