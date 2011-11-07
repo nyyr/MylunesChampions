@@ -1,6 +1,6 @@
 ﻿MylunesChampions.G["deDE"] = {
 
-COMPANION = "Haustier",
+COMPANION = "Begleiter", -- eigentlich Haustier, aber doof bei Humanoiden
 PET = "Begleiter",
 POSSESSIVE = "s",
 

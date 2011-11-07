@@ -322,6 +322,15 @@ MylunesChampions.C = {
 					["p"] = "Default",
 					["n"] = "Sinister Squashling",
 				},
+				[48242] = {
+					["n"] = "Armadillo Pup",
+					["p"] = "Beast (cute)",
+				},
+				[52894] = {
+					["n"] = "Lashtail Hatchling",
+					["p"] = "Beast (cute)",
+					["s"] = "f",
+				},
 }
 
 

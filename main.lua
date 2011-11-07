@@ -191,18 +191,28 @@ local function MylunesChampions_ChatMessageFilter(self, event, str, arg2, arg3, 
 	
 	-- get rid of this annoying space
 	if (string.find(str, "^'s ") and MylunesChampions.db.profile.emoteLocale == "enUS") or 
-		(string.find(str, "^s ") and MylunesChampions.db.profile.emoteLocale == "deDE")
+		(string.find(str, "^s ") and MylunesChampions.db.profile.emoteLocale == "deDE") or
+		(string.find(str, "^'aka "))
 	then
+		-- own emotes
 		self:AddMessage(emoteColor..arg2..str.."|r")
 		return true, arg2..str, arg2, arg3, ...
 
 	elseif (string.find(str, "^(%a*) 's ") and MylunesChampions.db.profile.emoteLocale == "enUS") then
+		-- emotes from other players
 		str = string.gsub(str, "^(%a*) 's (.*)", "%1's %2")
 		self:AddMessage(emoteColor..str.."|r")
 		return true, str, arg2, arg3, ...
 		
 	elseif (string.find(str, "^(%a*) s ") and MylunesChampions.db.profile.emoteLocale == "deDE") then
+		-- emotes from other players
 		str = string.gsub(str, "^(%a*) s (.*)", "%1s %2")
+		self:AddMessage(emoteColor..str.."|r")
+		return true, str, arg2, arg3, ...
+		
+	elseif (string.find(str, "^(%a*) 'aka ")) then
+		-- emotes from other players
+		str = string.gsub(str, "^(%a*) 'aka (.*)", "%1'aka %2")
 		self:AddMessage(emoteColor..str.."|r")
 		return true, str, arg2, arg3, ...
 	end
@@ -618,12 +628,19 @@ end
 function MylunesChampions:CompanionEmote(msg)
 	--self:Debug(d_notice, "CompanionEmote: " .. tostring(msg))
 	
-	local name = self:GetCurrentCompanion()
+	local name, id = self:GetCurrentCompanion()
 	if name then
+		local preface = LG["COMPANION"] .. " " .. name .. " "
+		local noPossessive = nil
+		if id == 52894 then -- Ohgan'aka ;)
+			preface = "'aka "
+			noPossessive = true
+		end
+	
 		if msg == "" then
 			-- random emote
 			msg = self:GetRandomCompanionEmote()
-			self:DoEmote(LG["COMPANION"] .. " " .. name .. " " .. msg)
+			self:DoEmote(preface .. msg, noPossessive)
 			
 		elseif string.find(msg, "^(%a*)$") then
 			msg = string.upper(msg)
@@ -637,14 +654,14 @@ function MylunesChampions:CompanionEmote(msg)
 				end
 				if pattern then
 					msg = MylunesChampions_Sub(string.gsub(pattern, "^%%s ", ""), targetName, name)
-					self:DoEmote(LG["COMPANION"] .. " " .. name .. " " .. msg)
+					self:DoEmote(preface .. msg, noPossessive)
 				end
 			else
 				self:Printf(L["EMOTE_NOT_FOUND"], msg)
 			end
 			
 		else
-			self:DoEmote(LG["COMPANION"] .. " " .. name .. " " .. msg)
+			self:DoEmote(preface .. msg, noPossessive)
 		end
 	else
 		self:Printf(L["NO_COMPANION"])
@@ -692,8 +709,12 @@ end
 ----------------------------------------------
 -- DoEmote
 ----------------------------------------------
-function MylunesChampions:DoEmote(emoteText)
-	self.lastEmoteMessage = LG["POSSESSIVE"] .. " " .. emoteText
+function MylunesChampions:DoEmote(emoteText, noPossessive)
+	if noPossessive then
+		self.lastEmoteMessage = emoteText
+	else
+		self.lastEmoteMessage = LG["POSSESSIVE"] .. " " .. emoteText
+	end
 	if not self.lastEmoteTimer then
 		self.lastEmoteTimer = self:ScheduleTimer("DisplayLastEmote", self.db.profile.emoteDelay)
 	end
