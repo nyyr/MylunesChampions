@@ -22,7 +22,7 @@ MylunesChampions.BabbleCTE = LibStub("LibBabble-CreatureType-3.0"):GetReverseLoo
 -- Version
 ----------------------------------------------
 local _, _, rev = string.find("$Rev$", "([0-9]+)")
-MylunesChampions.version = "0.1 (r"..rev..")"
+MylunesChampions.version = "0.2 (r"..rev..")"
 MylunesChampions.codename = "Rise of the Critters"
 MylunesChampions.authors = "nyyr"
 
