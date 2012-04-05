@@ -415,6 +415,8 @@ function MylunesChampions:GetRawEmotes(pers, emote, how, visited_personalities, 
 	if not visited_personalities then visited_personalities = {} end
 	
 	local p = self.LP[pers]
+	if not p then return end
+	
 	if p[emote] and p[emote]["useEmote"] and not (p[emote]["useEmote"] == "") and not (how == "useEmote") then
 		local usedEmote = "EMOTE_"..p[emote]["useEmote"]
 		--self:Debug(d_notice, "Emote "..emote.." uses "..usedEmote)
