@@ -1105,16 +1105,19 @@ local configOptionsTablePetsButtons = {
 		desc	= L["CFG_PETS_ADD_TT"],
 		order	= 1,
 		func	= function ()
-			MylunesChampions:Printf("NYI")
-		end,
-	},
-	removePet = {
-		type 	= "execute",
-		name 	= L["CFG_PETS_REMOVE"],
-		desc	= L["CFG_PETS_REMOVE_TT"],
-		order	= 2,
-		func	= function ()
-			MylunesChampions:Printf("NYI")
+			local pet = MylunesChampions:GetCurrentPet()
+			if pet then
+				local pct = MylunesChampions.db.profile.PCT[MylunesChampions.db.profile.emoteLocale]
+				if pct[pet] then
+					MylunesChampions:Printf(L["CFG_ENTRY_EXISTS"])
+				else
+					pct[pet] = { p = "Default" }
+					MylunesChampions:RebuildConfig()
+					MylunesChampions:Printf(L["CFG_PETS_ADDED"], pet)
+				end
+			else
+				MylunesChampions:Printf(L["NO_PET"])
+			end
 		end,
 	},
 }
@@ -1176,6 +1179,18 @@ local configOptionsPetTemplate = {
 				else
 					MylunesChampions.db.profile.PCT[MylunesChampions.db.profile.emoteLocale][info[#info-1]].s = nil
 				end
+			end,
+		},
+		removePet = {
+			type 	= "execute",
+			name 	= L["CFG_PETS_REMOVE"],
+			desc	= L["CFG_PETS_REMOVE_TT"],
+			order	= 20,
+			func	= function (info)
+				local pet = info[#info-1]
+				MylunesChampions.db.profile.PCT[MylunesChampions.db.profile.emoteLocale][pet] = nil
+				MylunesChampions:RebuildConfig()
+				MylunesChampions:Printf(L["CFG_PETS_REMOVED"], pet)
 			end,
 		},
 	},
@@ -1320,8 +1335,14 @@ function MylunesChampions:RebuildConfig()
 	for n,c in pairs(self.db.profile.PCT[self.db.profile.emoteLocale]) do
 		local t = MylunesChampions_TableDeepCopy(configOptionsPetTemplate)
 		t.name = self.BabbleCTL[n]
-		t.args.name.name = self.BabbleCTL[n]
+		if not t.name then
+			t.name = n
+		end
+		t.args.name.name = t.name
 		t.args.personality.values = self.PersTable -- reference
+		if MylunesChampions.PCT[self.db.profile.emoteLocale][t.args.name.name] then
+			t.args.removePet = nil
+		end
 		self.configOptionsTablePets.args[n] = t
 	end
 end

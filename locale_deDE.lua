@@ -93,8 +93,12 @@ L["CFG_COMPANION_SEX_F"] = "weiblich"
 
 L["CFG_PETS_ADD"] = "Aktiven Begleiter hinzufügen"
 L["CFG_PETS_ADD_TT"] = "Aktiven Begleiter hinzufügen"
-L["CFG_PETS_REMOVE"] = "Ausgewählten Begleiter löschen"
-L["CFG_PETS_REMOVE_TT"] = "Ausgewählten Begleiter löschen"
+L["CFG_PETS_REMOVE"] = "Diesen Begleiter entfernen"
+L["CFG_PETS_REMOVE_TT"] = "Diesen Begleiter entfernen"
+L["CFG_PETS_ADDED"] = "%s hinzugefügt."
+L["CFG_PETS_REMOVED"] = "%s entfernt."
+
+L["CFG_ENTRY_EXISTS"] = "Ein Eintrag mit diesem Namen existiert bereits."
 
 L.EMOTE_BYE = {
 	pattern_someoneAtTarget = "%s winkt %t zum Abschied. Lebt wohl!",

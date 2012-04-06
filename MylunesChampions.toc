@@ -2,7 +2,7 @@
 ## Title: Mylune's Champions
 ## Notes: Don't underestimate your little critters!
 ## Author: nyyr
-## Version: 0.3
+## Version: 0.4
 ## SavedVariables: MylunesChampionsDB
 ## X-Date: $Date$
 ## X-Category: Chat

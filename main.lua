@@ -15,14 +15,14 @@ local L = LibStub("AceLocale-3.0"):GetLocale("MylunesChampions", true)
 local LG  = {} -- general
 MylunesChampions.clientLocale = GetLocale()
 MylunesChampions.emoteLocales = { "enUS", "deDE" }
-MylunesChampions.BabbleCTL = LibStub("LibBabble-CreatureType-3.0"):GetLookupTable();
+MylunesChampions.BabbleCTL = LibStub("LibBabble-CreatureType-3.0"):GetUnstrictLookupTable();
 MylunesChampions.BabbleCTE = LibStub("LibBabble-CreatureType-3.0"):GetReverseLookupTable();
 
 ----------------------------------------------
 -- Version
 ----------------------------------------------
 local _, _, rev = string.find("$Rev$", "([0-9]+)")
-MylunesChampions.version = "0.3 (r"..rev..")"
+MylunesChampions.version = "0.4 (r"..rev..")"
 MylunesChampions.codename = "Rise of the Critters"
 MylunesChampions.authors = "nyyr"
 
@@ -346,7 +346,7 @@ function MylunesChampions:OnDoEmote(emote, target)
 			if targetName and not (targetName == MylunesChampions.playerName) then
 				if targetName == companion then
 					how = "youAtPet"
-				elseif not pet or not (targetName == pet) then
+				elseif (not pet) or not (targetName == pet) then
 					how = "youAtTarget"
 				end
 			else
@@ -568,6 +568,8 @@ end
 -- GetRandomCompanionEmoteReply
 ----------------------------------------------
 function MylunesChampions:GetRandomCompanionEmoteReply(emote, how)
+	if not how then return nil end
+	
 	emote = string.gsub(emote, "^EMOTE_", "") -- normalize
 	
 	local s = self:GetCompanionEmotes("EMOTE_"..emote, how)
@@ -584,6 +586,8 @@ end
 -- GetRandomPetEmoteReply
 ----------------------------------------------
 function MylunesChampions:GetRandomPetEmoteReply(emote, how)
+	if not how then return nil end
+	
 	emote = string.gsub(emote, "^EMOTE_", "") -- normalize
 
 	local s = self:GetPetEmotes("EMOTE_"..emote, how)
@@ -783,15 +787,18 @@ end
 
 ----------------------------------------------
 -- GetCompanionPersonality
--- TODO: named pets
 ----------------------------------------------
 function MylunesChampions:GetPetPersonality()
-	local creatureFamily = UnitCreatureFamily("pet")
-	if creatureFamily then
-		return self.db.profile.PCT[self.db.profile.emoteLocale][self.BabbleCTE[creatureFamily]].p
-	end
 	if UnitExists("pet") then
-		return "Default"
+		local name, family = self:GetCurrentPet()
+		local pct = self.db.profile.PCT[self.db.profile.emoteLocale]
+		if pct[name] then
+			return pct[name].p
+		elseif family then
+			return pct[self.BabbleCTE[family]].p
+		else
+			return "Default"
+		end
 	else
 		return nil
 	end

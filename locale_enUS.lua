@@ -93,8 +93,12 @@ L["CFG_COMPANION_SEX_F"] = "Female"
 
 L["CFG_PETS_ADD"] = "Add current pet"
 L["CFG_PETS_ADD_TT"] = "Add current pet"
-L["CFG_PETS_REMOVE"] = "Remove selected pet"
-L["CFG_PETS_REMOVE_TT"] = "Remove selected pet"
+L["CFG_PETS_REMOVE"] = "Remove this pet"
+L["CFG_PETS_REMOVE_TT"] = "Remove this pet"
+L["CFG_PETS_ADDED"] = "Added %s."
+L["CFG_PETS_REMOVED"] = "Removed %s."
+
+L["CFG_ENTRY_EXISTS"] = "An entry with this name already exists."
 
 L.EMOTE_BYE = {
 	pattern_someoneAtTarget = "%s waves goodbye to %t.  Farewell!",
