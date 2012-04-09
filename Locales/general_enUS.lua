@@ -1,6 +1,7 @@
 MylunesChampions.G["enUS"] = {
 
 COMPANION = "companion",
+MOUNT = "mount",
 PET = "pet",
 POSSESSIVE = "'s",
 

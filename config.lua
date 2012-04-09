@@ -1090,6 +1090,77 @@ local configOptionsCompanionTemplate = {
 }
 
 ----------------------------------------------
+-- Mount options
+----------------------------------------------
+MylunesChampions.configOptionsTableMounts = {
+	type = "group",
+	name = L["CFG_MOUNTS"],
+	args = {},
+}
+
+local configOptionsMountTemplate = {
+	type		= "group",
+	name		= "Mount Template",
+	order		= 20,
+	args		= {
+		name = {
+			type	= "header",
+			name	= "Mount name",
+			order	= 1,
+		},
+		personality = {
+			type	= "select",
+			name	= L["CFG_COMPANION_PERS"],
+			desc	= L["CFG_COMPANION_PERS_TT"],
+			values	= { },
+			order	= 2,
+			get		= function (info)
+				local i = MylunesChampions_TableFind(MylunesChampions.PersTable, 
+					MylunesChampions.db.profile.M[tonumber(info[#info-1])].p)
+				if not i then
+					return 1
+				else
+					return i
+				end
+			end,
+			set		= function (info, v)
+				if v == 1 then
+					MylunesChampions.db.profile.M[tonumber(info[#info-1])].p = ""
+				else
+					MylunesChampions.db.profile.M[tonumber(info[#info-1])].p = MylunesChampions.PersTable[v]
+				end
+			end,
+		},
+		sex = {
+			type	= "select",
+			name	= L["CFG_COMPANION_SEX"],
+			desc	= L["CFG_COMPANION_SEX_TT"],
+			values	= { L["CFG_COMPANION_SEX_N"], L["CFG_COMPANION_SEX_M"], L["CFG_COMPANION_SEX_F"] },
+			order	= 3,
+			get		= function (info)
+				local s = MylunesChampions.db.profile.M[tonumber(info[#info-1])].s
+				if (s == "m") then
+					return 2
+				elseif (s == "f") then
+					return 3
+				else
+					return 1
+				end
+			end,
+			set		= function (info, v)
+				if v == 2 then
+					MylunesChampions.db.profile.M[tonumber(info[#info-1])].s = "m"
+				elseif v == 3 then
+					MylunesChampions.db.profile.M[tonumber(info[#info-1])].s = "f"
+				else
+					MylunesChampions.db.profile.M[tonumber(info[#info-1])].s = nil
+				end
+			end,
+		},
+	}
+}
+
+----------------------------------------------
 -- Pets options
 ----------------------------------------------
 MylunesChampions.configOptionsTablePets = {
@@ -1265,6 +1336,10 @@ function MylunesChampions:InitConfig()
 	AceConfig:RegisterOptionsTable("MylunesChampions_Companions", self.configOptionsTableCompanions)
 	self.configFrameEmotes = AceConfigDialog:AddToBlizOptions("MylunesChampions_Companions", L["CFG_COMPANIONS"], "Mylune's Champions")
 	
+	-- Mounts
+	AceConfig:RegisterOptionsTable("MylunesChampions_Mounts", self.configOptionsTableMounts)
+	self.configFrameEmotes = AceConfigDialog:AddToBlizOptions("MylunesChampions_Mounts", L["CFG_MOUNTS"], "Mylune's Champions")
+	
 	-- Pets
 	AceConfig:RegisterOptionsTable("MylunesChampions_Pets", self.configOptionsTablePets)
 	self.configFrameEmotes = AceConfigDialog:AddToBlizOptions("MylunesChampions_Pets", L["CFG_PETS"], "Mylune's Champions")
@@ -1324,6 +1399,16 @@ function MylunesChampions:RebuildConfig()
 		t.args.name.name = c.n
 		t.args.personality.values = self.PersTable -- reference
 		self.configOptionsTableCompanions.args[tostring(id)] = t
+	end
+	
+	-- mounts
+	self.configOptionsTableMounts.args = {}
+	for id,c in pairs(self.db.profile.M) do
+		local t = MylunesChampions_TableDeepCopy(configOptionsMountTemplate)
+		t.name = c.n
+		t.args.name.name = c.n
+		t.args.personality.values = self.PersTable -- reference
+		self.configOptionsTableMounts.args[tostring(id)] = t
 	end
 	
 	-- pets
