@@ -13,6 +13,35 @@ function MylunesChampions:GetPetEmotes(event, how)
 end
 
 ----------------------------------------------
+-- GetRandomPetEmote
+----------------------------------------------
+function MylunesChampions:GetRandomPetEmote()
+	local s = nil
+	
+	-- afk
+	if UnitIsAFK("player") then
+		s = self:GetPetEmotes("EVENT_RANDOM", "afk")
+	end
+	-- in combat
+	if (s == nil) and InCombatLockdown() then
+		s = self:GetPetEmotes("EVENT_RANDOM", "incombat")
+	end
+	-- default
+	if s == nil then
+		s = self:GetPetEmotes("EVENT_RANDOM", "emotes")
+	end
+
+	if s then
+		local t = GetTime()
+		self.lastRandomEmote = t
+		self.lastAutoEmote = t
+		return MylunesChampions_RandomElement(s)
+	end
+	
+	return nil
+end
+
+----------------------------------------------
 -- GetRandomPetEmoteReply
 ----------------------------------------------
 function MylunesChampions:GetRandomPetEmoteReply(emote, how)

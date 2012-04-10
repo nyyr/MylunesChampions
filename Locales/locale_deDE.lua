@@ -35,7 +35,7 @@ L["CFG_CHATCOMMANDS_HEADER"] = "Chat-Befehle"
 L["CFG_CHATCOMMANDS"] = "/ce - Zufälliges Haustier-Emote (Companion-Emote)\n"..
 	"/ce [Emote-Name] - Standard-Emote Eures Haustiers, z.B. '/ce cheer' (nur wenige werden bisher unterstützt).\n"..
 	"/ce [Emote-Text] - Einmaliges Emote, z.B. '/ce springt ungeduldig auf und ab.'\n"..
-	"\nEmotes für Eure großen Begleiter könnt Ihr entsprechend mit /pe (Pet-Emote) auslösen."
+	"\nEmotes für Eure Reittiere (/mte - Mount-Emote) und großen Begleiter (/pe - Pet-Emote) könnt Ihr entsprechend auslösen."
 
 L["CFG_PERS_NEW"] = "Neu"
 L["CFG_PERS_NEW_TT"] = "Erstellt eine neue Persönlichkeit."

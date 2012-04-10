@@ -429,11 +429,34 @@ function MylunesChampions:OnRandomEmote()
 	--end
 	
 	if t - last > self.db.profile.randomEmoteBackoff then
-		local s = self:GetRandomCompanionEmote()
-		if s then
-			self:CompanionEmote(s)
+		local companion = self:GetCurrentCompanion()
+		local mount = self:GetCurrentMount()
+		local pet = self:GetCurrentPet()
+		local results = {}
+		
+		if companion then
+			local s = self:GetRandomCompanionEmote()
+			if s then
+				results["COMPANION"] = s
+			end
+		end
+		
+		if mount then
+			local s = self:GetRandomMountEmote()
+			if s then
+				results["MOUNT"] = s
+			end
+		end
+		
+		if pet then
+			local s = self:GetRandomPetEmote()
+			if s then
+				results["PET"] = s
+			end
+		end
+		
+		if self:DoAnyEmote(results) then
 			self.lastRandomEmote = t
-			--self.lastAutoEmote = t
 		end
 	end
 end
@@ -442,7 +465,7 @@ end
 -- DoAnyEmote - do any of the possible emotes
 ----------------------------------------------
 function MylunesChampions:DoAnyEmote(results)
-	if not results then return end
+	if not results then return nil end
 	
 	local n = 0
 	local r = {}
@@ -450,18 +473,24 @@ function MylunesChampions:DoAnyEmote(results)
 		table.insert(r, k)
 		n = n + 1
 	end
+	if n == 0 then return nil end
 	
 	local i = random(n)
 	
 	if r[i] == "COMPANION" then
 		self:CompanionEmote(results[r[i]])
+		return 1
 	elseif r[i] == "MOUNT" then
 		self:MountEmote(results[r[i]])
+		return 1
 	elseif r[i] == "PET" then
 		self:PetEmote(results[r[i]])
+		return 1
 	else
 		self:Debug(d_warn, "Error in DoAnyEmote()")
 	end
+	
+	return nil
 end
 
 ----------------------------------------------

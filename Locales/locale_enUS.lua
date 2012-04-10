@@ -35,7 +35,7 @@ L["CFG_CHATCOMMANDS_HEADER"] = "Chat commands"
 L["CFG_CHATCOMMANDS"] = "/ce - Random companion emote\n"..
 	"/ce [emote key] - Let companion do a standard emote, e.g. '/ce cheer' (only few are supported).\n"..
 	"/ce [emote string] - Let companion do a custom one-time emote, e.g. '/ce jumps up and down impatiently.'\n"..
-	"\nEmotes for your combat pet can be done with /pe (pet emote) accordingly."
+	"\nEmotes for your mount (/mte - mount emote) and your combat pet (/pe - pet emote) can be done accordingly."
 
 L["CFG_PERS_NEW"] = "New"
 L["CFG_PERS_NEW_TT"] = "Create a new personality."

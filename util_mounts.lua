@@ -42,6 +42,35 @@ function MylunesChampions:GetRandomMountEmote()
 end
 
 ----------------------------------------------
+-- GetRandomMountEmote
+----------------------------------------------
+function MylunesChampions:GetRandomMountEmote()
+	local s = nil
+	
+	-- afk
+	if UnitIsAFK("player") then
+		s = self:GetMountEmotes("EVENT_RANDOM", "afk")
+	end
+	-- in combat
+	if (s == nil) and InCombatLockdown() then
+		s = self:GetMountEmotes("EVENT_RANDOM", "incombat")
+	end
+	-- default
+	if s == nil then
+		s = self:GetMountEmotes("EVENT_RANDOM", "emotes")
+	end
+
+	if s then
+		local t = GetTime()
+		self.lastRandomEmote = t
+		self.lastAutoEmote = t
+		return MylunesChampions_RandomElement(s)
+	end
+	
+	return nil
+end
+
+----------------------------------------------
 -- GetRandomMountEmoteReply
 ----------------------------------------------
 function MylunesChampions:GetRandomMountEmoteReply(emote, how)
