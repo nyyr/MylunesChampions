@@ -123,6 +123,12 @@ end
 -- returns creatureName, creatureID
 ----------------------------------------------
 function MylunesChampions:GetCurrentCompanion()
+	local petID = C_PetJournal.GetSummonedPetID()
+	local speciesID, customName, level, xp, maxXp, displayID, petName, petIcon, petType, creatureID, 
+		sourceText, description, isWild, canBattle, tradable, unique = C_PetJournal.GetPetInfoByPetID(petID)
+
+	return petName, creatureID
+--[[
 	for i=1,GetNumCompanions("CRITTER") do
 		local creatureID, creatureName, creatureSpellID, icon, issummoned = GetCompanionInfo("CRITTER", i)
 		--self:Debug(d_notice, creatureID .. " " .. creatureName .. " (" .. tostring(issummoned) .. ")")
@@ -135,6 +141,7 @@ function MylunesChampions:GetCurrentCompanion()
 		end
 	end
 	return nil, nil
+]]
 end
 
 ----------------------------------------------
