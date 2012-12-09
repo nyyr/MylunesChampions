@@ -123,9 +123,9 @@ end
 -- returns creatureName, creatureID
 ----------------------------------------------
 function MylunesChampions:GetCurrentCompanion()
-	local petID = C_PetJournal.GetSummonedPetID()
+	local petID = C_PetJournal.GetSummonedPetGUID()
 	if petID then
-		local speciesID, customName, level, xp, maxXp, displayID, petName, petIcon, petType, creatureID, 
+		local speciesID, customName, level, xp, maxXp, displayID, isFavorite, petName, petIcon, petType, creatureID, 
 			sourceText, description, isWild, canBattle, tradable, unique = C_PetJournal.GetPetInfoByPetID(petID)
 		return petName, creatureID
 	end
