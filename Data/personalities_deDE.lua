@@ -177,9 +177,9 @@
 		f_emotes = "brüllt fürchterlich ob der Schmerzen ihres Meisters!\ngerät in einen Blutrausch weil ihr Meister leidet.",
 	},
 	EVENT_TARGET_LOWHEALTH = {
-		emotes = "wittert den nahen Tod seiner Beute und brüllt fürchterregend.\ngerät in einen tödlichen Rausch wegen des ganzen Blutes, das aus den Wunden seiner Beute rinnt.",
+		emotes = "wittert den nahen Tod seiner Beute und brüllt furchterregend.\ngerät in einen tödlichen Rausch wegen des ganzen Blutes, das aus den Wunden seiner Beute rinnt.",
 		
-		f_emotes = "wittert den nahen Tod ihrer Beute und brüllt fürchterregend.\ngerät in einen tödlichen Rausch wegen des ganzen Blutes, das aus den Wunden ihrer Beute rinnt.",
+		f_emotes = "wittert den nahen Tod ihrer Beute und brüllt furchterregend.\ngerät in einen tödlichen Rausch wegen des ganzen Blutes, das aus den Wunden ihrer Beute rinnt.",
 	},
 },
 
