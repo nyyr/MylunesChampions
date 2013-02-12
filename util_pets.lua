@@ -4,6 +4,17 @@
 local L = LibStub("AceLocale-3.0"):GetLocale("MylunesChampions", true)
 
 ----------------------------------------------
+-- Debugging levels
+--   0 Off
+--   1 Warning
+--   2 Info
+--   3 Notice
+----------------------------------------------
+local d_warn = 1
+local d_info = 2
+local d_notice = 3
+
+----------------------------------------------
 -- GetPetEmotes
 ----------------------------------------------
 function MylunesChampions:GetPetEmotes(event, how)
