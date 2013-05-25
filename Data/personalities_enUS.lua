@@ -144,7 +144,7 @@ MylunesChampions.P["enUS"] = {
 	},
 },
 
-["Humanoid (silly)"] = {
+["Humanoid"] = {
 	INHERIT = "Default",
 	AUTHORS = "nyyr, Hanouneh",
 	
@@ -153,65 +153,111 @@ MylunesChampions.P["enUS"] = {
 	},
 },
 
+["Demon"] = {
+	INHERIT = "Default",
+},
+
+["Flying"] = {
+	INHERIT = "Default",
+},
+
+["Undead"] = {
+	INHERIT = "Default",
+},
+
+["Critter"] = {
+	INHERIT = "Default",
+},
+
+["Inanimate"] = {
+	INHERIT = "Default",
+},
+
+["Elemental"] = {
+	INHERIT = "Default",
+},
+
+["Aquatic"] = {
+	INHERIT = "Default",
+},
+
+["Mechanical"] = {
+	INHERIT = "Default",
+},
+
 }
 
--- creature type -> personality
+-- creature type (combat pets) -> personality
 MylunesChampions.PCT["enUS"] = {
-	Bat = { p = "Default" },
+	Bat = { p = "Flying" },
 	Bear = { p = "Beast (ferocious)" },
 	Beast = { p = "Beast (ferocious)" },
-	Beetle = { p = "Default" },
-	["Bird of Prey"] = { p = "Default" },
+	Beetle = { p = "Critter" },
+	["Bird of Prey"] = { p = "Flying" },
 	Boar = { p = "Beast (ferocious)" },
-	["Carrion Bird"] = { p = "Default" },
+	["Carrion Bird"] = { p = "Flying" },
 	Cat = { p = "Beast (ferocious)" },
-	Chimaera = { p = "Default" },
+	Chimaera = { p = "Flying" },
 	["Core Hound"] = { p = "Beast (ferocious)" },
 	Crab = { p = "Default" },
-	Critter = { p = "Default" },
+	Critter = { p = "Critter" },
 	Crocolisk = { p = "Beast (ferocious)" },
-	Demon = { p = "Default" },
+	Demon = { p = "Demon" },
 	Devilsaur = { p = "Beast (ferocious)" },
 	Dog = { p = "Beast (ferocious)" },
-	Doomguard = { p = "Default" },
-	Dragonhawk = { p = "Default" },
-	Dragonkin = { p = "Default" },
-	Elemental = { p = "Default" },
-	Felguard = { p = "Default" },
-	Felhunter = { p = "Default" },
-	Fox = { p = "Default" },
-	["Gas Cloud"] = { p = "Default" },
-	Ghoul = { p = "Default" },
+	Doomguard = { p = "Demon" },
+	Dragonhawk = { p = "Flying" },
+	Dragonkin = { p = "Flying" },
+	Elemental = { p = "Elemental" },
+	Felguard = { p = "Demon" },
+	Felhunter = { p = "Demon" },
+	Fox = { p = "Beast (cute)" },
+	["Gas Cloud"] = { p = "Inanimate" },
+	Ghoul = { p = "Undead" },
 	Giant = { p = "Default" },
 	Gorilla = { p = "Beast (ferocious)" },
-	Humanoid = { p = "Default" },
-	Hyena = { p = "Default" },
-	Imp = { p = "Default" },
-	Mechanical = { p = "Default" },
-	Monkey = { p = "Default" },
-	Moth = { p = "Default" },
-	["Nether Ray"] = { p = "Default" },
+	Humanoid = { p = "Humanoid" },
+	Hyena = { p = "Beast (ferocious)" },
+	Imp = { p = "Demon" },
+	Mechanical = { p = "Mechanical" },
+	Monkey = { p = "Beast (cute)" },
+	Moth = { p = "Flying" },
+	["Nether Ray"] = { p = "Flying" },
 	Raptor = { p = "Beast (ferocious)" },
-	Ravager = { p = "Default" },
-	["Remote Control"] = { p = "Default" },
+	Ravager = { p = "Beast (ferocious)" },
+	["Remote Control"] = { p = "Mechanical" },
 	Rhino = { p = "Beast (ferocious)" },
 	Scorpid = { p = "Default" },
 	Serpent = { p = "Default" },
 	["Shale Spider"] = { p = "Default" },
 	Silithid = { p = "Default" },
-	Spider = { p = "Default" },
+	Spider = { p = "Critter" },
 	["Spirit Beast"] = { p = "Beast (ferocious)" },
-	Sporebat = { p = "Default" },
-	Succubus = { p = "Default" },
+	Sporebat = { p = "Flying" },
+	Succubus = { p = "Demon" },
 	Tallstrider = { p = "Default" },
-	Totem = { p = "Default" },
+	Totem = { p = "Inanimate" },
 	Turtle = { p = "Default" },
-	Undead = { p = "Default" },
-	Voidwalker = { p = "Default" },
-	["Warp Stalker"] = { p = "Default" },
-	Wasp = { p = "Default" },
-	["Water Elemental"] = { p = "Default" },
-	["Wind Serpent"] = { p = "Default" },
+	Undead = { p = "Undead" },
+	Voidwalker = { p = "Undead" },
+	["Warp Stalker"] = { p = "Beast (ferocious)" },
+	Wasp = { p = "Flying" },
+	["Water Elemental"] = { p = "Elemental" },
+	["Wind Serpent"] = { p = "Flying" },
 	Wolf = { p = "Beast (ferocious)" },
 	Worm = { p = "Default" },
+}
+
+-- pet type (battle pets) -> personality
+MylunesChampions.PPT["enUS"] = {
+	[1] = { p = "Humanoid" }, -- Humanoid
+	[2] = { p = "Flying" }, -- Dragonkin
+	[3] = { p = "Flying" }, -- Flying
+	[4] = { p = "Undead" }, -- Undead
+	[5] = { p = "Critter" }, -- Critter
+	[6] = { p = "Inanimate" }, -- Magic
+	[7] = { p = "Elemental" }, -- Elemental
+	[8] = { p = "Beast (cute)" }, -- Beast
+	[9] = { p = "Aquatic" }, -- Aquatic
+	[10] = { p = "Mechanical" }, -- Mechanical
 }

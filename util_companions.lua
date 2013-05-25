@@ -138,6 +138,18 @@ function MylunesChampions:GetCurrentCompanion()
 	if petID then
 		local speciesID, customName, level, xp, maxXp, displayID, isFavorite, petName, petIcon, petType, creatureID, 
 			sourceText, description, isWild, canBattle, tradable, unique = C_PetJournal.GetPetInfoByPetID(petID)
+		
+		if self.db.profile.C[creatureID] == nil then
+			local pers
+			if not self.PPT[self.db.profile.emoteLocale][petType] then
+				self:Debug(d_warn, "No petType personality, using default")
+				pers = "Default"
+			else
+				pers = self.PPT[self.db.profile.emoteLocale][petType].p
+			end
+			self.db.profile.C[creatureID] = { n = petName, p = pers }
+			self:Debug(d_info, "Added companion "..tostring(petName).." as "..tostring(pers)..".")
+		end
 		return petName, creatureID
 	end
 	return nil, nil

@@ -127,4 +127,3 @@ L.EMOTE_WAVE = {
 	pattern_someoneAtYou = "%s waves at you.",
 	pattern_someoneNoTarget = "%s waves.",
 }
-

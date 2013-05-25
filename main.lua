@@ -7,7 +7,8 @@ MylunesChampions.G = {} -- general
 MylunesChampions.C = {} -- companions
 MylunesChampions.M = {} -- mounts
 MylunesChampions.P = {} -- personalities
-MylunesChampions.PCT = {} -- creature type personalities
+MylunesChampions.PCT = {} -- creature type personalities (Combat Pets)
+MylunesChampions.PPT = {} -- pet type personalities (Battle Pets)
 
 ----------------------------------------------
 -- Localization
@@ -23,7 +24,7 @@ MylunesChampions.BabbleCTE = LibStub("LibBabble-CreatureType-3.0"):GetReverseLoo
 -- Version
 ----------------------------------------------
 local _, _, rev = string.find("$Rev$", "([0-9]+)")
-MylunesChampions.version = "0.7.4 (r"..rev..")"
+MylunesChampions.version = "0.8 (r"..rev..")"
 MylunesChampions.codename = "Rise of the Critters"
 MylunesChampions.authors = "nyyr"
 
@@ -39,6 +40,7 @@ MylunesChampions.defaults = {
 		emoteDelay = 0.5, -- defer emote for N seconds
 		emoteLocale = nil,
 		C = {}, -- companions
+		M = {}, -- mounts
 		P = {}, -- personalities
 	},
 }
@@ -238,12 +240,36 @@ end
 ----------------------------------------------
 function MylunesChampions:OnInitialize()
 	-- Load our database.
-	self.defaults.profile.P = self.P -- personalities
 	self.defaults.profile.C = self.C -- companions
-	self.defaults.profile.M = self.M -- mounts
+	self.defaults.profile.M = self.M -- mounts (prefilled)
+	self.defaults.profile.P = self.P -- personalities
 	self.defaults.profile.PCT = self.PCT -- creature type personalities
 	self.db = LibStub("AceDB-3.0"):New("MylunesChampionsDB", MylunesChampions.defaults, "profile")
 	
+	-- scan battle pets
+	local index = 1
+	while 1 do
+		local petID, speciesID, owned, customName, _, _, _, speciesName, _, 
+			petType, companionID = C_PetJournal.GetPetInfoByIndex(index)
+		if owned and speciesName and petType then
+			if not self.db.profile.C[companionID] then
+				local pers
+				if not self.PPT[self.db.profile.emoteLocale][petType] then
+					self:Debug(d_warn, "No petType personality, using default")
+					pers = "Default"
+				else
+					pers = self.PPT[self.db.profile.emoteLocale][petType].p
+				end
+				self.db.profile.C[companionID] = { n = speciesName, p = pers }
+				self:Debug(d_info, "Added companion "..tostring(speciesName).." as "..tostring(pers)..".")
+			end
+		else
+			break
+		end
+		index = index + 1
+	end
+	
+	--[[
 	for i=1,GetNumCompanions("CRITTER") do
 		local creatureID, creatureName, creatureSpellID, icon, issummoned = GetCompanionInfo("CRITTER", i)
 		if not self.db.profile.C[creatureID] then
@@ -252,7 +278,9 @@ function MylunesChampions:OnInitialize()
 			self.db.profile.C[creatureID].n = creatureName -- localized
 		end
 	end
+	]]
 	
+	-- scan mounts
 	for i=1,GetNumCompanions("MOUNT") do
 		local creatureID, creatureName, creatureSpellID, icon, issummoned = GetCompanionInfo("MOUNT", i)
 		if not self.db.profile.M[creatureID] then
