@@ -234,7 +234,7 @@
 		["useEmote"] = "CHEER",
 	},
 	["EVENT_RANDOM"] = {
-		["emotes"] = "surrt und piepst leise.\nlässt einen Schlag. Ist da gerade eine Bolzen rausgefallen?!\ntuckert gleichmäßig vor sich hin.\nquietscht kräftig.\nverschluckt sich kurz.",
+		["emotes"] = "surrt und piepst leise.\nlässt einen Schlag. Ist da gerade ein Bolzen rausgefallen?!\ntuckert gleichmäßig vor sich hin.\nquietscht kräftig.\nverschluckt sich kurz.",
 	},
 	["EMOTE_CHEER"] = {
 		["someoneAtYou"] = "analysiert %ss Verhalten.",
