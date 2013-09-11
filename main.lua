@@ -24,7 +24,7 @@ MylunesChampions.BabbleCTE = LibStub("LibBabble-CreatureType-3.0"):GetReverseLoo
 -- Version
 ----------------------------------------------
 local _, _, rev = string.find("$Rev$", "([0-9]+)")
-MylunesChampions.version = "0.8 (r"..rev..")"
+MylunesChampions.version = "0.8.1 (r"..rev..")"
 MylunesChampions.codename = "Rise of the Critters"
 MylunesChampions.authors = "nyyr"
 
@@ -59,8 +59,7 @@ local debugLevel = d_notice
 
 -- rate control
 MylunesChampions.lastEmoteReply = GetTime()
-MylunesChampions.lastAutoEmote = GetTime()
-MylunesChampions.lastRandomEmote = GetTime()
+MylunesChampions.lastEmote = GetTime()
 
 -- defered emote message
 MylunesChampions.lastEmoteMessage = nil
@@ -451,10 +450,7 @@ end
 ----------------------------------------------
 function MylunesChampions:OnRandomEmote()
 	local t = GetTime()
-	local last = self.lastRandomEmote
-	--if self.lastAutoEmote > self.lastRandomEmote then
-		--last = self.lastAutoEmote
-	--end
+	local last = self.lastEmote
 	
 	if t - last > self.db.profile.randomEmoteBackoff then
 		local companion = self:GetCurrentCompanion()
@@ -484,7 +480,7 @@ function MylunesChampions:OnRandomEmote()
 		end
 		
 		if self:DoAnyEmote(results) then
-			self.lastRandomEmote = t
+			self.lastEmote = t
 		end
 	end
 end
@@ -660,7 +656,7 @@ function MylunesChampions:UNIT_HEALTH(event, unit)
 	--self:Debug(d_notice, "UNIT_HEALTH("..unit..")")
 	
 	local t = GetTime()
-	if t - self.lastAutoEmote > self.db.profile.autoEmoteBackoff then
+	if t - self.lastEmote > self.db.profile.autoEmoteBackoff then
 		
 		if InCombatLockdown() then
 		
@@ -671,7 +667,7 @@ function MylunesChampions:UNIT_HEALTH(event, unit)
 				if n then
 					local s = self:GetRandomCompanionEvent(string.upper(unit) .. "_LOWHEALTH")
 					if s then
-						self.lastAutoEmote = t
+						self.lastEmote = t
 						self:CompanionEmote(MylunesChampions_Sub(s, UnitName("target")))
 					end
 				end
@@ -680,7 +676,7 @@ function MylunesChampions:UNIT_HEALTH(event, unit)
 				if n then
 					local s = self:GetRandomPetEvent(string.upper(unit) .. "_LOWHEALTH")
 					if s then
-						self.lastAutoEmote = t
+						self.lastEmote = t
 						self:PetEmote(MylunesChampions_Sub(s, UnitName("target")))
 					end
 				end

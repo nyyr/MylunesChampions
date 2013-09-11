@@ -1,8 +1,8 @@
-## Interface: 50300
+## Interface: 50400
 ## Title: Mylune's Champions
 ## Notes: Don't underestimate your little critters!
 ## Author: nyyr
-## Version: 0.8
+## Version: 0.8.1
 ## SavedVariables: MylunesChampionsDB
 ## X-Date: $Date$
 ## X-Category: Chat
