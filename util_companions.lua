@@ -150,7 +150,7 @@ function MylunesChampions:GetCurrentCompanion()
 			self.db.profile.C[creatureID] = { n = petName, p = pers }
 			self:Debug(d_info, "Added companion "..tostring(petName).." as "..tostring(pers)..".")
 		end
-		return petName, creatureID
+		return customName or petName, creatureID
 	end
 	return nil, nil
 --[[

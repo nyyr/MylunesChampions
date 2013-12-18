@@ -142,7 +142,7 @@ function MylunesChampions:GetPetPersonality()
 		local pct = self.db.profile.PCT[self.db.profile.emoteLocale]
 		if pct[name] then
 			return pct[name].p
-		elseif family then
+		elseif family and self.BabbleCTE[family] and pct[self.BabbleCTE[family]] then
 			return pct[self.BabbleCTE[family]].p
 		else
 			return "Default"
@@ -157,7 +157,10 @@ end
 ----------------------------------------------
 function MylunesChampions:GetPetSex()
 	local creatureFamily = UnitCreatureFamily("pet")
-	if creatureFamily then
+	if creatureFamily and 
+		self.BabbleCTE[creatureFamily] and 
+		self.db.profile.PCT[self.db.profile.emoteLocale][self.BabbleCTE[creatureFamily]]
+	then
 		return self.db.profile.PCT[self.db.profile.emoteLocale][self.BabbleCTE[creatureFamily]].s
 	end
 	return nil
