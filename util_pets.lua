@@ -95,7 +95,13 @@ function MylunesChampions:PetEmote(msg)
 		else
 			-- TODO: translate to emote locale
 		end
-		if string.find(msg, "^(%a*)$") then
+		
+		if msg == "" then
+			-- random emote
+			msg = self:GetRandomPetEmote()
+			self:DoEmote(family .. " " .. name .. " " .. msg, noPossessive)
+			
+		elseif string.find(msg, "^(%a*)$") then
 			msg = string.upper(msg)
 			if self.LG["EMOTE_"..msg] then
 				local pattern = nil

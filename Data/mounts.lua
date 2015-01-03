@@ -1,296 +1,192 @@
 
 MylunesChampions.M = {
-				[70524] = {
-					["p"] = "Beast (ferocious)",
-					["n"] = "Golden Primal Direhorn",
-				},
-				[47841] = {
-					["n"] = "Dark Phoenix",
-					["p"] = "Flying",
-				},
-				[24368] = {
-					["n"] = "Swift Brewfest Ram",
-					["p"] = "Beast (cute)",
-				},
-				[32633] = {
-					["n"] = "Traveler's Tundra Mammoth",
-					["p"] = "Beast (cute)",
-				},
-				[66151] = {
-					["n"] = "Red Flying Cloud",
-					["p"] = "Inanimate",
-				},
-				[63502] = {
-					["n"] = "Amber Scorpion",
-					["p"] = "Beast (ferocious)",
-				},
-				[33030] = {
-					["n"] = "Magnificent Flying Carpet",
-					["p"] = "Inanimate",
-				},
-				[51195] = {
-					["n"] = "Kor'kron Annihilator",
-					["p"] = "Beast (ferocious)",
-				},
-				[46754] = {
-					["p"] = "Mechanical",
-					["n"] = "Goblinisches Trike",
-				},
-				[7687] = {
-					["n"] = "Spotted Frostsaber",
-					["p"] = "Beast (ferocious)",
-				},
-				[14549] = {
-					["p"] = "Beast (ferocious)",
-					["n"] = "Groﬂer brauner Kodo",
-				},
-				[24654] = {
-					["n"] = "Turbo-Charged Flying Machine",
-					["p"] = "Mechanical",
-				},
-				[14551] = {
-					["n"] = "Swift Yellow Mechanostrider",
-					["p"] = "Mechanical",
-				},
-				[32151] = {
-					["n"] = "Blue Proto-Drake",
-					["p"] = "Flying",
-				},
-				[59101] = {
-					["n"] = "Jade Cloud Serpent",
-					["p"] = "Flying",
-				},
-				[14560] = {
-					["n"] = "Swift White Steed",
-					["p"] = "Beast (ferocious)",
-				},
-				[14565] = {
-					["p"] = "Beast (ferocious)",
-					["n"] = "Charger",
-				},
-				[52672] = {
-					["n"] = "Flameward Hippogryph",
-					["p"] = "Flying",
-				},
-				[48632] = {
-					["n"] = "Golden King",
-					["p"] = "Beast (ferocious)",
-				},
-				[4779] = {
-					["n"] = "Brown Ram",
-					["p"] = "Beast (ferocious)",
-				},
-				[62106] = {
-					["p"] = "Default",
-					["n"] = "Great Red Dragon Turtle",
-				},
-				[11021] = {
-					["n"] = "Winterspring Frostsaber",
-					["p"] = "Beast (ferocious)",
-				},
-				[32203] = {
-					["n"] = "Black War Bear",
-					["p"] = "Beast (ferocious)",
-				},
-				[32205] = {
-					["n"] = "Black War Bear",
-					["p"] = "Beast (ferocious)",
-				},
-				[32207] = {
-					["n"] = "Armored Brown Bear",
-					["p"] = "Beast (ferocious)",
-				},
-				[68773] = {
-					["n"] = "Grand Armored Wyvern",
-					["p"] = "Flying",
-				},
-				[18376] = {
-					["n"] = "Swift Red Gryphon",
-					["p"] = "Flying",
-				},
-				[69067] = {
-					["p"] = "Flying",
-					["n"] = "Grand Gryphon",
-				},
-				[31717] = {
-					["n"] = "Bronze Drake Mount",
-					["p"] = "Flying",
-				},
-				[53276] = {
-					["n"] = "Amani Battle Bear",
-					["p"] = "Beast (ferocious)",
-				},
-				[31850] = {
-					["n"] = "Black War Mammoth",
-					["p"] = "Beast (ferocious)",
-				},
-				[31852] = {
-					["n"] = "Wooly Mammoth",
-					["p"] = "Beast (cute)",
-				},
-				[28302] = {
-					["p"] = "Undead",
-					["n"] = "Acherus Deathcharger",
-				},
-				[29582] = {
-					["n"] = "Winged Steed of the Ebon Blade",
-					["p"] = "Undead",
-				},
-				[14602] = {
-					["p"] = "Beast (ferocious)",
-					["n"] = "Swift Stormsaber",
-				},
-				[34155] = {
-					["n"] = "White Kodo",
-					["p"] = "Beast (cute)",
-				},
-				[32640] = {
-					["n"] = "Traveler's Tundra Mammoth",
-					["p"] = "Beast (cute)",
-				},
-				[29596] = {
-					["p"] = "Beast (ferocious)",
-					["n"] = "White Polar Bear",
-				},
-				[66060] = {
-					["p"] = "Beast (ferocious)",
-					["n"] = "Green Shado-Pan Riding Tiger",
-				},
-				[40533] = {
-					["n"] = "Frosty Flying Carpet",
-					["p"] = "Inanimate",
-				},
-				[34187] = {
-					["n"] = "Sea Turtle",
-					["p"] = "Aquatic",
-				},
-				[24653] = {
+				[22719] = {
 					["p"] = "Mechanical",
 					["n"] = "Flying Machine",
 				},
-				[304] = {
-					["n"] = "Felsteed",
-					["p"] = "Demon",
+				[28063] = {
+					["p"] = "Inanimate",
+					["n"] = "Frosty Flying Carpet",
 				},
-				[14744] = {
-					["n"] = "Frostwolf Howler",
-					["p"] = "Beast (ferocious)",
-				},
-				[14745] = {
-					["n"] = "Stormpike Battle Charger",
-					["p"] = "Beast (ferocious)",
-				},
-				[32158] = {
-					["p"] = "Flying",
-					["n"] = "Albino Drake",
-				},
-				[10180] = {
-					["n"] = "Unpainted Mechanostrider",
-					["p"] = "Mechanical",
-				},
-				[64977] = {
-					["p"] = "Flying",
-					["n"] = "Onyx Cloud Serpent",
-				},
-				[18364] = {
-					["n"] = "Blue Wind Rider",
-					["p"] = "Flying",
-				},
-				[27152] = {
-					["n"] = "Headless Horseman's Mount",
-					["p"] = "Undead",
-				},
-				[34156] = {
-					["n"] = "Venomhide Ravasaur",
-					["p"] = "Beast (ferocious)",
-				},
-				[14547] = {
-					["n"] = "Swift White Ram",
-					["p"] = "Beast (ferocious)",
-				},
-				[9158] = {
-					["p"] = "Beast (ferocious)",
-					["n"] = "Warhorse",
-				},
-				[31698] = {
-					["n"] = "Twilight Drake",
-					["p"] = "Flying",
-				},
-				[56921] = {
-					["n"] = "Tyrael's Charger",
-					["p"] = "Flying",
-				},
-				[18359] = {
-					["n"] = "Snowy Gryphon",
-					["p"] = "Flying",
-				},
-				[32206] = {
-					["n"] = "Armored Brown Bear",
-					["p"] = "Beast (ferocious)",
-				},
-				[18365] = {
-					["n"] = "Green Wind Rider",
-					["p"] = "Flying",
-				},
-				[40054] = {
-					["n"] = "Abyssal Seahorse",
+				[43718] = {
 					["p"] = "Aquatic",
+					["n"] = "Blue Dragon Turtle",
 				},
-				[32336] = {
-					["n"] = "Armored Blue Wind Rider",
-					["p"] = "Flying",
-				},
-				[68771] = {
+				[46929] = {
 					["p"] = "Flying",
 					["n"] = "Grand Armored Gryphon",
 				},
-				[7690] = {
-					["p"] = "Beast (ferocious)",
-					["n"] = "Striped Nightsaber",
+				[35249] = {
+					["p"] = "Mechanical",
+					["n"] = "Goblin Trike",
 				},
-				[18360] = {
+				[17697] = {
+					["p"] = "Flying",
 					["n"] = "Golden Gryphon",
-					["p"] = "Flying",
 				},
-				[18377] = {
+				[58772] = {
+					["p"] = "Demon",
+					["n"] = "Core Hound",
+				},
+				[25833] = {
+					["p"] = "Flying",
+					["n"] = "Bronze Drake",
+				},
+				[17719] = {
+					["p"] = "Flying",
 					["n"] = "Swift Red Wind Rider",
-					["p"] = "Flying",
 				},
-				[32335] = {
+				[29161] = {
+					["p"] = "Aquatic",
+					["n"] = "Sea Turtle",
+				},
+				[34956] = {
+					["p"] = "Aquatic",
+					["n"] = "Vashj'ir Seahorse",
+				},
+				[25871] = {
+					["p"] = "Mechanical",
+					["n"] = "Mechano-Hog",
+				},
+				[45521] = {
+					["p"] = "Flying",
+					["n"] = "Ashen Pandaren Phoenix",
+				},
+				[46930] = {
+					["p"] = "Flying",
+					["n"] = "Grand Armored Wyvern",
+				},
+				[27913] = {
 					["p"] = "Flying",
 					["n"] = "Armored Snowy Gryphon",
 				},
-				[66150] = {
-					["p"] = "Default",
-					["n"] = "Brown Riding Goat",
-				},
-				[66062] = {
-					["p"] = "Beast (ferocious)",
-					["n"] = "Red Shado-Pan Riding Tiger",
-				},
-				[65060] = {
-					["n"] = "Blue Dragon Turtle",
-					["p"] = "Aquatic",
-				},
-				[31849] = {
-					["n"] = "Black War Mammoth",
-					["p"] = "Beast (ferocious)",
-				},
-				[31851] = {
-					["n"] = "Wooly Mammoth",
-					["p"] = "Beast (cute)",
-				},
-				[66063] = {
-					["p"] = "Beast (ferocious)",
-					["n"] = "Blue Shado-Pan Riding Tiger",
-				},
-				[69066] = {
-					["n"] = "Grand Wyvern",
+				[28044] = {
 					["p"] = "Flying",
+					["n"] = "Red Proto-Drake",
 				},
-				[70525] = {
-					["n"] = "Crimson Primal Direhorn",
-					["p"] = "Beast (ferocious)",
+				[22720] = {
+					["p"] = "Mechanical",
+					["n"] = "Turbo-Charged Flying Machine",
+				},
+				[28060] = {
+					["p"] = "Inanimate",
+					["n"] = "Magnificent Flying Carpet",
+				},
+				[17701] = {
+					["p"] = "Flying",
+					["n"] = "Green Wind Rider",
+				},
+				[60208] = {
+					["p"] = "Mechanical",
+					["n"] = "Warlord's Deathwheel",
+				},
+				[45522] = {
+					["p"] = "Flying",
+					["n"] = "Violet Pandaren Phoenix",
+				},
+				[46686] = {
+					["p"] = "Mechanical",
+					["n"] = "Sky Golem",
+				},
+				[9476] = {
+					["p"] = "Mechanical",
+					["n"] = "Unpainted Mechanostrider",
+				},
+				[10671] = {
+					["p"] = "Undead",
+					["n"] = "Blue Skeletal Horse",
+				},
+				[10672] = {
+					["p"] = "Undead",
+					["n"] = "Brown Skeletal Horse",
+				},
+				[41711] = {
+					["p"] = "Aquatic",
+					["n"] = "Azure Water Strider",
+				},
+				[25159] = {
+					["p"] = "Undead",
+					["n"] = "Headless Horseman's Mount",
+				},
+				[10720] = {
+					["p"] = "Undead",
+					["n"] = "Green Skeletal Warhorse",
+				},
+				[47165] = {
+					["p"] = "Flying",
+					["n"] = "Grand Wyvern",
+				},
+				[44633] = {
+					["p"] = "Flying",
+					["n"] = "Crimson Pandaren Phoenix",
+				},
+				[37145] = {
+					["p"] = "Flying",
+					["n"] = "Dark Phoenix",
+				},
+				[43637] = {
+					["p"] = "Mechanical",
+					["n"] = "Depleted-Kyparium Rocket",
+				},
+				[41990] = {
+					["p"] = "Flying",
+					["n"] = "Onyx Cloud Serpent",
+				},
+				[17700] = {
+					["p"] = "Flying",
+					["n"] = "Blue Wind Rider",
+				},
+				[17696] = {
+					["p"] = "Flying",
+					["n"] = "Snowy Gryphon",
+				},
+				[14377] = {
+					["p"] = "Mechanical",
+					["n"] = "Swift Yellow Mechanostrider",
+				},
+				[44808] = {
+					["p"] = "Inanimate",
+					["n"] = "Red Flying Cloud",
+				},
+				[25836] = {
+					["p"] = "Flying",
+					["n"] = "Albino Drake",
+				},
+				[45520] = {
+					["p"] = "Flying",
+					["n"] = "Emerald Pandaren Phoenix",
+				},
+				[17718] = {
+					["p"] = "Flying",
+					["n"] = "Swift Red Gryphon",
+				},
+				[47166] = {
+					["p"] = "Flying",
+					["n"] = "Grand Gryphon",
+				},
+				[38018] = {
+					["p"] = "Flying",
+					["n"] = "Flameward Hippogryph",
+				},
+				[25870] = {
+					["p"] = "Mechanical",
+					["n"] = "Mekgineer's Chopper",
+				},
+				[42352] = {
+					["p"] = "Aquatic",
+					["n"] = "Great Red Dragon Turtle",
+				},
+				[27914] = {
+					["p"] = "Flying",
+					["n"] = "Armored Blue Wind Rider",
+				},
+				[40590] = {
+					["p"] = "Flying",
+					["n"] = "Jade Cloud Serpent",
+				},
+				[28041] = {
+					["p"] = "Flying",
+					["n"] = "Blue Proto-Drake",
 				},
 }
 

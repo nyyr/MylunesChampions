@@ -24,9 +24,10 @@ MylunesChampions.BabbleCTE = LibStub("LibBabble-CreatureType-3.0"):GetReverseLoo
 -- Version
 ----------------------------------------------
 local _, _, rev = string.find("$Rev$", "([0-9]+)")
-MylunesChampions.version = "0.8.2 (r"..rev..")"
-MylunesChampions.codename = "Rise of the Critters"
+MylunesChampions.version = "0.9 (r"..rev..")"
+MylunesChampions.codename = "Rise of the Critter Warlords"
 MylunesChampions.authors = "nyyr"
+MylunesChampions.dbVersion = 1
 
 ----------------------------------------------
 -- Config options
@@ -200,24 +201,40 @@ local function MylunesChampions_ChatMessageFilter(self, event, str, arg2, arg3, 
 		(string.find(str, "^'aka "))
 	then
 		-- own emotes
-		self:AddMessage(emoteColor..arg2..str.."|r")
-		return true, arg2..str, arg2, arg3, ...
+		local name = arg2
+		if (string.find(name, "-")) then
+			name = string.gsub(name, "-(%a*)$", "")
+		end
+		self:AddMessage(emoteColor..name..str.."|r")
+		return true, name..str, arg2, arg3, ...
 
 	elseif (string.find(str, "^(%a*) 's ") and MylunesChampions.db.profile.emoteLocale == "enUS") then
 		-- emotes from other players
-		str = string.gsub(str, "^(%a*) 's (.*)", "%1's %2")
+		local name = string.gsub(str, "^(%a*) 's (.*)", "%1")
+		if (string.find(name, "-")) then
+			name = string.gsub(name, "-(%a*)$", "")
+		end
+		str = string.gsub(str, "^(%a*) 's (.*)", name.."'s %2")
 		self:AddMessage(emoteColor..str.."|r")
 		return true, str, arg2, arg3, ...
 		
 	elseif (string.find(str, "^(%a*) s ") and MylunesChampions.db.profile.emoteLocale == "deDE") then
 		-- emotes from other players
-		str = string.gsub(str, "^(%a*) s (.*)", "%1s %2")
+		local name = string.gsub(str, "^(%a*) s (.*)", "%1")
+		if (string.find(name, "-")) then
+			name = string.gsub(name, "-(%a*)$", "")
+		end
+		str = string.gsub(str, "^(%a*) s (.*)", name.."s %2")
 		self:AddMessage(emoteColor..str.."|r")
 		return true, str, arg2, arg3, ...
 		
 	elseif (string.find(str, "^(%a*) 'aka ")) then
 		-- emotes from other players
-		str = string.gsub(str, "^(%a*) 'aka (.*)", "%1'aka %2")
+		local name = string.gsub(str, "^(%a*) 'aka (.*)", "%1")
+		if (string.find(name, "-")) then
+			name = string.gsub(name, "-(%a*)$", "")
+		end
+		str = string.gsub(str, "^(%a*) 'aka (.*)", name.."'aka %2")
 		self:AddMessage(emoteColor..str.."|r")
 		return true, str, arg2, arg3, ...
 	end
@@ -245,6 +262,13 @@ function MylunesChampions:OnInitialize()
 	self.defaults.profile.PCT = self.PCT -- creature type personalities
 	self.db = LibStub("AceDB-3.0"):New("MylunesChampionsDB", MylunesChampions.defaults, "profile")
 	
+	-- database maintenance
+	-- v0 -> v1 - wipe mounts
+	--if not self.db.profile.dbVersion then
+		self.db.profile.M = self.M
+		self.db.profile.dbVersion = 1
+	--end
+	
 	-- scan battle pets
 	local index = 1
 	while 1 do
@@ -268,24 +292,19 @@ function MylunesChampions:OnInitialize()
 		index = index + 1
 	end
 	
-	--[[
-	for i=1,GetNumCompanions("CRITTER") do
-		local creatureID, creatureName, creatureSpellID, icon, issummoned = GetCompanionInfo("CRITTER", i)
-		if not self.db.profile.C[creatureID] then
-			self.db.profile.C[creatureID] = { n = creatureName, p = "Default" }
-		elseif not (self.db.profile.C[creatureID].n == creatureName) then
-			self.db.profile.C[creatureID].n = creatureName -- localized
-		end
-	end
-	]]
-	
 	-- scan mounts
-	for i=1,GetNumCompanions("MOUNT") do
-		local creatureID, creatureName, creatureSpellID, icon, issummoned = GetCompanionInfo("MOUNT", i)
-		if not self.db.profile.M[creatureID] then
-			self.db.profile.M[creatureID] = { n = creatureName, p = "Default" }
-		elseif not (self.db.profile.M[creatureID].n == creatureName) then
-			self.db.profile.M[creatureID].n = creatureName -- localized
+	for i=1,C_MountJournal.GetNumMounts() do
+		local creatureName, spellID, icon, active, isUsable, sourceType, 
+			isFavorite, isFactionSpecific, faction, hideOnChar, isCollected = C_MountJournal.GetMountInfo(i) 
+		if isCollected then
+			local creatureDisplayID, descriptionText, sourceText, isSelfMount, 
+				mountType = C_MountJournal.GetMountInfoExtra(i)
+			--local creatureID, creatureName, creatureSpellID, icon, issummoned = GetCompanionInfo("MOUNT", i)
+			if not self.db.profile.M[creatureDisplayID] then
+				self.db.profile.M[creatureDisplayID] = { n = creatureName, p = "Default" }
+			elseif not (self.db.profile.M[creatureDisplayID].n == creatureName) then
+				self.db.profile.M[creatureDisplayID].n = creatureName -- localized
+			end
 		end
 	end
 	

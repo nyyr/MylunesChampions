@@ -150,15 +150,21 @@ end
 ----------------------------------------------
 function MylunesChampions:GetCurrentMount()
 	if IsMounted() then
-		for i=1,GetNumCompanions("MOUNT") do
-			local creatureID, creatureName, creatureSpellID, icon, issummoned = GetCompanionInfo("MOUNT", i)
-			--self:Debug(d_notice, creatureID .. " " .. creatureName .. " (" .. tostring(issummoned) .. ")")
-			if self.db.profile.M[creatureID] == nil then
-				self.db.profile.M[creatureID] = { n = creatureName, p = "Default" }
-				self:Debug(d_info, "Added mount with ID "..tostring(creatureID).." ("..tostring(creatureName)..").")
-			end
-			if issummoned then
-				return creatureName, creatureID
+		for i=1,C_MountJournal.GetNumMounts() do
+			--local creatureID, creatureName, creatureSpellID, icon, issummoned = GetCompanionInfo("MOUNT", i)
+			local creatureName, spellID, icon, active, isUsable, sourceType, 
+				isFavorite, isFactionSpecific, faction, hideOnChar, isCollected = C_MountJournal.GetMountInfo(i) 
+			if isCollected then
+				local creatureDisplayID, descriptionText, sourceText, isSelfMount, 
+					mountType = C_MountJournal.GetMountInfoExtra(i)
+				--self:Debug(d_notice, creatureID .. " " .. creatureName .. " (" .. tostring(active) .. ")")
+				if self.db.profile.M[creatureDisplayID] == nil then
+					self.db.profile.M[creatureDisplayID] = { n = creatureName, p = "Default" }
+					self:Debug(d_info, "Added mount with ID "..tostring(creatureDisplayID).." ("..tostring(creatureName)..").")
+				end
+				if active then
+					return creatureName, creatureDisplayID
+				end
 			end
 		end
 	end
