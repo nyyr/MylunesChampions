@@ -264,10 +264,10 @@ function MylunesChampions:OnInitialize()
 	
 	-- database maintenance
 	-- v0 -> v1 - wipe mounts
-	--if not self.db.profile.dbVersion then
+	if not self.db.profile.dbVersion then
 		self.db.profile.M = self.M
 		self.db.profile.dbVersion = 1
-	--end
+	end
 	
 	-- scan battle pets
 	local index = 1
