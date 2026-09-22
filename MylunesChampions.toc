@@ -6,6 +6,8 @@
 ## SavedVariables: MylunesChampionsDB
 ## X-Date: $Date$
 ## X-Category: Chat
+## X-WoWI-ID: 27218
+## X-Curse-Project-ID: 30925
 
 embeds.xml
 
