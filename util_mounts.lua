@@ -150,15 +150,15 @@ end
 ----------------------------------------------
 function MylunesChampions:GetCurrentMount()
 	if IsMounted() then
-		for i=1,C_MountJournal.GetNumMounts() do
+		for _, mountID in ipairs(C_MountJournal.GetMountIDs()) do
 			--local creatureID, creatureName, creatureSpellID, icon, issummoned = GetCompanionInfo("MOUNT", i)
 			local creatureName, spellID, icon, active, isUsable, sourceType, 
-				isFavorite, isFactionSpecific, faction, hideOnChar, isCollected = C_MountJournal.GetMountInfo(i) 
+				isFavorite, isFactionSpecific, faction, hideOnChar, isCollected = C_MountJournal.GetMountInfoByID(mountID) 
 			if isCollected then
 				local creatureDisplayID, descriptionText, sourceText, isSelfMount, 
-					mountType = C_MountJournal.GetMountInfoExtra(i)
+					mountType = C_MountJournal.GetMountInfoExtraByID(mountID)
 				--self:Debug(d_notice, creatureID .. " " .. creatureName .. " (" .. tostring(active) .. ")")
-				if self.db.profile.M[creatureDisplayID] == nil then
+				if creatureDisplayID and self.db.profile.M[creatureDisplayID] == nil then
 					self.db.profile.M[creatureDisplayID] = { n = creatureName, p = "Default" }
 					self:Debug(d_info, "Added mount with ID "..tostring(creatureDisplayID).." ("..tostring(creatureName)..").")
 				end

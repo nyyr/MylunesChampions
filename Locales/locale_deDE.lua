@@ -102,28 +102,30 @@ L["CFG_PETS_REMOVED"] = "%s entfernt."
 
 L["CFG_ENTRY_EXISTS"] = "Ein Eintrag mit diesem Namen existiert bereits."
 
-L.EMOTE_BYE = {
-	pattern_someoneAtTarget = "%s winkt %t zum Abschied. Lebt wohl!",
-	pattern_someoneAtYou = "%s winkt Euch zum Abschied. Lebt wohl!",
-	pattern_someoneNoTarget = "%s winkt allen zum Abschied. Lebt wohl!",
-}
-L.EMOTE_CHEER = {
-	pattern_someoneAtTarget = "%s bejubelt %t",
-	pattern_someoneAtYou = "%s bejubelt Euch.",
-	pattern_someoneNoTarget = "%s jubelt!",
-}
-L.EMOTE_GREET = {
-	pattern_someoneAtTarget = "%s begrüßt %t mit einem herzlichen Hallo!",
-	pattern_someoneAtYou = "%s begrüßt Euch herzlich.",
-	pattern_someoneNoTarget = "%s begrüßt alle herzlich.",
-}
-L.EMOTE_STARE = {
-	pattern_someoneAtTarget = "%s starrt %t an.",
-	pattern_someoneAtYou = "%s starrt Euch an.",
-	pattern_someoneNoTarget = "%s starrt in die Ferne.",
-}
-L.EMOTE_WAVE = {
-	pattern_someoneAtTarget = "%s winkt %t zu.",
-	pattern_someoneAtYou = "%s winkt Euch zu.",
-	pattern_someoneNoTarget = "%s winkt.",
+L.EMOTE_PATTERNS = {
+	BYE = {
+		someoneAtTarget = "%s winkt %t zum Abschied. Lebt wohl!",
+		someoneAtYou = "%s winkt Euch zum Abschied. Lebt wohl!",
+		someoneNoTarget = "%s winkt allen zum Abschied. Lebt wohl!",
+	},
+	CHEER = {
+		someoneAtTarget = "%s bejubelt %t",
+		someoneAtYou = "%s bejubelt Euch.",
+		someoneNoTarget = "%s jubelt!",
+	},
+	GREET = {
+		someoneAtTarget = "%s begrüßt %t mit einem herzlichen Hallo!",
+		someoneAtYou = "%s begrüßt Euch herzlich.",
+		someoneNoTarget = "%s begrüßt alle herzlich.",
+	},
+	STARE = {
+		someoneAtTarget = "%s starrt %t an.",
+		someoneAtYou = "%s starrt Euch an.",
+		someoneNoTarget = "%s starrt in die Ferne.",
+	},
+	WAVE = {
+		someoneAtTarget = "%s winkt %t zu.",
+		someoneAtYou = "%s winkt Euch zu.",
+		someoneNoTarget = "%s winkt.",
+	},
 }
