@@ -102,30 +102,41 @@ L["CFG_PETS_REMOVED"] = "%s entfernt."
 
 L["CFG_ENTRY_EXISTS"] = "Ein Eintrag mit diesem Namen existiert bereits."
 
+-- Emote patterns for parsing emotes from chat messages and automatically responding with your own emotes.
 L.EMOTE_PATTERNS = {
 	BYE = {
-		someoneAtTarget = "%s winkt %t zum Abschied. Lebt wohl!",
+		someoneAtTarget = "%s winkt \"%t\" zum Abschied. Lebt wohl!",
 		someoneAtYou = "%s winkt Euch zum Abschied. Lebt wohl!",
 		someoneNoTarget = "%s winkt allen zum Abschied. Lebt wohl!",
+		youAtTarget = "Ihr winkt \"%t\" zum Abschied. Lebt wohl!",
+		youNoTarget = "Ihr winkt allen zum Abschied. Lebt wohl!",
 	},
 	CHEER = {
-		someoneAtTarget = "%s bejubelt %t",
+		someoneAtTarget = "%s cheers at %t!",
 		someoneAtYou = "%s bejubelt Euch.",
 		someoneNoTarget = "%s jubelt!",
+		youAtTarget = "Ihr bejubelt \"%t\".",
+		youNoTarget = "Ihr jubelt!",
 	},
 	GREET = {
-		someoneAtTarget = "%s begrüßt %t mit einem herzlichen Hallo!",
+		someoneAtTarget = "%s greets %t warmly.",
 		someoneAtYou = "%s begrüßt Euch herzlich.",
 		someoneNoTarget = "%s begrüßt alle herzlich.",
+		youAtTarget = "Ihr begrüßt \"%t\" herzlich.",
+		youNoTarget = "Ihr begrüßt alle herzlich.",
 	},
 	STARE = {
-		someoneAtTarget = "%s starrt %t an.",
+		someoneAtTarget = "%s stares %t down.",
 		someoneAtYou = "%s starrt Euch an.",
 		someoneNoTarget = "%s starrt in die Ferne.",
+		youAtTarget = "Ihr starrt \"%t\" an.",
+		youNoTarget = "Ihr starrt in die Ferne.",
 	},
 	WAVE = {
-		someoneAtTarget = "%s winkt %t zu.",
+		someoneAtTarget = "%s waves at %t.",
 		someoneAtYou = "%s winkt Euch zu.",
 		someoneNoTarget = "%s winkt.",
+		youAtTarget = "Ihr winkt \"%t\" zu.",
+		youNoTarget = "Ihr winkt.",
 	},
 }

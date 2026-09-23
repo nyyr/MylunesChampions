@@ -132,7 +132,76 @@ local function MylunesChampions_ChatMessageFilter(self, event, str, arg2, arg3, 
 
 		for n,e in pairs(L.EMOTE_PATTERNS) do
 			local emote = "EMOTE_"..n
-			if e.someoneAtYou and string.find(str, MylunesChampions_LuaPat(e.someoneAtYou)) then
+			if e.youAtTarget and string.find(str, MylunesChampions_LuaPat(e.youAtTarget)) then
+				local pattern = MylunesChampions_LuaPat(e.youAtTarget)
+				local targetName = string.gsub(str, pattern, "%1")
+				local companion = MylunesChampions:GetCurrentCompanion()
+				local how = nil
+				if companion then
+					if targetName then
+						if targetName == companion then
+							how = "youAtPet"
+						else
+							how = "youAtTarget"
+						end
+					else
+						how = "youNoTarget"
+					end
+					
+					local s = MylunesChampions:GetRandomCompanionEmoteReply(emote, how)
+					if s then
+						MylunesChampions:CompanionEmote(MylunesChampions_Sub(s, targetName, MylunesChampions.playerName))
+						break
+					end
+				end
+				
+				local pet = MylunesChampions:GetCurrentPet()
+				if pet then
+					if targetName then
+						if targetName == pet then
+							how = "youAtPet"
+						else
+							how = "youAtTarget"
+						end
+					else
+						how = "youNoTarget"
+					end
+					
+					local s = MylunesChampions:GetRandomPetEmoteReply(emote, how)
+					if s then
+						MylunesChampions:PetEmote(MylunesChampions_Sub(s, targetName, MylunesChampions.playerName))
+						break
+					end
+				end
+				
+				break
+
+			elseif e.youNoTarget and string.find(str, MylunesChampions_LuaPat(e.youNoTarget)) then
+				local pattern = MylunesChampions_LuaPat(e.youNoTarget)
+				local companion = MylunesChampions:GetCurrentCompanion()
+				local how = nil
+				if companion then
+					how = "youNoTarget"
+					local s = MylunesChampions:GetRandomCompanionEmoteReply(emote, how)
+					if s then
+						MylunesChampions:CompanionEmote(MylunesChampions_Sub(s, nil, MylunesChampions.playerName))
+						break
+					end
+				end
+				
+				local pet = MylunesChampions:GetCurrentPet()
+				if pet then
+					how = "youNoTarget"
+					local s = MylunesChampions:GetRandomPetEmoteReply(emote, how)
+					if s then
+						MylunesChampions:PetEmote(MylunesChampions_Sub(s, nil, MylunesChampions.playerName))
+						break
+					end
+				end
+				
+				break
+
+			elseif e.someoneAtYou and string.find(str, MylunesChampions_LuaPat(e.someoneAtYou)) then
 				local pattern = MylunesChampions_LuaPat(e.someoneAtYou)
 				local someone = string.gsub(str, pattern, "%1")
 				local companion = MylunesChampions:GetCurrentCompanion()

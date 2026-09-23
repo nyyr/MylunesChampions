@@ -102,30 +102,41 @@ L["CFG_PETS_REMOVED"] = "Removed %s."
 
 L["CFG_ENTRY_EXISTS"] = "An entry with this name already exists."
 
+-- Emote patterns for parsing emotes from chat messages and automatically responding with your own emotes.
 L.EMOTE_PATTERNS = {
 	BYE = {
-		someoneAtTarget = "%s waves goodbye to %t.  Farewell!",
-		someoneAtYou = "%s waves goodbye to you.  Farewell!",
-		someoneNoTarget = "%s waves goodbye.  Farewell!",
+		someoneAtTarget = "%s waves goodbye to %t. Farewell!",
+		someoneAtYou = "%s waves goodbye to you. Farewell!",
+		someoneNoTarget = "%s waves goodbye to everyone. Farewell!",
+		youAtTarget = "You wave goodbye to %t. Farewell!",
+		youNoTarget = "You wave goodbye to everyone. Farewell!",
 	},
 	CHEER = {
 		someoneAtTarget = "%s cheers at %t!",
-		someoneAtYou = "%s cheers at you!",
-		someoneNoTarget = "%s cheers.",
+		someoneAtYou = "%s cheers at you.",
+		someoneNoTarget = "%s cheers!",
+		youAtTarget = "You cheer at %t.",
+		youNoTarget = "You cheer!",
 	},
 	GREET = {
-		someoneAtTarget = "%s greets %t with a hearty hello!",
-		someoneAtYou = "%s greets you with a hearty hello!",
+		someoneAtTarget = "%s greets %t warmly.",
+		someoneAtYou = "%s greets you warmly.",
 		someoneNoTarget = "%s greets everyone warmly.",
+		youAtTarget = "You greet %t warmly.",
+		youNoTarget = "You greet everyone warmly.",
 	},
 	STARE = {
 		someoneAtTarget = "%s stares %t down.",
 		someoneAtYou = "%s stares you down.",
 		someoneNoTarget = "%s stares off into the distance.",
+		youAtTarget = "You stare %t down.",
+		youNoTarget = "You stare off into the distance.",
 	},
 	WAVE = {
 		someoneAtTarget = "%s waves at %t.",
 		someoneAtYou = "%s waves at you.",
 		someoneNoTarget = "%s waves.",
+		youAtTarget = "You wave at %t.",
+		youNoTarget = "You wave.",
 	},
 }

@@ -119,13 +119,13 @@ function MylunesChampions:MountEmote(msg)
 			
 		elseif string.find(msg, "^(%a*)$") then
 			msg = string.upper(msg)
-			if self.LG["EMOTE_"..msg] then
+			if self.LG["EMOTES"][msg] then
 				local pattern = nil
 				local targetName = UnitName("target")
 				if targetName and not (targetName == name) then
-					pattern = self.LG["EMOTE_"..msg]["pattern_someoneAtTarget"]
+					pattern = self.LG["EMOTES"][msg]["someoneAtTarget"]
 				else
-					pattern = self.LG["EMOTE_"..msg]["pattern_someoneNoTarget"]
+					pattern = self.LG["EMOTES"][msg]["someoneNoTarget"]
 				end
 				if pattern then
 					msg = MylunesChampions_Sub(string.gsub(pattern, "^%%s ", ""), targetName, name)
