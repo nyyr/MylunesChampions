@@ -290,21 +290,21 @@ local configOptionsTablePersonalitiesButtons = {
 			end
 		end,
 	},
-	importChinchillaCritterEmote = {
-		type 	= "execute",
-		name 	= L["CFG_PERS_IMPORT_CHINCHILLA"],
-		desc	= L["CFG_PERS_IMPORT_CHINCHILLA_TT"],
-		order	= 2,
-		func	= function ()
-			if (MylunesChampions.db.profile.emoteLocale == "enUS") then
-				MylunesChampions:ImportChinchillaCritterEmote()
-				MylunesChampions:RebuildConfig()
-				AceConfigRegistry:NotifyChange("MylunesChampions_Personalities")
-			else
-				MylunesChampions:Printf(L["CFG_PERS_IMPORT_CHINCHILLA_WRONG_LOCALE"])
-			end
-		end,
-	},
+	-- importChinchillaCritterEmote = {
+	-- 	type 	= "execute",
+	-- 	name 	= L["CFG_PERS_IMPORT_CHINCHILLA"],
+	-- 	desc	= L["CFG_PERS_IMPORT_CHINCHILLA_TT"],
+	-- 	order	= 2,
+	-- 	func	= function ()
+	-- 		if (MylunesChampions.db.profile.emoteLocale == "enUS") then
+	-- 			MylunesChampions:ImportChinchillaCritterEmote()
+	-- 			MylunesChampions:RebuildConfig()
+	-- 			AceConfigRegistry:NotifyChange("MylunesChampions_Personalities")
+	-- 		else
+	-- 			MylunesChampions:Printf(L["CFG_PERS_IMPORT_CHINCHILLA_WRONG_LOCALE"])
+	-- 		end
+	-- 	end,
+	-- },
 }
 
 local configOptionsPersonalityTemplate = {
