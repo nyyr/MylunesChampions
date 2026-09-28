@@ -47,7 +47,6 @@ Clear a response field to use its inherited value. Enter `NA` to suppress an inh
 
 ## For contributors
 
-The addon is written in Lua and uses Ace3 libraries and LibBabble-CreatureType.
 Dependencies are declared in [embeds.xml](embeds.xml) and [.pkgmeta](.pkgmeta); packaged releases obtain the declared library externals through the packager.
 If you cloned this repository, you need to add the libraries yourself, e.g. by checking them out via SVN using the URLs provided in the .pkgmeta file.
 
@@ -55,8 +54,9 @@ No automated test suite is included. Lua or data changes should be verified in-g
 
 ### Adding support for a new locale
 
-The addon distinguish between two locales: The game's locale (the language of WoW itself) and the emote locale (e.g., your custom emotes).
+The addon distinguishes between two locales: The game's locale (the language of WoW itself) and the emote locale (e.g., your custom emotes).
 The files cover these as follows:
+
 - `Locales/locale_*.lua`: These must match the game's locale.
 - `Locales/general_*.lua`: These can be selected as emote locale (which may be different to the game's locale).
 - `Data/personalities_*.lua`: These correspond also to the emote locale and contain the actual emote strings.

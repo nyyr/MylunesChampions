@@ -54,8 +54,12 @@ L["CFG_PERS_BASE"] = "Base personality"
 L["CFG_PERS_BASE_TT"] = "Inherit emotes from another personality."
 L["CFG_PERS_BASE_NONE"] = "None"
 
+L["CFG_PERS_TABLE_EMOTE_REACTIONS"] = "Emote reactions"
+L["CFG_PERS_TABLE_EVENT_REACTIONS"] = "Event reactions"
+L["CFG_PERS_TABLE_EVENT_RANDOM"] = "Random idle emotes"
+
 L["CFG_PERS_EMOTE"] = "Emote"
-L["CFG_PERS_USEEMOTE"] = "Use text from another emote"
+L["CFG_PERS_USEEMOTE"] = "Use reaction from another emote"
 L["CFG_PERS_USEEMOTE_TT"] = "If another emote is selected, the text given here will be ignored."
 L["CFG_PERS_EMOTE_TT"] = "Emotes for this event. Each emote must begin with a new line (line break). You can use the following placeholders:\n"..
 	"%t: Name of your target or target of emote.\n"..

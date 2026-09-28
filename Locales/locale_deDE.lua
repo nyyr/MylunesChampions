@@ -54,8 +54,12 @@ L["CFG_PERS_BASE"] = "Basis-Persönlichkeit"
 L["CFG_PERS_BASE_TT"] = "Erbt die Emotes einer anderen Persönlichkeit."
 L["CFG_PERS_BASE_NONE"] = "Keine"
 
+L["CFG_PERS_TABLE_EMOTE_REACTIONS"] = "Emote-Reaktionen"
+L["CFG_PERS_TABLE_EVENT_REACTIONS"] = "Event-Reaktionen"
+L["CFG_PERS_TABLE_EVENT_RANDOM"] = "Zufällige Idle-Emotes"
+
 L["CFG_PERS_EMOTE"] = "Emote"
-L["CFG_PERS_USEEMOTE"] = "Benutze Text eines anderen Emote"
+L["CFG_PERS_USEEMOTE"] = "Benutze Text einer anderen Emote-Reaktion"
 L["CFG_PERS_USEEMOTE_TT"] = "Falls ein anderes Emote ausgewählt ist, wird der hier eingegebene Text ignoriert."
 L["CFG_PERS_EMOTE_TT"] = "Emotes für dieses Ereignis. Jedes Emote muss in einer neuen Zeile beginnen. Ihr könnt die folgenden Platzhalter verwenden:\n"..
 	"%t: Name Eures Ziels oder des Emote-Ziels.\n"..

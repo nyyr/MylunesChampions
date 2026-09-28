@@ -1364,16 +1364,19 @@ function MylunesChampions:RebuildConfig()
 	for n,e in pairs(LP) do
 		self.configOptionsTablePersonalities.args[n] = MylunesChampions_TableDeepCopy(configOptionsPersonalityTemplate)
 		self.configOptionsTablePersonalities.args[n].name = n
+		if n == "Default" then
+			self.configOptionsTablePersonalities.args[n].order = 1
+		end
 		
 		table.insert(self.PersTable, n)
 		self.configOptionsTablePersonalities.args[n].args.base.values = self.PersTable -- reference
 		
 		local t = MylunesChampions_TableDeepCopy(configOptionsEmoteTemplate)
-		t.name = "Emotes"
+		t.name = L["CFG_PERS_TABLE_EMOTE_REACTIONS"]
 		self.configOptionsTablePersonalities.args[n].args["Emotes"] = t
 		
 		t = MylunesChampions_TableDeepCopy(configOptionsEventTemplate)
-		t.name = "Events"
+		t.name = L["CFG_PERS_TABLE_EVENT_REACTIONS"]
 		self.configOptionsTablePersonalities.args[n].args["Events"] = t
 		
 		for en,s in pairs(LPDef) do
@@ -1383,12 +1386,21 @@ function MylunesChampions:RebuildConfig()
 				self.configOptionsTablePersonalities.args[n].args["authors"].name = L["Authors"]..": "..tostring(LP[n]["AUTHORS"])
 			elseif en == "EVENT_RANDOM" then
 				local t = MylunesChampions_TableDeepCopy(configOptionsRandomTemplate)
-				t.name = string.gsub(en, "^EVENT_", "Event ")
+				t.name = L["CFG_PERS_TABLE_" .. en]
 				self.configOptionsTablePersonalities.args[n].args[en] = t
 			end
 		end
 	end
-	table.sort(self.PersTable)
+	table.sort(self.PersTable, function(a, b)
+		if a == b then
+			return false
+		elseif a == "Default" then
+			return true
+		elseif b == "Default" then
+			return false
+		end
+		return a < b
+	end)
 	table.insert(self.PersTable, 1, L["CFG_PERS_BASE_NONE"])
 	
 	-- companions
