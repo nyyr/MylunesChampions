@@ -1,8 +1,8 @@
-## Interface: 120100
+## Interface: 120100, 16001
 ## Title: Mylune's Champions
 ## Notes: Don't underestimate your little critters!
 ## Author: nyyr
-## Version: 0.10
+## Version: 0.11
 ## SavedVariables: MylunesChampionsDB
 ## X-Date: $Date$
 ## X-Category: Chat

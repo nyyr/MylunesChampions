@@ -25,7 +25,7 @@ MylunesChampions.BabbleCTE = LibStub("LibBabble-CreatureType-3.0"):GetReverseLoo
 ----------------------------------------------
 local _, _, rev = string.find("$Rev$", "([0-9]+)")
 if not rev then rev = "0" end
-MylunesChampions.version = "0.9 (r"..rev..")"
+MylunesChampions.version = "0.11 (r"..rev..")"
 MylunesChampions.codename = "Best Critters Forever!"
 MylunesChampions.authors = "nyyr"
 MylunesChampions.dbVersion = 1
@@ -46,6 +46,8 @@ MylunesChampions.defaults = {
 		P = {}, -- personalities
 	},
 }
+
+MylunesChampions.EMOTE_CHANNEL_RESTRICTED = (WOW_PROJECT_ID == WOW_PROJECT_CAMELOT)
 
 ----------------------------------------------
 -- Debugging levels
@@ -276,35 +278,25 @@ local function MylunesChampions_ChatMessageFilter(self, event, str, arg2, arg3, 
 		self:AddMessage(emoteColor..name..str.."|r")
 		return true, name..str, arg2, arg3, ...
 
-	elseif (string.find(str, "^(%a*) 's ") and MylunesChampions.db.profile.emoteLocale == "enUS") then
-		-- emotes from other players
-		local name = string.gsub(str, "^(%a*) 's (.*)", "%1")
-		if (string.find(name, "-")) then
-			name = string.gsub(name, "-(%a*)$", "")
+	end
+
+	-- emotes from other players; the name may contain spaces (e.g. "First Family")
+	-- and a realm suffix
+	local locale = MylunesChampions.db.profile.emoteLocale
+	local suffixes = { "'aka " }
+	if locale == "enUS" then
+		table.insert(suffixes, "'s ")
+	elseif locale == "deDE" then
+		table.insert(suffixes, "s ")
+	end
+	for _, suffix in ipairs(suffixes) do
+		local name, rest = string.match(str, "^(.-) "..suffix.."(.*)$")
+		if name and name ~= "" then
+			name = string.gsub(name, "%-[^%-]*$", "")
+			str = name..suffix..rest
+			self:AddMessage(emoteColor..str.."|r")
+			return true, str, arg2, arg3, ...
 		end
-		str = string.gsub(str, "^(%a*) 's (.*)", name.."'s %2")
-		self:AddMessage(emoteColor..str.."|r")
-		return true, str, arg2, arg3, ...
-		
-	elseif (string.find(str, "^(%a*) s ") and MylunesChampions.db.profile.emoteLocale == "deDE") then
-		-- emotes from other players
-		local name = string.gsub(str, "^(%a*) s (.*)", "%1")
-		if (string.find(name, "-")) then
-			name = string.gsub(name, "-(%a*)$", "")
-		end
-		str = string.gsub(str, "^(%a*) s (.*)", name.."s %2")
-		self:AddMessage(emoteColor..str.."|r")
-		return true, str, arg2, arg3, ...
-		
-	elseif (string.find(str, "^(%a*) 'aka ")) then
-		-- emotes from other players
-		local name = string.gsub(str, "^(%a*) 'aka (.*)", "%1")
-		if (string.find(name, "-")) then
-			name = string.gsub(name, "-(%a*)$", "")
-		end
-		str = string.gsub(str, "^(%a*) 'aka (.*)", name.."'aka %2")
-		self:AddMessage(emoteColor..str.."|r")
-		return true, str, arg2, arg3, ...
 	end
 	
 	return false, str, arg2, arg3, ...
@@ -408,10 +400,12 @@ function MylunesChampions:OnEnable()
 	
 	self:SecureHook("DoEmote", "OnDoEmote")
 	
-	self:RegisterEvent("UNIT_HEALTH")
-	
-	-- yes, autoEmoteBackoff, not randomEmoteBackoff
-	self.randomEmoteTimer = self:ScheduleRepeatingTimer("OnRandomEmote", self.db.profile.autoEmoteBackoff)
+	if not MylunesChampions.EMOTE_CHANNEL_RESTRICTED then
+		self:RegisterEvent("UNIT_HEALTH")
+
+		-- yes, autoEmoteBackoff, not randomEmoteBackoff
+		self.randomEmoteTimer = self:ScheduleRepeatingTimer("OnRandomEmote", self.db.profile.autoEmoteBackoff)
+	end
 	
 	self:Debug(d_notice, L["ENABLED"])
 end
@@ -429,8 +423,10 @@ function MylunesChampions:OnDisable()
 	
 	self:Unhook("DoEmote")
 	
-	self:UnregisterEvent("UNIT_HEALTH")
-	self:CancelTimer(self.randomEmoteTimer, true)
+	if not MylunesChampions.EMOTE_CHANNEL_RESTRICTED then
+		self:UnregisterEvent("UNIT_HEALTH")
+		self:CancelTimer(self.randomEmoteTimer, true)
+	end
 	
 	self:Debug(d_notice, L["DISABLED"])
 end
@@ -719,8 +715,13 @@ function MylunesChampions:DoEmote(emoteText, noPossessive)
 	else
 		self.lastEmoteMessage = self.LG["POSSESSIVE"] .. " " .. emoteText
 	end
-	if not self.lastEmoteTimer then
-		self.lastEmoteTimer = self:ScheduleTimer("DisplayLastEmote", self.db.profile.emoteDelay)
+	if self.EMOTE_CHANNEL_RESTRICTED then
+		SendChatMessage(self.lastEmoteMessage, "EMOTE")
+		self.lastEmoteMessage = nil
+	else
+		if not self.lastEmoteTimer then
+			self.lastEmoteTimer = self:ScheduleTimer("DisplayLastEmote", self.db.profile.emoteDelay)
+		end
 	end
 end
 

@@ -1302,6 +1302,11 @@ end
 ----------------------------------------------
 function MylunesChampions:InitConfig()	
 	-- Set up core config options
+	if MylunesChampions.EMOTE_CHANNEL_RESTRICTED then
+		-- Backoff options don't apply in an emote channel restricted environment
+		self.configOptionsTableCore.args.autoEmoteBackoff = nil
+		self.configOptionsTableCore.args.randomEmoteBackoff = nil
+	end
 	MylunesChampions_AdjustConfig(self.configOptionsTableCore)
 	AceConfig:RegisterOptionsTable("MylunesChampions_Core", self.configOptionsTableCore)
 	self.configFrameCore = AceConfigDialog:AddToBlizOptions("MylunesChampions_Core", "Mylune's Champions")
